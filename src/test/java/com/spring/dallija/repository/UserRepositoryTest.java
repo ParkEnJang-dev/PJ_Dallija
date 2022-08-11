@@ -26,7 +26,7 @@ class UserRepositoryTest {
         repository.save(user);
 
         //then
-        User result = repository.findById(user.getId()).get();
+        User result = repository.findById(user.get_id()).get();
         assertThat(result).isEqualTo(user);
 
     }

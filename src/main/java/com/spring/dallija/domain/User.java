@@ -1,17 +1,24 @@
 package com.spring.dallija.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.sql.Timestamp;
 
+@Entity
 public class User {
-    private long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long _id;
     private String name;
+
     private String email;
     private String password;
     private int sex; // 0 : 남자 1 : 여자
     private int height;
 
-    public void setId(long id) {
-        this.id = id;
+    public void set_id(long _id) {
+        this._id = _id;
     }
 
     public void setName(String name) {
@@ -46,8 +53,8 @@ public class User {
         this.updated_at = updated_at;
     }
 
-    public long getId() {
-        return id;
+    public long get_id() {
+        return _id;
     }
 
     public String getName() {

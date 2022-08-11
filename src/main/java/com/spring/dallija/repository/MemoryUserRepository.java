@@ -1,7 +1,6 @@
 package com.spring.dallija.repository;
 
 import com.spring.dallija.domain.User;
-import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,7 +12,7 @@ public class MemoryUserRepository implements UserRepository {
 
     @Override
     public User save(User user) {
-        user.setId(++sequence);
+        user.set_id(++sequence);
         store.put(sequence,user);
         return user;
     }

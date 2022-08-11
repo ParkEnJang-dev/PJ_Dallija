@@ -1,12 +1,8 @@
 package com.spring.dallija.service;
 
 import com.spring.dallija.domain.User;
-import com.spring.dallija.repository.JpaUserRepository;
 import com.spring.dallija.repository.MemoryUserRepository;
 import com.spring.dallija.repository.UserRepository;
-
-import static org.assertj.core.api.Assertions.*;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,29 +10,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import static org.junit.jupiter.api.Assertions.*;
+@SpringBootTest
+@Transactional
+class UserServiceIntegrationTest {
 
-class UserServiceTest {
+    @Autowired UserService userService;
+    @Autowired  UserRepository userRepository;
 
-    UserService userService;
-    MemoryUserRepository userRepository;
-
-    @BeforeEach
-    public void beforeEach() {
-        userRepository = new MemoryUserRepository();
-        userService = new UserService(userRepository);
-    }
-
-    @AfterEach
-    public void afterEach(){ userRepository.clearStore();}
 
     @Test
     void 회원가입() throws Exception {
         //Given
         User user = new User();
         user.setEmail("jms99@naver.com");
+        user.setName("anything");
+        user.setPassword("fff");
 
         //When
         Long saveId = userService.join(user);
@@ -50,8 +42,8 @@ class UserServiceTest {
     @Test
     void 회원찾기() throws Exception {
         User user = new User();
-        user.setEmail("spring");
-        userService.join(user);
+        user.setEmail("jms99@naver.com");
+        //userService.join(user);
 
         User result = userService.findUserValidation(user).get();
 
