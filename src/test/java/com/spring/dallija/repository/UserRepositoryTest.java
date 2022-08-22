@@ -9,7 +9,7 @@ import java.util.List;
 
 class UserRepositoryTest {
 
-    MemoryUserRepository repository = new MemoryUserRepository();
+    /*MemoryUserRepository repository = new MemoryUserRepository();
 
     @AfterEach
     public void afterEach(){
@@ -63,5 +63,5 @@ class UserRepositoryTest {
 
         List<User> result = repository.findAll();
         assertThat(result.size()).isEqualTo(2);
-    }
+    }*/
 }

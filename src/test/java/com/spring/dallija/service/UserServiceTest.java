@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserServiceTest {
 
-    UserService userService;
+    /*UserService userService;
     MemoryUserRepository userRepository;
 
     @BeforeEach
@@ -69,5 +69,5 @@ class UserServiceTest {
                 () -> userService.join(user)); //예외 발생해야됨.
 
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
-    }
+    }*/
 }

@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Transactional
 class UserServiceIntegrationTest {
 
-    @Autowired UserService userService;
+    /*@Autowired UserService userService;
     @Autowired  UserRepository userRepository;
 
 
@@ -61,5 +61,5 @@ class UserServiceIntegrationTest {
                 () -> userService.join(user)); //예외 발생해야됨.
 
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
-    }
+    }*/
 }
