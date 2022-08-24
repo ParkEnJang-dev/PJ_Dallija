@@ -8,10 +8,13 @@ import com.spring.dallija.domain.item.Item;
 import com.spring.dallija.repository.ItemRepository;
 import com.spring.dallija.repository.MemberRepository;
 import com.spring.dallija.repository.OrderRepository;
+import com.spring.dallija.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -62,7 +65,7 @@ public class OrderService {
     /**
      * 검색
      */
-    /*public List<Order> findOrders(OrderSearch orderSearch){
-        return orderRepository.findAll(orderSearch);
-    }*/
+    public List<Order> findOrders(OrderSearch orderSearch){
+        return orderRepository.findAllByString(orderSearch);
+    }
 }
