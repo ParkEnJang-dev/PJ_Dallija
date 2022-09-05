@@ -1,5 +1,6 @@
 package com.spring.dallija.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +20,7 @@ public class Member {
     private Long id;
 
     @NotEmpty
-    private String name;
+    private String name ;
 
     @Embedded
     private Address address;
