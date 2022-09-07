@@ -5,6 +5,7 @@ import com.spring.dallija.domain.OrderItem;
 import com.spring.dallija.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.ArrayList;
