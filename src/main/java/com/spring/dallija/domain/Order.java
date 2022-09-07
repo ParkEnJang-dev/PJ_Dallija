@@ -37,7 +37,7 @@ public class Order {
     //persist(orderItemC)
     //persist(order)
     //persist(order)
-    //
+
 
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")

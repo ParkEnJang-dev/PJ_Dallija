@@ -25,6 +25,9 @@ dependencies {
     //h2
     testRuntimeOnly 'com.h2database:h2'
 
+    //hibernate
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5'
+
     //lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
