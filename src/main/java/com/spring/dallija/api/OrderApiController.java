@@ -10,6 +10,7 @@ import com.spring.dallija.repository.order.query.OrderFlatDto;
 import com.spring.dallija.repository.order.query.OrderItemQueryDto;
 import com.spring.dallija.repository.order.query.OrderQueryDto;
 import com.spring.dallija.repository.order.query.OrderQueryRepository;
+import com.spring.dallija.service.query.OrderQueryService;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,7 @@ public class OrderApiController {
     @GetMapping("/api/v1/orders")
     public List<Order> ordersV1() {
         List<Order> all = orderRepository.findAllByString(new OrderSearch());
+        // open in the view 를 끌경우 fetch join 을 사용하던가 transaction 안에서 끝내야 됨.
         for (Order order : all) {
             order.getMember().getName();
             order.getDelivery().getAddress();
@@ -54,14 +56,11 @@ public class OrderApiController {
         return collect;
     }
 
+    private final OrderQueryService orderQueryService;
     @GetMapping("/api/v3/orders")
-    public List<OrderDto> ordersV3() {
-        List<Order> orders = orderRepository.findAllWithItem();
-        List<OrderDto> result = orders.stream()
-                .map(o -> new OrderDto(o))
-                .collect(toList());
+    public List<com.spring.dallija.service.query.OrderDto> ordersV3() {
+        return orderQueryService.ordersV3();
 
-        return result;
     }
 
     @GetMapping("/api/v3.1/orders")
