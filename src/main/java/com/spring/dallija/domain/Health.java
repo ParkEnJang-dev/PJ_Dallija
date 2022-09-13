@@ -1,6 +1,5 @@
 package com.spring.dallija.domain;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,11 +8,13 @@ import javax.persistence.Embeddable;
 @Embeddable
 @Getter
 @AllArgsConstructor
-public class Address {
+public class Health {
 
-    private String street;
-    private String zipcode;
+    private Integer height;
+    private Integer weight;
+    private String gender;
 
-    protected Address() {
+    protected Health() {
+
     }
 }
