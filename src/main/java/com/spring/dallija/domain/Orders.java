@@ -2,38 +2,31 @@ package com.spring.dallija.domain;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+
 import java.sql.Date;
 import java.time.LocalDateTime;
 
+import static javax.persistence.FetchType.*;
 
 @Entity
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Users {
+public class Orders {
 
     @Id
     @GeneratedValue
-    @Column(name = "user_seq")
+    @Column(name = "order_seq")
     private Long id;
 
-    @NotEmpty
-    private String name;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "user_seq")
+    private Users users;
 
-    @NotEmpty
-    private String email;
-    private Integer password;
-    private Date birth;
+    private LocalDateTime orderTime;
 
-    @Embedded
-    private Address address;
-
-    @Embedded
-    private Health health;
-
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 }
