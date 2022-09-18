@@ -1,12 +1,12 @@
-package com.spring.dallija.domain;
+package com.spring.dallija.domain.order;
 
+import com.spring.dallija.domain.Users;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.*;

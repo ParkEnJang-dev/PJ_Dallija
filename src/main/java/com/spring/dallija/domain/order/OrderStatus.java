@@ -1,4 +1,4 @@
-package com.spring.dallija.domain;
+package com.spring.dallija.domain.order;
 
 public enum OrderStatus {
     ORDER,
