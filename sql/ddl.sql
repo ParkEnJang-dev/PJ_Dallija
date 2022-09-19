@@ -1,4 +1,4 @@
-create table users
+create table user
 (
     _id                int unsigned auto_increment
         primary key,
