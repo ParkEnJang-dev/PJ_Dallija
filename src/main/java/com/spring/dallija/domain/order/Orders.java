@@ -1,6 +1,6 @@
 package com.spring.dallija.domain.order;
 
-import com.spring.dallija.domain.Users;
+import com.spring.dallija.domain.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,7 @@ public class Orders {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_seq")
-    private Users users;
+    private User user;
 
     private LocalDateTime orderTime;
 

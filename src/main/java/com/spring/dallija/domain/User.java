@@ -8,14 +8,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
-import java.time.LocalDateTime;
 
 
 @Entity
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue
@@ -26,7 +25,9 @@ public class Users {
     private String name;
 
     @NotEmpty
+    @Column(unique = true)
     private String email;
+
     private Integer password;
     private Date birth;
 
