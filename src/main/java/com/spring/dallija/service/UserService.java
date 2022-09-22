@@ -3,12 +3,12 @@ package com.spring.dallija.service;
 
 import com.spring.dallija.domain.User;
 import com.spring.dallija.repository.UserRepository;
+import com.spring.dallija.repository.UserRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Member;
-import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -18,19 +18,20 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Long join(User user) {
+    public User join(User user) {
         validateDuplicateUser(user);
         return userRepository.save(user);
     }
 
     private void validateDuplicateUser(User user) {
-        if (userRepository.findByEmail(user.getEmail()).size() != 0) {
-            throw new IllegalStateException("이메일이 존재 합니다.");
-        }
+        userRepository.findByEmail(user.getEmail())
+                .ifPresent(u ->{
+                    throw new IllegalStateException("이메일이 존재합니다");
+                });
     }
 
-    public User findOne(Long userId){
-        return userRepository.findOne(userId);
+    public Optional<User> findById(Long userId){
+        return userRepository.findById(userId);
     }
 
 }
