@@ -1,9 +1,6 @@
 package com.spring.dallija.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -28,7 +25,7 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    private Integer password;
+    private String password;
     private Date birth;
 
     @Embedded
@@ -37,4 +34,8 @@ public class User {
     @Embedded
     private Health health;
 
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 }
