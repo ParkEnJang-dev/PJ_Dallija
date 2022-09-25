@@ -24,7 +24,7 @@ class UserRepositoryImplTest {
 
     @Test
     @Transactional
-    public void testUser() throws Exception {
+    public void 유저_저장() throws Exception {
         //given
         User user = new User("min", "email@com.co");
 
@@ -36,6 +36,25 @@ class UserRepositoryImplTest {
         assertThat(findUser.get().getName()).isEqualTo(savedUser.getName());
 
      }
+     
+     @Test
+     @Transactional
+     public void 유저_이메일_찾기() throws Exception {
+         //given
+         User user1 = new User("min","min@co.kr");
+         User user2 = new User("min2","min2@co.kr");
+         User saveUser1 = userRepository.save(user1);
+         User saveUser2 = userRepository.save(user2);
+
+         //when
+         User resultUser = userRepository.findByEmail(user2.getEmail()).get();
+
+         //then
+         assertThat(resultUser).isEqualTo(user2);
+
+      }
+         
+     
 
 
 }
