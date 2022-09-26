@@ -1,25 +1,27 @@
 package com.spring.dallija.service;
 
 import com.spring.dallija.domain.User;
-import com.spring.dallija.repository.UserRepository;
 import com.spring.dallija.repository.UserRepositoryImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 class UserServiceTest {
 
     @Mock
-    private UserRepository userRepository;
+    private UserRepositoryImpl userRepository;
 
     @InjectMocks
     private UserService userService;
@@ -29,16 +31,33 @@ class UserServiceTest {
     public void 유저_저장() throws Exception {
         //given
         User user1 = new User("min", "min@naver.com");
-        List<User> users = new ArrayList<>();
-        users.add(user1);
+        given(userRepository.save(user1))
+                .willReturn(user1);
 
+        //when
+        User joinUser = userService.join(user1);
 
         //then
-        //assertThat(findUsers.size()).isEqualTo(1);
-        //assertThat(findUsers.get(0).getEmail()).isEqualTo(user1.getEmail());
+        assertThat(joinUser).isEqualTo(user1);
+
     }
 
+    @Test
+    public void 중복_회원() throws Exception {
+        //given
+        User user1 = new User("min", "min@naver.com");
+        given(userRepository.save(user1))
+                .willReturn(user1);
+        given(userRepository.findByEmail(user1.getEmail()))
+                .willReturn(Optional.of(user1));
 
+        //when
+
+        //then
+        assertThrows(IllegalStateException.class,
+                ()-> userService.join(user1));
+
+    }
 
 
 }

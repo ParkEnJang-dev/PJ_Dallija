@@ -1,4 +1,4 @@
-package integration.repository;
+package com.spring.dallija.repository;
 
 import com.spring.dallija.domain.User;
 import com.spring.dallija.repository.UserRepositoryImpl;
@@ -32,6 +32,8 @@ class UserRepositoryImplTest {
         List<User> users = new ArrayList<>();
         users.add(user);
         given(userRepository.save(user)).willReturn(user);
+
+        System.out.println(userRepository.save(user).getId());
 
         //when
 

@@ -32,6 +32,6 @@ public class UserRepositoryImpl implements UserRepository {
                 .setParameter("email", email)
                 .getResultList();
 
-        return reuslt.stream().findAny();
+        return reuslt.stream().findFirst();
     }
 }

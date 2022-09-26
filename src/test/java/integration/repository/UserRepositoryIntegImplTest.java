@@ -1,6 +1,7 @@
-package com.spring.dallija.repository;
+package integration.repository;
 
 import com.spring.dallija.domain.User;
+import com.spring.dallija.repository.UserRepositoryImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,25 @@ class UserRepositoryIntegImplTest {
         assertThat(findUser.get().getName()).isEqualTo(savedUser.getName());
 
      }
+
+     @Test
+     @Transactional
+     public void 유저_이메일_찾기() throws Exception {
+         //given
+         User user1 = new User("min","min@co.kr");
+         User user2 = new User("min2","min2@co.kr");
+         User saveUser1 = userRepository.save(user1);
+         User saveUser2 = userRepository.save(user2);
+
+         //when
+         User resultUser = userRepository.findByEmail(user2.getEmail()).get();
+
+         //then
+         assertThat(resultUser).isEqualTo(user2);
+
+      }
+
+
 
 
 }
