@@ -1,13 +1,10 @@
 package com.spring.dallija.repository;
 
 import com.spring.dallija.domain.User;
-import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,9 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class UserRepositoryImplTest {
+class UserRepositoryIntegImplTest {
 
-    @Autowired UserRepositoryImpl userRepository;
+    @Autowired
+    UserRepositoryImpl userRepository;
 
     @Test
     @Transactional
@@ -36,25 +34,6 @@ class UserRepositoryImplTest {
         assertThat(findUser.get().getName()).isEqualTo(savedUser.getName());
 
      }
-     
-     @Test
-     @Transactional
-     public void 유저_이메일_찾기() throws Exception {
-         //given
-         User user1 = new User("min","min@co.kr");
-         User user2 = new User("min2","min2@co.kr");
-         User saveUser1 = userRepository.save(user1);
-         User saveUser2 = userRepository.save(user2);
-
-         //when
-         User resultUser = userRepository.findByEmail(user2.getEmail()).get();
-
-         //then
-         assertThat(resultUser).isEqualTo(user2);
-
-      }
-         
-     
 
 
 }

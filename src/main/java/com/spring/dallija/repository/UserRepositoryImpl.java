@@ -3,6 +3,7 @@ package com.spring.dallija.repository;
 
 import com.spring.dallija.domain.User;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -10,17 +11,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@ToString
 @RequiredArgsConstructor
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
 
     private final EntityManager em;
 
-    public User save(User user){
+    public User save(User user) {
         em.persist(user);
         return user;
     }
 
-    public Optional<User> findById(Long id){
+    public Optional<User> findById(Long id) {
         User user = em.find(User.class, id);
         return Optional.ofNullable(user);
     }
