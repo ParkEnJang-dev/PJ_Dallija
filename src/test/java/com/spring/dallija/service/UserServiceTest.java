@@ -1,6 +1,6 @@
 package com.spring.dallija.service;
 
-import com.spring.dallija.domain.User;
+import com.spring.dallija.domain.user.User;
 import com.spring.dallija.repository.UserRepositoryImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -58,6 +58,44 @@ class UserServiceTest {
                 ()-> userService.join(user1));
 
     }
+
+    @Test
+    public void 유저이름_변경성공() throws Exception {
+        //given
+        User user1 = new User(1L,"min", "min@naver.com");
+        User resultUser = new User(1L,"min2", "min@naver.com");
+        given(userRepository.findByEmail(user1.getEmail()))
+                .willReturn(Optional.of(user1));
+        given(userRepository.findById(user1.getId()))
+                .willReturn(Optional.of(resultUser));
+
+        //when
+        userService.updateName("min@naver.com","min2");
+        User findUser = userService.findById(user1.getId()).get();
+
+        //then
+        assertThat(findUser.getName()).isEqualTo("min2");
+
+     }
+
+     @Test
+     public void 유저이름_변경실패__해당_이메일없음() throws Exception {
+         //given
+         User user1 = new User(1L,"min", "min@naver.com");
+         given(userRepository.findByEmail(user1.getEmail()))
+                 .willReturn(Optional.of(user1));
+
+         //when
+         //then
+         assertThrows(IllegalStateException.class,
+                 ()->userService.updateName("min1@naver.com","min2")
+         );
+
+      }
+
+
+
+
 
 
 }

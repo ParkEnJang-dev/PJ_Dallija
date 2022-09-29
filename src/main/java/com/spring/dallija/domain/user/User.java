@@ -1,6 +1,11 @@
-package com.spring.dallija.domain;
+package com.spring.dallija.domain.user;
 
-import lombok.*;
+import com.spring.dallija.domain.Address;
+import com.spring.dallija.domain.Health;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -37,5 +42,21 @@ public class User {
     public User(String name, String email) {
         this.name = name;
         this.email = email;
+    }
+
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(Long id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+
+    public void changeName(String name){
+        this.name = name;
     }
 }

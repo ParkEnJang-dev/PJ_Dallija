@@ -1,7 +1,7 @@
 package com.spring.dallija.repository;
 
 
-import com.spring.dallija.domain.User;
+import com.spring.dallija.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.springframework.stereotype.Repository;

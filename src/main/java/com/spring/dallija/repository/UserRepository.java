@@ -1,8 +1,7 @@
 package com.spring.dallija.repository;
 
-import com.spring.dallija.domain.User;
+import com.spring.dallija.domain.user.User;
 
-import java.util.List;
 import java.util.Optional;
 
 

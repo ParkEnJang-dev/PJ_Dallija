@@ -1,6 +1,6 @@
 package com.spring.dallija.domain.order;
 
-import com.spring.dallija.domain.User;
+import com.spring.dallija.domain.user.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
