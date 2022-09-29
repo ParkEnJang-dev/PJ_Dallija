@@ -1,11 +1,15 @@
 package com.spring.dallija.service;
 
+import com.spring.dallija.domain.Address;
+import com.spring.dallija.domain.user.GenderStatus;
+import com.spring.dallija.domain.user.Health;
 import com.spring.dallija.domain.user.User;
 import com.spring.dallija.repository.UserRepositoryImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,9 +31,13 @@ class UserRepositoryIntegImplTest {
 
     @Test
     @Transactional
+    @Rollback(value = false)
     public void 유저_저장() throws Exception {
         //given
-        User user = new User("min", "email@com.co");
+        Address address = new Address("한강로", "111-222");
+        Health health = new Health(129, 239, GenderStatus.MAN);
+        User user = new User("min", "email@com.co", "11111111", address, health);
+
 
         //when
         User savedUser = userService.join(user);
@@ -44,7 +52,7 @@ class UserRepositoryIntegImplTest {
     @Transactional
     public void 중복_회원_검증() throws Exception {
         //given
-        User user1 = new User("min", "min@naver.com");
+        User user1 = new User("min", "email@com.co", "11111111");
         User user2 = new User("min", "min@naver.com");
         userService.join(user1);
 
@@ -63,7 +71,7 @@ class UserRepositoryIntegImplTest {
         userService.join(user1);
 
         //when
-        userService.updateName("min@naver.com","min2");
+        userService.updateName("min@naver.com", "min2");
         User findUser = userService.findById(user1.getId()).get();
 
         //then
@@ -80,7 +88,7 @@ class UserRepositoryIntegImplTest {
         //when
         //then
         assertThrows(IllegalStateException.class,
-                ()->userService.updateName("min1@naver.com","min2")
+                () -> userService.updateName("min1@naver.com", "min2")
         );
 
     }

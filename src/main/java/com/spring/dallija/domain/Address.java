@@ -13,8 +13,6 @@ import javax.persistence.Embeddable;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Address {
-
     private String street;
     private String zipcode;
-
 }
