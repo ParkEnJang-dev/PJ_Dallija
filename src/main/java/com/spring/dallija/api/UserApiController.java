@@ -1,25 +1,30 @@
 package com.spring.dallija.api;
 
 
-import com.spring.dallija.api.dto.UserDto;
+import com.spring.dallija.api.dto.UserDto.CreateUserRequest;
+import com.spring.dallija.api.dto.UserDto.CreateUserResponse;
 import com.spring.dallija.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class UserApiController {
 
     private final UserService userService;
 
-    @PostMapping("/api/v1/users")
-    public UserDto.CreateUserResponse saveUserV1(@RequestBody @Valid UserDto.CreateUserRequest request) {
+    @PostMapping("/v1/users")
+    public CreateUserResponse saveUserV1(@RequestBody @Valid CreateUserRequest request) {
         Long id = userService.join(request.toEntity()).getId();
-        return new UserDto.CreateUserResponse(id);
+        return new CreateUserResponse(id);
+    }
+
+    @PatchMapping("/v1/usersName")
+    public void updateName(@RequestBody CreateUserRequest request) {
+        userService.updateName(request.getEmail(), request.getName());
     }
 
 

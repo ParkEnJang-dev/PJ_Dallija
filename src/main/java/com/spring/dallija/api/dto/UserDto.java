@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -20,7 +21,7 @@ public class UserDto {
         private String name;
         @NotEmpty
         private String email;
-        @NotEmpty
+        @NotBlank
         private String password;
         @NotEmpty
         private String street;
