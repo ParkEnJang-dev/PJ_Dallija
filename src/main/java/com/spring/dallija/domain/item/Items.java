@@ -32,9 +32,9 @@ public abstract class Items {
     private Integer price;
     private Integer stockQuantity;
     private String originCity;
-    private LocalDate created;
+    private LocalDateTime created;
 
-    Items(String name, int price, int stockQuantity, String originCity, LocalDate created) {
+    Items(String name, int price, int stockQuantity, String originCity, LocalDateTime created) {
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;

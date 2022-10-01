@@ -9,7 +9,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -20,7 +20,7 @@ public class Vegetable extends Items {
     @Enumerated(value = EnumType.STRING)
     private VegetableType vegetableType;
 
-    public Vegetable(String name, Integer price, Integer stockQuantity, String originCity, LocalDate created, String vegetableType) {
+    public Vegetable(String name, Integer price, Integer stockQuantity, String originCity, LocalDateTime created, String vegetableType) {
         super(name, price, stockQuantity, originCity, created);
         switch (vegetableType) {
             case "CABBAGE":

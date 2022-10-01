@@ -18,8 +18,9 @@ public class ItemService {
     private final ItemRepositoryImpl itemRepository;
 
     @Transactional
-    public void saveItem(Items item) {
+    public Items saveItem(Items item) {
         itemRepository.save(item);
+        return item;
     }
 
     public Items findOne(Long itemId) {

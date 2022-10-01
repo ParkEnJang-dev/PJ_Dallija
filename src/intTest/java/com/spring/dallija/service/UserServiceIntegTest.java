@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class UserRepositoryIntegImplTest {
+class UserServiceIntegTest {
 
     @Autowired
     UserRepositoryImpl userRepository;
@@ -52,7 +52,7 @@ class UserRepositoryIntegImplTest {
     @Transactional
     public void 중복_회원_검증() throws Exception {
         //given
-        User user1 = new User("min", "email@com.co", "11111111");
+        User user1 = new User("min", "min@naver.com", "11111111");
         User user2 = new User("min", "min@naver.com");
         userService.join(user1);
 

@@ -7,7 +7,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class ItemsDto {
@@ -35,19 +35,19 @@ public class ItemsDto {
         private String meatType;
         private String vegetableType;
 
-        private Items toEntity() {
+        public Items toEntity() {
             Date date = new Date();
             switch (dtype) {
                 case "meat":
                     if (meatType.isEmpty()){
                         throw new NullPointerException("meatType 필드가 비어있다.");
                     }
-                    return new Meat(name, price, stockQuantity, originCity, LocalDate.now(), meatType);
+                    return new Meat(name, price, stockQuantity, originCity, LocalDateTime.now(), meatType);
                 case "vegetable":
                     if (meatType.isEmpty()){
                         throw new NullPointerException("vegetableType 필드가 비어있다.");
                     }
-                    return new Vegetable(name, price, stockQuantity, originCity, LocalDate.now(), vegetableType);
+                    return new Vegetable(name, price, stockQuantity, originCity, LocalDateTime.now(), vegetableType);
             }
             return null;
         }
