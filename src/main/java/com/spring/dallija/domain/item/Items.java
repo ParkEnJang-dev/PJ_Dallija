@@ -1,17 +1,24 @@
 package com.spring.dallija.domain.item;
 
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @DiscriminatorColumn(name = "dtype")
-public class Items {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Items {
 
     @Id
     @GeneratedValue
@@ -22,6 +29,16 @@ public class Items {
     private String name;
 
     @NotNull
-    private int price;
-    private int stock_quantity;
+    private Integer price;
+    private Integer stockQuantity;
+    private String originCity;
+    private LocalDate created;
+
+    Items(String name, int price, int stockQuantity, String originCity, LocalDate created) {
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.originCity = originCity;
+        this.created = created;
+    }
 }
