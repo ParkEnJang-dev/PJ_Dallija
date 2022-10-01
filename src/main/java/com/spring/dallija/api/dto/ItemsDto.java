@@ -45,9 +45,9 @@ public class ItemsDto {
                     return new Meat(name, price, stockQuantity, originCity, LocalDate.now(), meatType);
                 case "vegetable":
                     if (meatType.isEmpty()){
-                        throw new NullPointerException("meatType 필드가 비어있다.");
+                        throw new NullPointerException("vegetableType 필드가 비어있다.");
                     }
-                    return new Vegetable(name, price, stockQuantity, originCity, LocalDate.now(), meatType);
+                    return new Vegetable(name, price, stockQuantity, originCity, LocalDate.now(), vegetableType);
             }
             return null;
         }
