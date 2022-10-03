@@ -41,4 +41,10 @@ public abstract class Items {
         this.originCity = originCity;
         this.created = created;
     }
+
+    public void changeItem(String name, Integer price, Integer stockQuantity) {
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
 }

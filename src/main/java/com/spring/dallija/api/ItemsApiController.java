@@ -3,10 +3,7 @@ package com.spring.dallija.api;
 import com.spring.dallija.api.dto.ItemsDto;
 import com.spring.dallija.service.ItemService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -20,6 +17,11 @@ public class ItemsApiController {
     @PostMapping("/v1/items")
     public void saveItem(@RequestBody @Valid ItemsDto.SaveItemsRequest saveItemsRequest){
         itemService.saveItem(saveItemsRequest.toEntity());
+    }
+
+    @PatchMapping("/v1/items/edit")
+    public void updateItem(@RequestBody @Valid ItemsDto.UpdateItemsRequest updateItemsRequest){
+        itemService.updateItem(updateItemsRequest);
     }
 
 }

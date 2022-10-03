@@ -20,13 +20,13 @@ public class ItemsDto {
     public static class SaveItemsRequest {
 
         @NotEmpty
-        String name;
+        private String name;
 
         @NotNull
-        Integer price;
+        private Integer price;
 
         @NotNull
-        Integer stockQuantity;
+        private Integer stockQuantity;
 
         @NotEmpty
         private String dtype;
@@ -52,5 +52,31 @@ public class ItemsDto {
             return null;
         }
 
+    }
+
+    @Getter
+    @ToString
+    @EqualsAndHashCode
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class UpdateItemsRequest {
+
+        @NotEmpty
+        private Long id;
+
+        @NotEmpty
+        private String name;
+
+        @NotNull
+        private Integer price;
+
+        @NotNull
+        private Integer stockQuantity;
+
+        public UpdateItemsRequest(Long id, String name, Integer price, Integer stockQuantity) {
+            this.id = id;
+            this.name = name;
+            this.price = price;
+            this.stockQuantity = stockQuantity;
+        }
     }
 }

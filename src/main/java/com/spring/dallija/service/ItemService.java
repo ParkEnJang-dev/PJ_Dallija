@@ -1,5 +1,6 @@
 package com.spring.dallija.service;
 
+import com.spring.dallija.api.dto.ItemsDto;
 import com.spring.dallija.domain.item.Items;
 import com.spring.dallija.domain.item.Meat;
 import com.spring.dallija.domain.item.MeatType;
@@ -21,6 +22,17 @@ public class ItemService {
     public Items saveItem(Items item) {
         itemRepository.save(item);
         return item;
+    }
+
+    @Transactional
+    public Items updateItem(ItemsDto.UpdateItemsRequest updateItemsRequest) {
+        Items findItem = findOne(updateItemsRequest.getId());
+
+        findItem.changeItem(updateItemsRequest.getName(),
+                updateItemsRequest.getPrice(),
+                updateItemsRequest.getStockQuantity());
+
+        return findItem;
     }
 
     public Items findOne(Long itemId) {
