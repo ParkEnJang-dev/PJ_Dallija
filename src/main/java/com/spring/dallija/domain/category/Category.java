@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,6 +22,9 @@ public class Category {
 
     @Enumerated(EnumType.STRING)
     private CategoryType categoryType;
+
+    @OneToMany(mappedBy = "category")
+    private List<CategoryItems> categoryItems = new ArrayList<>();
 
 
 }

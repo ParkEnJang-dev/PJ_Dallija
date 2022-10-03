@@ -53,7 +53,6 @@ public class ItemServiceIntegTest {
 
         ItemsDto.UpdateItemsRequest updateItemsRequest = new ItemsDto.UpdateItemsRequest(item.getId(), "소 구이",5000,50);
 
-
         //when
         Items result = itemService.updateItem(updateItemsRequest);
 

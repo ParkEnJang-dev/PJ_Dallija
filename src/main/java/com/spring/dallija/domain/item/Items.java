@@ -1,6 +1,7 @@
 package com.spring.dallija.domain.item;
 
 
+import com.spring.dallija.domain.category.CategoryItems;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +12,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,6 +36,9 @@ public abstract class Items {
     private Integer stockQuantity;
     private String originCity;
     private LocalDateTime created;
+
+    @OneToMany(mappedBy = "items")
+    private List<CategoryItems> categoryItems = new ArrayList<>();
 
     Items(String name, int price, int stockQuantity, String originCity, LocalDateTime created) {
         this.name = name;

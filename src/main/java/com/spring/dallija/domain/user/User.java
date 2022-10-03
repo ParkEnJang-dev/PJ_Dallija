@@ -1,17 +1,20 @@
 package com.spring.dallija.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.dallija.domain.Address;
+import com.spring.dallija.domain.order.Orders;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
 @Getter
 @AllArgsConstructor
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
@@ -38,6 +41,9 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserStatus status;
+
+    @OneToMany(mappedBy = "user")
+    private List<Orders> orders = new ArrayList<>();
 
     public User(String name, String email) {
         this.name = name;

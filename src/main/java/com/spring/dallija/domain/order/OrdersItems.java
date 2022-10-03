@@ -1,7 +1,7 @@
-package com.spring.dallija.domain.item;
+package com.spring.dallija.domain.order;
 
 
-import com.spring.dallija.domain.order.Orders;
+import com.spring.dallija.domain.item.Items;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

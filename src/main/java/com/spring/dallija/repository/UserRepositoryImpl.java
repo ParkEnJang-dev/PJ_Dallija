@@ -3,7 +3,6 @@ package com.spring.dallija.repository;
 
 import com.spring.dallija.domain.user.User;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@ToString
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 

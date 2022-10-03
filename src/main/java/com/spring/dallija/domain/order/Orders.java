@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.FetchType.*;
 
@@ -31,7 +33,15 @@ public class Orders {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    @OneToMany(mappedBy = "orders")
+    private List<OrdersItems> ordersItems = new ArrayList<>();
+
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
+
+    public Orders(User user, Delivery delivery, OrdersItems... ordersItems) {
+        this.user = user;
+        this.delivery = delivery;
+    }
 }
