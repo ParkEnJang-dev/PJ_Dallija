@@ -1,5 +1,6 @@
 package com.spring.dallija.domain.order;
 
+import com.spring.dallija.domain.Delivery;
 import com.spring.dallija.domain.user.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -29,4 +30,8 @@ public class Orders {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
 }
