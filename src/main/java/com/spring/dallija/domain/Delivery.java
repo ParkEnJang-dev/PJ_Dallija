@@ -30,6 +30,10 @@ public class Delivery {
     @Enumerated(value = EnumType.STRING)
     private DeliveryStatus deliveryStatus;
 
+    public Delivery(Address address) {
+        this.address = address;
+    }
+
     public void addOrders(Orders orders) {
         this.orders = orders;
     }

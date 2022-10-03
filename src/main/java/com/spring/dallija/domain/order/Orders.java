@@ -5,6 +5,7 @@ import com.spring.dallija.domain.DeliveryStatus;
 import com.spring.dallija.domain.user.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.util.List;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Orders {
