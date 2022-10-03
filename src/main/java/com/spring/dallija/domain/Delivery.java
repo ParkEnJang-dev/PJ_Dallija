@@ -25,6 +25,12 @@ public class Delivery {
     private Orders orders;
 
     @Embedded
-    Address address;
+    private Address address;
 
+    @Enumerated(value = EnumType.STRING)
+    private DeliveryStatus deliveryStatus;
+
+    public void addOrders(Orders orders) {
+        this.orders = orders;
+    }
 }

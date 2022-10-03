@@ -2,6 +2,7 @@ package com.spring.dallija.domain.item;
 
 
 import com.spring.dallija.domain.category.CategoryItems;
+import com.spring.dallija.exception.NotEnoughStockException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -52,5 +53,17 @@ public abstract class Items {
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
+    }
+
+    public void addStockQuantity(int quantity){
+        this.stockQuantity += quantity;
+    }
+
+    public void removeStockQuantity(int quantity){
+        int tempStock = this.stockQuantity - quantity;
+        if (tempStock < 0){
+            throw new NotEnoughStockException("재고가 없습니다.");
+        }
+        this.stockQuantity = tempStock;
     }
 }
