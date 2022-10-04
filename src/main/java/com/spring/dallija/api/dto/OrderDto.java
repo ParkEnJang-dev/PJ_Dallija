@@ -1,5 +1,6 @@
 package com.spring.dallija.api.dto;
 
+import com.spring.dallija.domain.order.OrderStatus;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -31,5 +32,12 @@ public class OrderDto {
             this.street = street;
             this.zipcode = zipcode;
         }
+    }
+
+    @Getter
+    @Setter
+    public static class OrderSearch {
+        private String userName;
+        private OrderStatus orderStatus;
     }
 }
