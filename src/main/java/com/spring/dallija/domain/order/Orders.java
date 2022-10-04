@@ -30,17 +30,17 @@ public class Orders {
     @JoinColumn(name = "user_seq")
     private User user;
 
-    private LocalDateTime orderTime;
-
-    @Enumerated(EnumType.STRING)
-    private OrderStatus status;
-
-    @OneToMany(mappedBy = "orders")
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     private List<OrdersItems> ordersItems = new ArrayList<>();
 
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
+
+    private LocalDateTime orderTime;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     public void addUser(User user) {
         this.user = user;
@@ -57,23 +57,26 @@ public class Orders {
         delivery.addOrders(this);
     }
 
-    public Orders(User user, LocalDateTime orderTime, OrderStatus status, List<OrdersItems> ordersItems, Delivery delivery) {
-        this.user = user;
+    public Orders(User user, LocalDateTime orderTime, OrderStatus status, Delivery delivery) {
+        addUser(user);
         this.orderTime = orderTime;
         this.status = status;
-        this.ordersItems = ordersItems;
-        this.delivery = delivery;
+        addDelivery(delivery);
     }
 
     public static Orders createOrder(User user, Delivery delivery, OrdersItems... ordersItems) {
-        Orders orders = new Orders(
+        Orders order = new Orders(
                 user,
                 LocalDateTime.now(),
                 OrderStatus.ORDER,
-                List.of(ordersItems),
                 delivery
         );
-        return orders;
+
+        for (OrdersItems ordersItem : ordersItems) {
+            order.addOrderItem(ordersItem);
+        }
+
+        return order;
     }
 
     /**

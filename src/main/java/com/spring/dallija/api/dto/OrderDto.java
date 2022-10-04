@@ -24,6 +24,12 @@ public class OrderDto {
         @NotEmpty
         private String zipcode;
 
-
+        public SaveOrderRequest(Long userId, Long itemId, Integer count, String street, String zipcode) {
+            this.userId = userId;
+            this.itemId = itemId;
+            this.count = count;
+            this.street = street;
+            this.zipcode = zipcode;
+        }
     }
 }

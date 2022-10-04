@@ -25,7 +25,7 @@ public class OrdersService {
     private final ItemRepositoryImpl itemRepository;
 
     @Transactional
-    public Long order(OrderDto.SaveOrderRequest saveOrderRequest) {
+    public Long saveOrder(OrderDto.SaveOrderRequest saveOrderRequest) {
 
         User user = userRepository.findById(saveOrderRequest.getUserId()).get();
         Items item = itemRepository.findOne(saveOrderRequest.getItemId());
@@ -47,6 +47,12 @@ public class OrdersService {
         ordersRepository.save(order);
 
         return order.getId();
+    }
+
+    public void cancelOrder(Long orderId){
+        Orders orders = ordersRepository.findOne(orderId);
+
+        orders.cancel();
     }
 
 }
