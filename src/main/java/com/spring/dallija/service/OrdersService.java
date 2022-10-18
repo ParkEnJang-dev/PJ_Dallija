@@ -14,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 @Transactional(readOnly = true)
@@ -47,6 +50,16 @@ public class OrdersService {
         ordersRepository.save(order);
 
         return order.getId();
+    }
+
+    public List<OrderDto.FindAllOrdersResponse> findAll(){
+        List<Orders> orders = ordersRepository.findAllWithUserDeliver();
+
+        List<OrderDto.FindAllOrdersResponse> result = orders.stream()
+                .map(o -> new OrderDto.FindAllOrdersResponse(o))
+                .collect(Collectors.toList());
+
+        return result;
     }
 
     public void cancelOrder(Long orderId){

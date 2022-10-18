@@ -25,6 +25,7 @@ public class InitDb {
 
     @PostConstruct
     public void init(){
+        initService.dbInit();
         initService.dbInit1();
         initService.dbInit2();
     }
@@ -34,6 +35,12 @@ public class InitDb {
     @RequiredArgsConstructor
     static class InitService {
         private final EntityManager em;
+
+        public void dbInit(){
+            User user = createUser("Ab", "ABC@naver.com");
+            em.persist(user);
+
+        }
 
         public void dbInit1() {
 

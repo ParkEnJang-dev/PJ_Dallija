@@ -4,8 +4,10 @@ import com.spring.dallija.api.dto.OrderDto;
 import com.spring.dallija.api.dto.SimpleOrdersDto;
 import com.spring.dallija.domain.order.Orders;
 import com.spring.dallija.repository.OrdersRepositoryImpl;
+import com.spring.dallija.service.OrdersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +20,20 @@ import java.util.stream.Collectors;
 public class OrdersApiController {
 
     private final OrdersRepositoryImpl ordersRepository;
+    private final OrdersService ordersService;
+
+    @PostMapping("/orders")
+    public Long saveOrders(){
+
+        return 1L;
+    }
+
+    //모든 주문 조회.
+    //한방 쿼리
+    @GetMapping("/orders")
+    public List<OrderDto.FindAllOrdersResponse> allOrders(){
+        return ordersService.findAll();
+    }
 
     @GetMapping("/v1/simple-orders")
     public List<Orders> ordersV1(){
@@ -29,19 +45,6 @@ public class OrdersApiController {
     @GetMapping("/v2/simple-orders")
     public List<OrderDto.FindAllOrdersResponse> ordersV2(){
         List<Orders> orders = ordersRepository.findAllByString(new OrderDto.OrderSearch());
-
-        List<OrderDto.FindAllOrdersResponse> result = orders.stream()
-                .map(o -> new OrderDto.FindAllOrdersResponse(o))
-                .collect(Collectors.toList());
-
-        return result;
-    }
-
-    //모든 주문 조회.
-    //한방 쿼리
-    @GetMapping("/v3/simple-orders")
-    public List<OrderDto.FindAllOrdersResponse> allOrders(){
-        List<Orders> orders = ordersRepository.findAllWithUserDeliver();
 
         List<OrderDto.FindAllOrdersResponse> result = orders.stream()
                 .map(o -> new OrderDto.FindAllOrdersResponse(o))
