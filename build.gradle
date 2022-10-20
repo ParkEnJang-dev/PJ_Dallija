@@ -18,6 +18,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-devtools'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    //querydsl
+    implementation 'com.querydsl:querydsl-jpa'
+
     //mysql
     implementation 'mysql:mysql-connector-java'
 
