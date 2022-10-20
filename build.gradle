@@ -1,6 +1,14 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.7.2'
     id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+    // 2. querydsl plugins 추가
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
     id 'java'
 }
 
@@ -19,7 +27,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     //querydsl
-    implementation 'com.querydsl:querydsl-jpa'
+    // 3. querydsl dependencies 추가
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 
     //mysql
     implementation 'mysql:mysql-connector-java'
@@ -49,6 +59,18 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+// querydsl에서 사용할 경로 설정
+def querydslDir = "$buildDir/generated/querydsl"
+// JPA 사용 여부와 사용할 경로를 설정
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+compileQuerydsl{
+    options.annotationProcessorPath = configurations.querydsl
+}
+
 sourceSets {
     intTest {
         java.srcDir "$projectDir/src/intTest/java"
@@ -56,12 +78,16 @@ sourceSets {
         compileClasspath += main.output + test.output
         runtimeClasspath += main.output + test.output
     }
+
+    main.java.srcDir querydslDir
 }
 
 configurations {
     intTestImplementation.extendsFrom implementation
     intTestImplementation.extendsFrom testImplementation
     intTestRuntimeOnly.extendsFrom testRuntimeOnly
+
+    querydsl.extendsFrom compileClasspath
 }
 
 task intTest(type: Test) {
