@@ -1,5 +1,6 @@
 package com.spring.dallija.domain.order;
 
+import com.spring.dallija.domain.BaseTimeEntity;
 import com.spring.dallija.domain.Delivery;
 import com.spring.dallija.domain.DeliveryStatus;
 import com.spring.dallija.domain.user.User;
@@ -20,7 +21,7 @@ import static javax.persistence.FetchType.LAZY;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "orders")
-public class Order {
+public class Order extends BaseTimeEntity {
 
     @Id
     @GeneratedValue

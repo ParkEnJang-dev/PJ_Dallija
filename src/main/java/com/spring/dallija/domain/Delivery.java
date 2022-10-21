@@ -14,7 +14,7 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Delivery {
+public class Delivery extends BaseTimeEntity {
 
     @Id
     @GeneratedValue

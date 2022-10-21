@@ -1,6 +1,7 @@
 package com.spring.dallija.domain.item;
 
 
+import com.spring.dallija.domain.BaseTimeEntity;
 import com.spring.dallija.domain.category.CategoryItem;
 import com.spring.dallija.exception.NotEnoughStockException;
 import lombok.AccessLevel;
@@ -17,7 +18,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Item {
+public class Item extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
