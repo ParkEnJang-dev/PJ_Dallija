@@ -1,6 +1,7 @@
 package com.spring.dallija.domain.item;
 
 
+import com.spring.dallija.domain.BaseTimeEntity;
 import com.spring.dallija.domain.category.CategoryItem;
 import com.spring.dallija.exception.NotEnoughStockException;
 import lombok.AccessLevel;
@@ -15,10 +16,9 @@ import java.util.List;
 
 @Entity
 @Getter
-@DiscriminatorColumn(name = "dtype")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Item {
+public class Item extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
@@ -33,6 +33,9 @@ public class Item {
     //상품원산지
     private String originCity;
 
+    @Enumerated(EnumType.STRING)
+    private ItemStatus status;
+
     @OneToMany(mappedBy = "item")
     private List<CategoryItem> categoryItem = new ArrayList<>();
 
@@ -41,6 +44,7 @@ public class Item {
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.originCity = originCity;
+        this.status = ItemStatus.ACTIVED;
     }
 
     public void changeItem(String name, Integer price, Integer stockQuantity) {
@@ -56,6 +60,7 @@ public class Item {
     public void removeStockQuantity(int quantity) {
         int tempStock = this.stockQuantity - quantity;
         if (tempStock < 0) {
+            this.status = ItemStatus.SOLDOUT;
             throw new NotEnoughStockException("재고가 없습니다.");
         }
         this.stockQuantity = tempStock;

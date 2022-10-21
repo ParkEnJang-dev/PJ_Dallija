@@ -1,5 +1,7 @@
-package com.spring.dallija.domain;
+package com.spring.dallija.domain.delivery;
 
+import com.spring.dallija.domain.Address;
+import com.spring.dallija.domain.BaseTimeEntity;
 import com.spring.dallija.domain.order.Order;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -14,7 +16,7 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Delivery {
+public class Delivery extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
@@ -27,7 +29,7 @@ public class Delivery {
     private Address address;
 
     @Enumerated(value = EnumType.STRING)
-    private DeliveryStatus deliveryStatus;
+    private DeliveryStatus status;
 
     public Delivery(Address address) {
         this.address = address;

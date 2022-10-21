@@ -1,7 +1,9 @@
 package com.spring.dallija.domain.order;
 
-import com.spring.dallija.domain.Delivery;
-import com.spring.dallija.domain.DeliveryStatus;
+import com.spring.dallija.domain.BaseTimeEntity;
+import com.spring.dallija.domain.delivery.Delivery;
+import com.spring.dallija.domain.delivery.DeliveryStatus;
+import com.spring.dallija.domain.payment.Payment;
 import com.spring.dallija.domain.user.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,7 +22,7 @@ import static javax.persistence.FetchType.LAZY;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "orders")
-public class Order {
+public class Order extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
@@ -36,6 +38,10 @@ public class Order {
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
+
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
 
     private LocalDateTime orderTime;
 
@@ -83,7 +89,7 @@ public class Order {
      * 주문 취소
      */
     public void cancel() {
-        if (delivery.getDeliveryStatus() == DeliveryStatus.SHIPPING) {
+        if (delivery.getStatus() == DeliveryStatus.SHIPPING) {
             throw new IllegalStateException("배송중인 상품은 취소가 불가능합니다.");
         }
 

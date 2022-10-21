@@ -17,7 +17,6 @@ public class Category {
 
     @Id
     @GeneratedValue
-    @Column(name = "category_seq")
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -25,6 +24,8 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private List<CategoryItem> categoryItems = new ArrayList<>();
+
+    private String title;
 
 
 }
