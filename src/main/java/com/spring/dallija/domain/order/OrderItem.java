@@ -1,7 +1,7 @@
 package com.spring.dallija.domain.order;
 
 
-import com.spring.dallija.domain.item.Items;
+import com.spring.dallija.domain.item.Item;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,37 +13,36 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class OrdersItems {
+public class OrderItem {
 
     @Id
     @GeneratedValue
-    @Column(name = "orders_items_seq")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_seq")
-    private Items items;
+    private Item item;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_seq")
-    private Orders orders;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     private int orderPrice; //주문가격
-    private int count; //주문 수량
+    private int quantity; //주문 수량
 
-    public void addOrder(Orders orders){
-        this.orders = orders;
+    public void addOrder(Order order){
+        this.order = order;
     }
 
-    public OrdersItems(Items items, int orderPrice, int count) {
-        this.items = items;
+    public OrderItem(Item item, int orderPrice, int quantity) {
+        this.item = item;
         this.orderPrice = orderPrice;
-        this.count = count;
+        this.quantity = quantity;
     }
 
-    public static OrdersItems createOrdersItem(Items item, int orderPrice, int count){
-        OrdersItems ordersItem =
-                new OrdersItems(
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count){
+        OrderItem ordersItem =
+                new OrderItem(
                         item,
                         orderPrice,
                         count
@@ -55,11 +54,11 @@ public class OrdersItems {
 
     //재고 수량 추가
     public void cancel(){
-        getItems().addStockQuantity(count);
+        getItem().addStockQuantity(quantity);
     }
 
     public int getTotalPrice() {
-        return getOrderPrice() * getCount();
+        return getOrderPrice() * getQuantity();
     }
 
 }

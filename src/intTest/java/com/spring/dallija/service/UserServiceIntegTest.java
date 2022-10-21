@@ -35,7 +35,7 @@ class UserServiceIntegTest {
     public void 유저_저장() throws Exception {
         //given
         Address address = new Address("한강로", "111-222");
-        Health health = new Health(129, 239, GenderStatus.MAN);
+        Health health = new Health(GenderStatus.MAN, 129, 239);
         User user = new User("min", "email@com.co", "11111111", address, health);
 
 

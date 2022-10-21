@@ -1,8 +1,8 @@
 package com.spring.dallija.domain.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.dallija.domain.Address;
-import com.spring.dallija.domain.order.Orders;
+import com.spring.dallija.domain.BaseTimeEntity;
+import com.spring.dallija.domain.order.Order;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,11 +16,10 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_seq")
     private Long id;
 
     @NotEmpty
@@ -43,7 +42,7 @@ public class User {
     private UserStatus status;
 
     @OneToMany(mappedBy = "user")
-    private List<Orders> orders = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
     public User(String name, String email) {
         this.name = name;

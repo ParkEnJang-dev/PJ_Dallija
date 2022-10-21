@@ -1,20 +1,16 @@
 package com.spring.dallija.domain.item;
 
 
-import com.spring.dallija.domain.category.CategoryItems;
+import com.spring.dallija.domain.category.CategoryItem;
 import com.spring.dallija.exception.NotEnoughStockException;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -22,11 +18,10 @@ import java.util.List;
 @DiscriminatorColumn(name = "dtype")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Items {
+public class Item {
 
     @Id
     @GeneratedValue
-    @Column(name = "item_seq")
     private Long id;
 
     @NotEmpty
@@ -35,18 +30,17 @@ public abstract class Items {
     @NotNull
     private Integer price;
     private Integer stockQuantity;
+    //상품원산지
     private String originCity;
-    private LocalDateTime created;
 
-    @OneToMany(mappedBy = "items")
-    private List<CategoryItems> categoryItems = new ArrayList<>();
+    @OneToMany(mappedBy = "item")
+    private List<CategoryItem> categoryItem = new ArrayList<>();
 
-    Items(String name, int price, int stockQuantity, String originCity, LocalDateTime created) {
+    public Item(String name, int price, int stockQuantity, String originCity) {
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.originCity = originCity;
-        this.created = created;
     }
 
     public void changeItem(String name, Integer price, Integer stockQuantity) {
@@ -55,13 +49,13 @@ public abstract class Items {
         this.stockQuantity = stockQuantity;
     }
 
-    public void addStockQuantity(int quantity){
+    public void addStockQuantity(int quantity) {
         this.stockQuantity += quantity;
     }
 
-    public void removeStockQuantity(int quantity){
+    public void removeStockQuantity(int quantity) {
         int tempStock = this.stockQuantity - quantity;
-        if (tempStock < 0){
+        if (tempStock < 0) {
             throw new NotEnoughStockException("재고가 없습니다.");
         }
         this.stockQuantity = tempStock;

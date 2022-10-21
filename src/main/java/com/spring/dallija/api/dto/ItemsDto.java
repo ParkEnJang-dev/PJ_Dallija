@@ -1,14 +1,10 @@
 package com.spring.dallija.api.dto;
 
-import com.spring.dallija.domain.item.Items;
-import com.spring.dallija.domain.item.Meat;
-import com.spring.dallija.domain.item.Vegetable;
+import com.spring.dallija.domain.item.Item;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 public class ItemsDto {
 
@@ -35,21 +31,8 @@ public class ItemsDto {
         private String meatType;
         private String vegetableType;
 
-        public Items toEntity() {
-            Date date = new Date();
-            switch (dtype) {
-                case "meat":
-                    if (meatType.isEmpty()){
-                        throw new NullPointerException("meatType 필드가 비어있다.");
-                    }
-                    return new Meat(name, price, stockQuantity, originCity, LocalDateTime.now(), meatType);
-                case "vegetable":
-                    if (meatType.isEmpty()){
-                        throw new NullPointerException("vegetableType 필드가 비어있다.");
-                    }
-                    return new Vegetable(name, price, stockQuantity, originCity, LocalDateTime.now(), vegetableType);
-            }
-            return null;
+        public Item toEntity() {
+            return new Item(name, price, stockQuantity, originCity);
         }
 
     }

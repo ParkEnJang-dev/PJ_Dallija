@@ -36,7 +36,7 @@ public class UserDto {
 
         public User toEntity() {
             Address address = new Address(street, zipcode);
-            Health health = new Health(11, 12, genderStatus(gender));
+            Health health = new Health( genderStatus(gender),11, 12);
             return new User(name, email, password, address, health);
         }
 

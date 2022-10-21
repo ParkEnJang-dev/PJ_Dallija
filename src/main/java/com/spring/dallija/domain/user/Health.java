@@ -14,8 +14,8 @@ import javax.persistence.Enumerated;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Health {
-    private Integer height;
-    private Integer weight;
     @Enumerated(EnumType.STRING)
     private GenderStatus gender;
+    private Integer height;
+    private Integer weight;
 }

@@ -3,7 +3,7 @@ package com.spring.dallija.repository;
 
 import com.spring.dallija.api.dto.OrderDto;
 import com.spring.dallija.api.dto.SimpleOrdersDto;
-import com.spring.dallija.domain.order.Orders;
+import com.spring.dallija.domain.order.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -18,17 +18,17 @@ public class OrdersRepositoryImpl {
 
     private final EntityManager em;
 
-    public void save(Orders order) {
+    public void save(Order order) {
         em.persist(order);
     }
 
-    public Orders findOne(Long id) {
-        return em.find(Orders.class, id);
+    public Order findOne(Long id) {
+        return em.find(Order.class, id);
     }
 
     //임시. 제작
-    public List<Orders> findAllByString(OrderDto.OrderSearch orderSearch) {
-        String jpql = "select o From Orders o join o.user u";
+    public List<Order> findAllByString(OrderDto.OrderSearch orderSearch) {
+        String jpql = "select o From Order o join o.user u";
         boolean isFirstCondition = true;
         //주문 상태 검색
         if (orderSearch.getOrderStatus() != null) {
@@ -51,7 +51,7 @@ public class OrdersRepositoryImpl {
             jpql += " m.name like :name";
         }
 
-        TypedQuery<Orders> query = em.createQuery(jpql, Orders.class).setMaxResults(1000); //최대 1000건
+        TypedQuery<Order> query = em.createQuery(jpql, Order.class).setMaxResults(1000); //최대 1000건
         if (orderSearch.getOrderStatus() != null) {
             query = query.setParameter("status", orderSearch.getOrderStatus());
         }
@@ -61,11 +61,11 @@ public class OrdersRepositoryImpl {
         return query.getResultList();
     }
 
-    public List<Orders> findAllWithUserDeliver() {
+    public List<Order> findAllWithUserDeliver() {
         return em.createQuery(
-                "select o from Orders o" +
+                "select o from Order o" +
                         " join fetch o.user m" +
-                        " join fetch o.delivery d", Orders.class
+                        " join fetch o.delivery d", Order.class
         ).getResultList();
 
     }
@@ -73,7 +73,7 @@ public class OrdersRepositoryImpl {
     public List<SimpleOrdersDto> findOrderDtos() {
         return em.createQuery(
                 "select new com.spring.dallija.api.dto.SimpleOrdersDto(o.id, u.name, o.orderTime, o.status, d.address)" +
-                        " from Orders o" +
+                        " from Order o" +
                         " join o.user u" +
                         " join o.delivery d", SimpleOrdersDto.class
         ).getResultList();

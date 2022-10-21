@@ -2,7 +2,7 @@ package com.spring.dallija.api;
 
 import com.spring.dallija.api.dto.OrderDto;
 import com.spring.dallija.api.dto.SimpleOrdersDto;
-import com.spring.dallija.domain.order.Orders;
+import com.spring.dallija.domain.order.Order;
 import com.spring.dallija.repository.OrdersRepositoryImpl;
 import com.spring.dallija.service.OrdersService;
 import lombok.RequiredArgsConstructor;
@@ -36,15 +36,15 @@ public class OrdersApiController {
     }
 
     @GetMapping("/v1/simple-orders")
-    public List<Orders> ordersV1(){
-        List<Orders> all = ordersRepository.findAllByString(new OrderDto.OrderSearch());
+    public List<Order> ordersV1(){
+        List<Order> all = ordersRepository.findAllByString(new OrderDto.OrderSearch());
         return all;
     }
 
     //성능 안나옴. N + 1 LAZY 때문.
     @GetMapping("/v2/simple-orders")
     public List<OrderDto.FindAllOrdersResponse> ordersV2(){
-        List<Orders> orders = ordersRepository.findAllByString(new OrderDto.OrderSearch());
+        List<Order> orders = ordersRepository.findAllByString(new OrderDto.OrderSearch());
 
         List<OrderDto.FindAllOrdersResponse> result = orders.stream()
                 .map(o -> new OrderDto.FindAllOrdersResponse(o))

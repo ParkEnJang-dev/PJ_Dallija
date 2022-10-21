@@ -19,19 +19,19 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Orders {
+@Table(name = "orders")
+public class Order {
 
     @Id
     @GeneratedValue
-    @Column(name = "order_seq")
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "user_seq")
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
-    private List<OrdersItems> ordersItems = new ArrayList<>();
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> ordersItems = new ArrayList<>();
 
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")
@@ -47,7 +47,7 @@ public class Orders {
         user.getOrders().add(this);
     }
 
-    public void addOrderItem(OrdersItems ordersItem) {
+    public void addOrderItem(OrderItem ordersItem) {
         this.ordersItems.add(ordersItem);
         ordersItem.addOrder(this);
     }
@@ -57,22 +57,22 @@ public class Orders {
         delivery.addOrders(this);
     }
 
-    public Orders(User user, LocalDateTime orderTime, OrderStatus status, Delivery delivery) {
+    public Order(User user, LocalDateTime orderTime, OrderStatus status, Delivery delivery) {
         addUser(user);
         this.orderTime = orderTime;
         this.status = status;
         addDelivery(delivery);
     }
 
-    public static Orders createOrder(User user, Delivery delivery, OrdersItems... ordersItems) {
-        Orders order = new Orders(
+    public static Order createOrder(User user, Delivery delivery, OrderItem... ordersItems) {
+        Order order = new Order(
                 user,
                 LocalDateTime.now(),
                 OrderStatus.ORDER,
                 delivery
         );
 
-        for (OrdersItems ordersItem : ordersItems) {
+        for (OrderItem ordersItem : ordersItems) {
             order.addOrderItem(ordersItem);
         }
 
@@ -88,7 +88,7 @@ public class Orders {
         }
 
         this.status = OrderStatus.CANCEL;
-        this.ordersItems.forEach(OrdersItems::cancel);
+        this.ordersItems.forEach(OrderItem::cancel);
     }
 
     /**
@@ -96,7 +96,7 @@ public class Orders {
      */
     public int getTotalPrice() {
         return this.ordersItems.stream()
-                .mapToInt(OrdersItems::getTotalPrice)
+                .mapToInt(OrderItem::getTotalPrice)
                 .sum();
     }
 }

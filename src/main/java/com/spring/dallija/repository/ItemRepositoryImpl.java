@@ -1,6 +1,6 @@
 package com.spring.dallija.repository;
 
-import com.spring.dallija.domain.item.Items;
+import com.spring.dallija.domain.item.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -13,16 +13,16 @@ public class ItemRepositoryImpl {
 
     private final EntityManager em;
 
-    public void save(Items item) {
+    public void save(Item item) {
         em.persist(item);
     }
 
-    public Items findOne(Long id) {
-        return em.find(Items.class, id);
+    public Item findOne(Long id) {
+        return em.find(Item.class, id);
     }
 
-    public List<Items> findAll() {
-        return em.createQuery("select i from Items i", Items.class)
+    public List<Item> findAll() {
+        return em.createQuery("select i from Item i", Item.class)
                 .getResultList();
     }
 

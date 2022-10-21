@@ -1,6 +1,6 @@
 package com.spring.dallija.domain.category;
 
-import com.spring.dallija.domain.item.Items;
+import com.spring.dallija.domain.item.Item;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class CategoryItems {
+public class CategoryItem {
     @Id
     @GeneratedValue
     @Column(name = "category_items_seq")
@@ -24,5 +24,5 @@ public class CategoryItems {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_seq")
-    private Items items;
+    private Item item;
 }

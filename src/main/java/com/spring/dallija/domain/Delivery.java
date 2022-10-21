@@ -1,6 +1,6 @@
 package com.spring.dallija.domain;
 
-import com.spring.dallija.domain.order.Orders;
+import com.spring.dallija.domain.order.Order;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,11 +18,10 @@ public class Delivery {
 
     @Id
     @GeneratedValue
-    @Column(name = "delivery_id")
     private Long id;
 
     @OneToOne(mappedBy = "delivery", fetch = LAZY)
-    private Orders orders;
+    private Order order;
 
     @Embedded
     private Address address;
@@ -34,7 +33,7 @@ public class Delivery {
         this.address = address;
     }
 
-    public void addOrders(Orders orders) {
-        this.orders = orders;
+    public void addOrders(Order order) {
+        this.order = order;
     }
 }

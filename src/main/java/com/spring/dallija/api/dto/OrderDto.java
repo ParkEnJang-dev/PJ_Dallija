@@ -2,10 +2,9 @@ package com.spring.dallija.api.dto;
 
 import com.spring.dallija.domain.Address;
 import com.spring.dallija.domain.order.OrderStatus;
-import com.spring.dallija.domain.order.Orders;
+import com.spring.dallija.domain.order.Order;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -53,7 +52,7 @@ public class OrderDto {
         private OrderStatus orderStatus;
         private Address address;
 
-        public FindAllOrdersResponse(Orders order){
+        public FindAllOrdersResponse(Order order){
             this.orderId = order.getId();
             this.name = order.getUser().getName();
             this.orderDate = order.getOrderTime();
