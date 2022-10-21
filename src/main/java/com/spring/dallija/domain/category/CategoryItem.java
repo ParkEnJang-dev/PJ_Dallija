@@ -15,14 +15,13 @@ import javax.persistence.*;
 public class CategoryItem {
     @Id
     @GeneratedValue
-    @Column(name = "category_items_seq")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_seq")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_seq")
+    @JoinColumn(name = "item_id")
     private Item item;
 }
