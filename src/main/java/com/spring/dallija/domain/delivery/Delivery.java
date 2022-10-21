@@ -1,5 +1,7 @@
-package com.spring.dallija.domain;
+package com.spring.dallija.domain.delivery;
 
+import com.spring.dallija.domain.Address;
+import com.spring.dallija.domain.BaseTimeEntity;
 import com.spring.dallija.domain.order.Order;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -27,7 +29,7 @@ public class Delivery extends BaseTimeEntity {
     private Address address;
 
     @Enumerated(value = EnumType.STRING)
-    private DeliveryStatus deliveryStatus;
+    private DeliveryStatus status;
 
     public Delivery(Address address) {
         this.address = address;

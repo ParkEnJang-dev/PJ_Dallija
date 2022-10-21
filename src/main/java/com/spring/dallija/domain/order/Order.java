@@ -1,8 +1,8 @@
 package com.spring.dallija.domain.order;
 
 import com.spring.dallija.domain.BaseTimeEntity;
-import com.spring.dallija.domain.Delivery;
-import com.spring.dallija.domain.DeliveryStatus;
+import com.spring.dallija.domain.delivery.Delivery;
+import com.spring.dallija.domain.delivery.DeliveryStatus;
 import com.spring.dallija.domain.user.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -84,7 +84,7 @@ public class Order extends BaseTimeEntity {
      * 주문 취소
      */
     public void cancel() {
-        if (delivery.getDeliveryStatus() == DeliveryStatus.SHIPPING) {
+        if (delivery.getStatus() == DeliveryStatus.SHIPPING) {
             throw new IllegalStateException("배송중인 상품은 취소가 불가능합니다.");
         }
 
