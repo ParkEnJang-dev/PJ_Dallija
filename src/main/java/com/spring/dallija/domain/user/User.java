@@ -3,10 +3,14 @@ package com.spring.dallija.domain.user;
 import com.spring.dallija.domain.Address;
 import com.spring.dallija.domain.BaseTimeEntity;
 import com.spring.dallija.domain.order.Order;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +29,7 @@ public class User extends BaseTimeEntity {
     @NotEmpty
     private String name;
 
-    @NotEmpty
+    @NotNull
     @Column(unique = true)
     private String email;
 
