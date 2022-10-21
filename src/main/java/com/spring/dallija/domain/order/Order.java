@@ -3,6 +3,7 @@ package com.spring.dallija.domain.order;
 import com.spring.dallija.domain.BaseTimeEntity;
 import com.spring.dallija.domain.delivery.Delivery;
 import com.spring.dallija.domain.delivery.DeliveryStatus;
+import com.spring.dallija.domain.payment.Payment;
 import com.spring.dallija.domain.user.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -37,6 +38,10 @@ public class Order extends BaseTimeEntity {
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
+
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
 
     private LocalDateTime orderTime;
 
