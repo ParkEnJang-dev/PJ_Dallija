@@ -4,10 +4,9 @@ import com.spring.dallija.domain.Address;
 import com.spring.dallija.domain.user.GenderStatus;
 import com.spring.dallija.domain.user.Health;
 import com.spring.dallija.domain.user.User;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import javax.swing.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -61,5 +60,15 @@ public class UserDto {
         public CreateUserResponse(Long id) {
             this.id = id;
         }
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class LoginRequest{
+        private String email;
+        private String password;
+
     }
 }

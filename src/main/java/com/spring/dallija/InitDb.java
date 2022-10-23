@@ -23,9 +23,9 @@ public class InitDb {
 
     @PostConstruct
     public void init() {
-        //initService.dbInit();
-        //initService.dbInit1();
-        //initService.dbInit2();
+        initService.dbInit();
+        initService.dbInit1();
+        initService.dbInit2();
     }
 
     @Component
@@ -58,6 +58,7 @@ public class InitDb {
             Order order = Order.createOrder(user, delivery, orderItem, orderItem2);
 
             em.persist(order);
+
 
         }
 

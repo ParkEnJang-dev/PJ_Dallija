@@ -3,7 +3,6 @@ package com.spring.dallija.service;
 import com.spring.dallija.api.dto.OrderDto;
 import com.spring.dallija.domain.Address;
 import com.spring.dallija.domain.item.Item;
-import com.spring.dallija.domain.item.Meat;
 import com.spring.dallija.domain.order.Order;
 import com.spring.dallija.domain.order.OrderStatus;
 import com.spring.dallija.domain.user.GenderStatus;
@@ -42,7 +41,7 @@ public class OrderServiceIntegTest {
     public void 상품주문() throws Exception {
         //given
         User user = createUser();
-        Meat meat = createMeat("소고기 볶음", 10000, 100);
+        Item meat = createMeat("소고기 볶음", 10000, 100);
 
         //when
         OrderDto.SaveOrderRequest saveOrderRequest =
@@ -85,11 +84,11 @@ public class OrderServiceIntegTest {
     public void 상품주문_재고초과() throws Exception {
         //given
         User user = createUser();
-        Meat meat = createMeat("소고기 볶음", 10000, 10);
+        Item item = createMeat("소고기 볶음", 10000, 10);
 
         //when
         OrderDto.SaveOrderRequest saveOrderRequest =
-                new OrderDto.SaveOrderRequest(user.getId(), meat.getId(), 11, "을지로", "222222");
+                new OrderDto.SaveOrderRequest(user.getId(), item.getId(), 11, "을지로", "222222");
 
         assertThrows(NotEnoughStockException.class, () -> ordersService.saveOrder(saveOrderRequest),
                 "재고가 없습니다.");
@@ -100,8 +99,8 @@ public class OrderServiceIntegTest {
     }
 
 
-    private Meat createMeat(String name, int price, int stockQuantity) {
-        Meat meat = new Meat(name, price, stockQuantity, "횡성", LocalDateTime.now(), "BEEF");
+    private Item createMeat(String name, int price, int stockQuantity) {
+        Item meat = new Item(name, price, stockQuantity, "횡성");
         em.persist(meat);
         return meat;
     }
