@@ -1,4 +1,4 @@
-package com.spring.dallija.exception;
+package com.spring.dallija.exception.order;
 
 public class NotEnoughStockException extends RuntimeException {
 

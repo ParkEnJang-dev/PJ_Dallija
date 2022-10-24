@@ -42,6 +42,7 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
             return null;
         }*/
 
+        //없으면 null
         return loginService.getLoginUser();
     }
 }

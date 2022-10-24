@@ -27,13 +27,13 @@ public class UserApiController {
     private final UserService userService;
     private final LoginService loginService;
 
-    @PostMapping("/v1/users")
-    public CreateUserResponse saveUserV1(@RequestBody @Valid CreateUserRequest request) {
+    @PostMapping("/user")
+    public CreateUserResponse saveUser(@RequestBody @Valid CreateUserRequest request) {
         Long id = userService.join(request.toEntity()).getId();
         return new CreateUserResponse(id);
     }
 
-    @PatchMapping("/v1/usersName")
+    @PatchMapping("/userName")
     public void updateName(@RequestBody CreateUserRequest request) {
         userService.updateName(request.getEmail(), request.getName());
     }
@@ -45,10 +45,10 @@ public class UserApiController {
 
     @DeleteMapping("/logout")
     public void logout(@Login String email) {
-
         if (email == null) {
-            System.out.println("없어");
+            return;
         }
+        log.info("email info:: {}",email);
         loginService.logout();
     }
 

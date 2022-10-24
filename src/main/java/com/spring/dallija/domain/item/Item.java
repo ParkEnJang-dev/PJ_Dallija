@@ -3,7 +3,7 @@ package com.spring.dallija.domain.item;
 
 import com.spring.dallija.domain.BaseTimeEntity;
 import com.spring.dallija.domain.category.CategoryItem;
-import com.spring.dallija.exception.NotEnoughStockException;
+import com.spring.dallija.exception.order.NotEnoughStockException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

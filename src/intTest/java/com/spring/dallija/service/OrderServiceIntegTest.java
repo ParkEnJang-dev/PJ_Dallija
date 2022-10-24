@@ -8,7 +8,7 @@ import com.spring.dallija.domain.order.OrderStatus;
 import com.spring.dallija.domain.user.GenderStatus;
 import com.spring.dallija.domain.user.Health;
 import com.spring.dallija.domain.user.User;
-import com.spring.dallija.exception.NotEnoughStockException;
+import com.spring.dallija.exception.order.NotEnoughStockException;
 import com.spring.dallija.repository.OrdersRepositoryImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

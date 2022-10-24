@@ -2,6 +2,7 @@ package com.spring.dallija.service;
 
 
 import com.spring.dallija.domain.user.User;
+import com.spring.dallija.exception.user.DuplicateEmailException;
 import com.spring.dallija.repository.UserRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class UserService {
         userRepository.findByEmail(email).ifPresentOrElse(
                 u -> u.changeName(name),
                 () -> {
-                    throw new IllegalStateException("이메일이 없습니다.");
+                    throw new DuplicateEmailException("이메일이 없습니다.");
                 }
         );
     }
@@ -41,7 +42,7 @@ public class UserService {
     private void validateDuplicateUser(User user) {
         userRepository.findByEmail(user.getEmail())
                 .ifPresent(u -> {
-                    throw new IllegalStateException("이메일이 존재합니다");
+                    throw new DuplicateEmailException("이메일이 존재합니다");
                 });
     }
 
