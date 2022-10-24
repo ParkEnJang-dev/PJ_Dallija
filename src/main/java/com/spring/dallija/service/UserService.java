@@ -3,6 +3,7 @@ package com.spring.dallija.service;
 
 import com.spring.dallija.domain.user.User;
 import com.spring.dallija.exception.user.DuplicateEmailException;
+import com.spring.dallija.repository.UserRepository;
 import com.spring.dallija.repository.UserRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepositoryImpl userRepository;
+    private final UserRepository userRepository;
 
     /**
      * @param user 저장할 회원의 정보.
