@@ -8,6 +8,7 @@ import com.spring.dallija.domain.order.OrderItem;
 import com.spring.dallija.domain.user.GenderStatus;
 import com.spring.dallija.domain.user.Health;
 import com.spring.dallija.domain.user.User;
+import com.spring.dallija.domain.user.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +38,8 @@ public class InitDb {
         public void dbInit() {
             User user = createUser("Ab", "ABC@naver.com");
             em.persist(user);
+            User adminUser = createAdminUser("admin","admin@gmail.com");
+            em.persist(adminUser);
 
         }
 
@@ -96,6 +99,12 @@ public class InitDb {
             return new User(name, email, "1111",
                     new Address("한강로", "11111111"),
                     new Health(GenderStatus.MAN, 180, 49));
+        }
+
+        private User createAdminUser(String name, String email) {
+            return new User(name, email, "1111", UserRole.ADMIN,
+                    new Address("한강로", "11111111"),
+                    new Health(GenderStatus.WOMAN, 180, 49));
         }
     }
 }

@@ -4,7 +4,8 @@ package com.spring.dallija.api;
 import com.spring.dallija.api.dto.UserDto;
 import com.spring.dallija.api.dto.UserDto.CreateUserRequest;
 import com.spring.dallija.api.dto.UserDto.CreateUserResponse;
-import com.spring.dallija.common.anotation.Login;
+import com.spring.dallija.common.anotation.LoginCheck;
+import com.spring.dallija.common.anotation.LoginUser;
 import com.spring.dallija.service.LoginService;
 import com.spring.dallija.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -43,8 +44,9 @@ public class UserApiController {
         loginService.login(loginRequest);
     }
 
+    @LoginCheck
     @DeleteMapping("/logout")
-    public void logout(@Login String email) {
+    public void logout(@LoginUser String email) {
         if (email == null) {
             return;
         }
@@ -66,7 +68,7 @@ public class UserApiController {
         log.info("creationTime={}", new Date(session.getCreationTime()));
         log.info("lastAccessedTime={}", new
                 Date(session.getLastAccessedTime()));
-        log.info("isNew={}", session.isNew());
+        log.debug("isNew={}", session.isNew());
         return "세션 출력";
     }
 

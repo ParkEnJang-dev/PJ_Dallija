@@ -2,7 +2,7 @@ package com.spring.dallija.repository;
 
 
 import com.spring.dallija.api.dto.OrderDto;
-import com.spring.dallija.api.dto.SimpleOrdersDto;
+import com.spring.dallija.api.dto.OrdersDto;
 import com.spring.dallija.domain.order.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -70,12 +70,12 @@ public class OrdersRepositoryImpl {
 
     }
 
-    public List<SimpleOrdersDto> findOrderDtos() {
+    public List<OrdersDto> findOrderDtos() {
         return em.createQuery(
-                "select new com.spring.dallija.api.dto.SimpleOrdersDto(o.id, u.name, o.orderTime, o.status, d.address)" +
+                "select new com.spring.dallija.api.dto.OrdersDto(o.id, u.name, o.orderTime, o.status, d.address)" +
                         " from Order o" +
                         " join o.user u" +
-                        " join o.delivery d", SimpleOrdersDto.class
+                        " join o.delivery d", OrdersDto.class
         ).getResultList();
     }
 }

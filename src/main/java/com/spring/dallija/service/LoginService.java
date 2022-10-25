@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpSession;
 
 import static com.spring.dallija.common.constants.UserConst.USER_ID;
+import static com.spring.dallija.common.constants.UserConst.USER_ROLE;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +33,7 @@ public class LoginService {
             throw new UserNotMatchPasswordException("아이디 또는 비밀번호가 일치하지 않습니다.");
         }
         session.setAttribute(USER_ID, user.getEmail());
+        session.setAttribute(USER_ROLE, user.getUserRole());
     }
 
     public void logout(){
@@ -40,5 +42,9 @@ public class LoginService {
 
     public String getLoginUser(){
         return (String) session.getAttribute(USER_ID);
+    }
+
+    public String getLoginUserRole(){
+        return (String) session.getAttribute(USER_ROLE);
     }
 }

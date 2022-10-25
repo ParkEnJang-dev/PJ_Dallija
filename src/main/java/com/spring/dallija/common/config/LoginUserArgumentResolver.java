@@ -1,6 +1,6 @@
 package com.spring.dallija.common.config;
 
-import com.spring.dallija.common.anotation.Login;
+import com.spring.dallija.common.anotation.LoginUser;
 import com.spring.dallija.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
         log.info("supportsParameter 실행");
 
         //@Login 붙어 있는가 확인
-        boolean hasLoginAnnotation = parameter.hasParameterAnnotation(Login.class);
+        boolean hasLoginAnnotation = parameter.hasParameterAnnotation(LoginUser.class);
         boolean hasStringType = String.class.isAssignableFrom(parameter.getParameterType());
 
         return hasLoginAnnotation && hasStringType;

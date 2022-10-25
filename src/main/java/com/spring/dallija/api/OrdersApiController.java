@@ -1,7 +1,7 @@
 package com.spring.dallija.api;
 
 import com.spring.dallija.api.dto.OrderDto;
-import com.spring.dallija.api.dto.SimpleOrdersDto;
+import com.spring.dallija.api.dto.OrdersDto;
 import com.spring.dallija.domain.order.Order;
 import com.spring.dallija.repository.OrdersRepositoryImpl;
 import com.spring.dallija.service.OrdersService;
@@ -55,7 +55,7 @@ public class OrdersApiController {
 
     //간결하지만 유연하지 못하다.
     @GetMapping("/v4/simple-orders")
-    public List<SimpleOrdersDto> allOrders2(){
+    public List<OrdersDto> allOrders2(){
         return ordersRepository.findOrderDtos();
     }
 

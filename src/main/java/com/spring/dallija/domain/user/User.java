@@ -46,6 +46,9 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
+
     @OneToMany(mappedBy = "user")
     private List<Order> orders = new ArrayList<>();
 
@@ -53,6 +56,7 @@ public class User extends BaseTimeEntity {
         this.name = name;
         this.email = email;
         status = UserStatus.NORMAL;
+        userRole = UserRole.USER;
     }
 
     public User(String name, String email, String password) {
@@ -60,6 +64,7 @@ public class User extends BaseTimeEntity {
         this.email = email;
         this.password = password;
         status = UserStatus.NORMAL;
+        userRole = UserRole.USER;
     }
 
     public User(String name, String email, String password, Address address, Health health) {
@@ -69,6 +74,17 @@ public class User extends BaseTimeEntity {
         this.address = address;
         this.health = health;
         status = UserStatus.NORMAL;
+        userRole = UserRole.USER;
+    }
+
+    public User(String name, String email, String password, UserRole userRole, Address address, Health health) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.health = health;
+        this.userRole = userRole;
+        status = UserStatus.NORMAL;
     }
 
     public User(Long id, String name, String email) {
@@ -76,6 +92,7 @@ public class User extends BaseTimeEntity {
         this.name = name;
         this.email = email;
         status = UserStatus.NORMAL;
+        userRole = UserRole.USER;
     }
 
     public void changeName(String name) {
