@@ -2,6 +2,7 @@ package com.spring.dallija.exception;
 
 import com.spring.dallija.exception.user.DuplicateEmailException;
 import com.spring.dallija.exception.user.UnLoginException;
+import com.spring.dallija.exception.user.UnRoleUserException;
 import com.spring.dallija.exception.user.UserNotMatchPasswordException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -10,8 +11,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-
-import java.time.LocalDateTime;
 
 @Slf4j
 @RestControllerAdvice(basePackages = "com.spring.dallija.api")
@@ -29,6 +28,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity(new ErrorResponse(e.getMessage()), HttpStatus.CONFLICT);
     }
 
+    //validation 오류
     @ExceptionHandler
     public final ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.debug(e.getFieldError().getDefaultMessage(), e);
@@ -38,7 +38,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     public final ResponseEntity<ErrorResponse> handleUnLoginException(UnLoginException e, WebRequest request) {
         log.debug("fail address ::  {}", request.getDescription(false), e);
-        return new ResponseEntity(new ErrorResponse("로그인 후 이용해주세요"), HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity(new ErrorResponse(e.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<ErrorResponse> handleUnRoleUserException(UnRoleUserException e) {
+        log.debug(e.getMessage(), e);
+        return new ResponseEntity(new ErrorResponse(e.getMessage()), HttpStatus.FORBIDDEN);
     }
 
 }

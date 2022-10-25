@@ -2,6 +2,7 @@ package com.spring.dallija.service;
 
 import com.spring.dallija.api.dto.UserDto;
 import com.spring.dallija.domain.user.User;
+import com.spring.dallija.domain.user.UserRole;
 import com.spring.dallija.exception.user.UserNotMatchPasswordException;
 import com.spring.dallija.repository.UserRepository;
 import com.spring.dallija.repository.UserRepositoryImpl;
@@ -44,7 +45,7 @@ public class LoginService {
         return (String) session.getAttribute(USER_ID);
     }
 
-    public String getLoginUserRole(){
-        return (String) session.getAttribute(USER_ROLE);
+    public UserRole getLoginUserRole(){
+        return (UserRole) session.getAttribute(USER_ROLE);
     }
 }
