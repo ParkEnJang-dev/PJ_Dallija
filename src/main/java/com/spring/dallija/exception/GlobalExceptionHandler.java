@@ -5,6 +5,7 @@ import com.spring.dallija.exception.user.UserNotMatchPasswordException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -22,6 +23,12 @@ public class GlobalExceptionHandler {
     public final ResponseEntity<ErrorResponse> handleDuplicateEmailException(DuplicateEmailException e){
         log.debug("이메일 중복",e);
         return new ResponseEntity( new ErrorResponse(e.getMessage()), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<ErrorResponse> handleDuplicateEmailException(MethodArgumentNotValidException e){
+        log.debug(e.getFieldError().getDefaultMessage(), e);
+        return new ResponseEntity( new ErrorResponse(e.getFieldError().getDefaultMessage()), HttpStatus.BAD_REQUEST);
     }
 
 }
