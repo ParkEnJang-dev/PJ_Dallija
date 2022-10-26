@@ -40,7 +40,7 @@ public class ItemService {
     }
 
     public Page<ItemResponse> findAll(Pageable pageable) {
-        return itemRepository.findAll(pageable).map(i-> i.buildItemResponse());
+        return itemRepository.findAll(pageable).map(ItemResponse::new);
     }
 
 }

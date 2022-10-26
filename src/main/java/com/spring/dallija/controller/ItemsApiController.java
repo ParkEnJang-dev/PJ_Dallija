@@ -33,7 +33,7 @@ public class ItemsApiController {
 
     @GetMapping("/{id}")
     public ItemResponse findItem(@PathVariable Long id){
-        return itemService.findById(id).buildItemResponse();
+        return new ItemResponse(itemService.findById(id));
     }
 
     @GetMapping

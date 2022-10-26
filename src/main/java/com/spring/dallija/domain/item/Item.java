@@ -66,14 +66,4 @@ public class Item extends BaseTimeEntity {
         this.stockQuantity = tempStock;
     }
 
-    public ItemDto.ItemResponse buildItemResponse(){
-        return ItemDto.ItemResponse.builder()
-                .id(this.id)
-                .name(this.name)
-                .price(this.price)
-                .stockQuantity(this.stockQuantity)
-                .originCity(this.originCity)
-                .status(this.status)
-                .build();
-    }
 }

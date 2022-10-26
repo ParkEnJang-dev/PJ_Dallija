@@ -2,6 +2,7 @@ package com.spring.dallija.controller.dto;
 
 import com.spring.dallija.domain.item.Item;
 import com.spring.dallija.domain.item.ItemStatus;
+import com.spring.dallija.domain.user.User;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -64,8 +65,6 @@ public class ItemDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    @AllArgsConstructor
-    @Builder
     public static class ItemResponse {
 
         private Long id;
@@ -74,5 +73,15 @@ public class ItemDto {
         private Integer stockQuantity;
         private String originCity;
         private ItemStatus status;
+
+        public ItemResponse(Item item){
+            this.id = item.getId();
+            this.name = item.getName();
+            this.price = item.getPrice();
+            this.stockQuantity = item.getStockQuantity();
+            this.originCity = item.getOriginCity();
+            this.status = item.getStatus();
+        }
+
     }
 }

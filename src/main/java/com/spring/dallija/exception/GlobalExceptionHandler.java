@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 @Slf4j
-@RestControllerAdvice(basePackages = "com.spring.dallija.api")
+@RestControllerAdvice(basePackages = "com.spring.dallija")
 public class GlobalExceptionHandler {
 
     @ExceptionHandler
