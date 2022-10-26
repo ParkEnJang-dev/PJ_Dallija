@@ -3,6 +3,7 @@ package com.spring.dallija.domain.item;
 
 import com.spring.dallija.controller.dto.ItemDto;
 import com.spring.dallija.domain.BaseTimeEntity;
+import com.spring.dallija.domain.cart.Cart;
 import com.spring.dallija.domain.category.CategoryItem;
 import com.spring.dallija.exception.order.NotEnoughStockException;
 import lombok.AccessLevel;
@@ -38,6 +39,9 @@ public class Item extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "item")
     private List<CategoryItem> categoryItem = new ArrayList<>();
+
+    @OneToMany(mappedBy = "item")
+    private List<Cart> carts = new ArrayList<>();
 
     public Item(String name, int price, int stockQuantity, String originCity) {
         this.name = name;

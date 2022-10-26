@@ -1,10 +1,7 @@
 package com.spring.dallija.exception;
 
-import com.spring.dallija.exception.item.NotFoundItemException;
-import com.spring.dallija.exception.user.DuplicateEmailException;
-import com.spring.dallija.exception.user.UnLoginException;
-import com.spring.dallija.exception.user.UnRoleUserException;
-import com.spring.dallija.exception.user.UserNotMatchPasswordException;
+import com.spring.dallija.exception.item.ItemNotFoundException;
+import com.spring.dallija.exception.user.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,8 +53,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler
-    public final ResponseEntity<ErrorResponse> handleNotFoundItemException(NotFoundItemException e) {
+    public final ResponseEntity<ErrorResponse> handleNotFoundItemException(ItemNotFoundException e) {
         log.debug(e.getMessage(), e);
-        return new ResponseEntity(new ErrorResponse("상품을 찾을 수 없습니다."), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(new ErrorResponse("상품을 찾을 수 없습니다."), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException e) {
+        log.debug(e.getMessage(), e);
+        return new ResponseEntity(new ErrorResponse("유저를 찾을 수 없습니다."), HttpStatus.NOT_FOUND);
     }
 }

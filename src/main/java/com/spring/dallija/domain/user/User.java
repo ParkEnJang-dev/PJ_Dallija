@@ -2,6 +2,7 @@ package com.spring.dallija.domain.user;
 
 import com.spring.dallija.domain.Address;
 import com.spring.dallija.domain.BaseTimeEntity;
+import com.spring.dallija.domain.cart.Cart;
 import com.spring.dallija.domain.order.Order;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -51,6 +52,9 @@ public class User extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Cart> carts = new ArrayList<>();
 
     public User(String name, String email) {
         this.name = name;
