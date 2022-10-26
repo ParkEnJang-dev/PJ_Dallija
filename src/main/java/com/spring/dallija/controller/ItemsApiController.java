@@ -1,4 +1,4 @@
-package com.spring.dallija.api;
+package com.spring.dallija.controller;
 
 import com.spring.dallija.common.anotation.LoginCheck;
 import com.spring.dallija.domain.user.UserRole;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static com.spring.dallija.api.dto.ItemDto.*;
+import static com.spring.dallija.controller.dto.ItemDto.*;
 
 @RestController
 @RequiredArgsConstructor

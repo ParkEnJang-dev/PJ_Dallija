@@ -1,7 +1,7 @@
 package com.spring.dallija.domain.item;
 
 
-import com.spring.dallija.api.dto.ItemDto;
+import com.spring.dallija.controller.dto.ItemDto;
 import com.spring.dallija.domain.BaseTimeEntity;
 import com.spring.dallija.domain.category.CategoryItem;
 import com.spring.dallija.exception.order.NotEnoughStockException;
@@ -73,6 +73,7 @@ public class Item extends BaseTimeEntity {
                 .price(this.price)
                 .stockQuantity(this.stockQuantity)
                 .originCity(this.originCity)
+                .status(this.status)
                 .build();
     }
 }

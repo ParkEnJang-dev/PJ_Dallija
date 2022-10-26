@@ -1,7 +1,7 @@
-package com.spring.dallija.api;
+package com.spring.dallija.controller;
 
-import com.spring.dallija.api.dto.OrderDto;
-import com.spring.dallija.api.dto.OrdersDto;
+import com.spring.dallija.controller.dto.OrderDto;
+import com.spring.dallija.controller.dto.OrdersDto;
 import com.spring.dallija.domain.order.Order;
 import com.spring.dallija.repository.OrdersRepositoryImpl;
 import com.spring.dallija.service.OrdersService;

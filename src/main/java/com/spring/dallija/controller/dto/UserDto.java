@@ -1,4 +1,4 @@
-package com.spring.dallija.api.dto;
+package com.spring.dallija.controller.dto;
 
 import com.spring.dallija.domain.Address;
 import com.spring.dallija.domain.user.GenderStatus;

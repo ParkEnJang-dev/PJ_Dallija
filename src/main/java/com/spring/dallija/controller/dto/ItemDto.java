@@ -1,6 +1,7 @@
-package com.spring.dallija.api.dto;
+package com.spring.dallija.controller.dto;
 
 import com.spring.dallija.domain.item.Item;
+import com.spring.dallija.domain.item.ItemStatus;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -72,5 +73,6 @@ public class ItemDto {
         private Integer price;
         private Integer stockQuantity;
         private String originCity;
+        private ItemStatus status;
     }
 }

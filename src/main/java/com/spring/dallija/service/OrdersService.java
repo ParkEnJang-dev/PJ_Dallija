@@ -1,6 +1,6 @@
 package com.spring.dallija.service;
 
-import com.spring.dallija.api.dto.OrderDto;
+import com.spring.dallija.controller.dto.OrderDto;
 import com.spring.dallija.domain.Address;
 import com.spring.dallija.domain.delivery.Delivery;
 import com.spring.dallija.domain.item.Item;

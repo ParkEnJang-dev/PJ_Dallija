@@ -89,6 +89,7 @@ sourceSets {
 configurations {
     intTestImplementation.extendsFrom implementation
     intTestImplementation.extendsFrom testImplementation
+    intTestCompileOnly.extendsFrom testCompileOnly
     intTestRuntimeOnly.extendsFrom testRuntimeOnly
 
     querydsl.extendsFrom compileClasspath

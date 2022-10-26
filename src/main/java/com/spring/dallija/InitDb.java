@@ -27,6 +27,7 @@ public class InitDb {
         initService.dbInit();
         initService.dbInit1();
         initService.dbInit2();
+        initService.dbInit3();
     }
 
     @Component
@@ -85,6 +86,17 @@ public class InitDb {
             em.persist(order);
 
         }
+
+        public void dbInit3() {
+            for (int i =1 ; i <= 100 ; i++){
+                Item item1 = createItem("양배추 볶음");
+                em.persist(item1);
+            }
+
+
+        }
+
+
 
 
         private Delivery createDelivery(String street) {

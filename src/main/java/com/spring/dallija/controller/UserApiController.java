@@ -1,9 +1,9 @@
-package com.spring.dallija.api;
+package com.spring.dallija.controller;
 
 
-import com.spring.dallija.api.dto.UserDto;
-import com.spring.dallija.api.dto.UserDto.CreateUserRequest;
-import com.spring.dallija.api.dto.UserDto.CreateUserResponse;
+import com.spring.dallija.controller.dto.UserDto;
+import com.spring.dallija.controller.dto.UserDto.CreateUserRequest;
+import com.spring.dallija.controller.dto.UserDto.CreateUserResponse;
 import com.spring.dallija.common.anotation.LoginCheck;
 import com.spring.dallija.common.anotation.LoginUser;
 import com.spring.dallija.domain.user.UserRole;
