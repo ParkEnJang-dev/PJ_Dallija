@@ -4,7 +4,8 @@ import com.spring.dallija.domain.Address;
 import com.spring.dallija.domain.user.GenderStatus;
 import com.spring.dallija.domain.user.Health;
 import com.spring.dallija.domain.user.User;
-import com.spring.dallija.repository.UserRepositoryImpl;
+import com.spring.dallija.exception.user.DuplicateEmailException;
+import com.spring.dallija.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class UserServiceIntegTest {
 
     @Autowired
-    UserRepositoryImpl userRepository;
+    UserRepository userRepository;
 
     @Autowired
     UserService userService;
 
     @Test
     @Transactional
-    @Rollback(value = false)
     public void 유저_저장() throws Exception {
         //given
         Address address = new Address("한강로", "111-222");
@@ -59,7 +59,7 @@ class UserServiceIntegTest {
         //when
 
         //then
-        assertThrows(IllegalStateException.class,
+        assertThrows(DuplicateEmailException.class,
                 () -> userService.join(user2));
     }
 
@@ -67,11 +67,11 @@ class UserServiceIntegTest {
     @Transactional
     public void 유저이름_변경성공() throws Exception {
         //given
-        User user1 = new User("min", "min@naver.com");
+        User user1 = new User("min4", "min4@naver.com","11111111");
         userService.join(user1);
 
         //when
-        userService.updateName("min@naver.com", "min2");
+        userService.updateName("min4@naver.com", "min2");
         User findUser = userService.findById(user1.getId()).get();
 
         //then
@@ -82,12 +82,12 @@ class UserServiceIntegTest {
     @Transactional
     public void 유저이름_변경실패__해당_이메일없음() throws Exception {
         //given
-        User user1 = new User("min", "min@naver.com");
+        User user1 = new User("min", "min4@naver.com","11111111");
         userService.join(user1);
 
         //when
         //then
-        assertThrows(IllegalStateException.class,
+        assertThrows(DuplicateEmailException.class,
                 () -> userService.updateName("min1@naver.com", "min2")
         );
 

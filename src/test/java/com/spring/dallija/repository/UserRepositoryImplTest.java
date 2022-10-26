@@ -16,7 +16,7 @@ import static org.mockito.BDDMockito.given;
 class UserRepositoryImplTest {
 
     @Mock
-    UserRepositoryImpl userRepository;
+    UserRepository userRepository;
 
     @Test
     public void 유저_저장() throws Exception {

@@ -36,7 +36,6 @@ public class OrderServiceIntegTest {
     OrdersRepositoryImpl ordersRepository;
 
     @Test
-    @Rollback(value = false)
     public void 상품주문() throws Exception {
         //given
         User user = createUser();
@@ -105,7 +104,7 @@ public class OrderServiceIntegTest {
     }
 
     private User createUser() {
-        User user = new User("min", "min@naver.com", "111111",
+        User user = new User("min10", "min10@naver.com", "11111111",
                 new Address("한강로", "1232-2"),
                 new Health(GenderStatus.MAN, 129, 239));
         em.persist(user);

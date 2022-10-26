@@ -1,6 +1,7 @@
 package com.spring.dallija.domain.item;
 
 
+import com.spring.dallija.api.dto.ItemDto;
 import com.spring.dallija.domain.BaseTimeEntity;
 import com.spring.dallija.domain.category.CategoryItem;
 import com.spring.dallija.exception.order.NotEnoughStockException;
@@ -63,5 +64,15 @@ public class Item extends BaseTimeEntity {
             throw new NotEnoughStockException("재고가 없습니다.");
         }
         this.stockQuantity = tempStock;
+    }
+
+    public ItemDto.ItemResponse buildItemResponse(){
+        return ItemDto.ItemResponse.builder()
+                .id(this.id)
+                .name(this.name)
+                .price(this.price)
+                .stockQuantity(this.stockQuantity)
+                .originCity(this.originCity)
+                .build();
     }
 }

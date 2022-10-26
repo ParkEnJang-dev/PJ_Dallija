@@ -5,7 +5,6 @@ import com.spring.dallija.domain.user.User;
 import com.spring.dallija.domain.user.UserRole;
 import com.spring.dallija.exception.user.UserNotMatchPasswordException;
 import com.spring.dallija.repository.UserRepository;
-import com.spring.dallija.repository.UserRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

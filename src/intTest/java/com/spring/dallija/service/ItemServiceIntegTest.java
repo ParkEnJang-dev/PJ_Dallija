@@ -2,7 +2,7 @@ package com.spring.dallija.service;
 
 import com.spring.dallija.api.dto.ItemDto;
 import com.spring.dallija.domain.item.Item;
-import com.spring.dallija.repository.ItemRepositoryImpl;
+import com.spring.dallija.repository.ItemRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ItemServiceIntegTest {
 
     @Autowired
-    ItemRepositoryImpl itemRepository;
+    ItemRepository itemRepository;
 
     @Autowired
     ItemService itemService;

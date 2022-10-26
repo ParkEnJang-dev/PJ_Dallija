@@ -1,7 +1,7 @@
 package com.spring.dallija.service;
 
 import com.spring.dallija.domain.user.User;
-import com.spring.dallija.repository.UserRepositoryImpl;
+import com.spring.dallija.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,7 +21,7 @@ import static org.mockito.BDDMockito.given;
 class UserServiceTest {
 
     @Mock
-    private UserRepositoryImpl userRepository;
+    private UserRepository userRepository;
 
     @InjectMocks
     private UserService userService;

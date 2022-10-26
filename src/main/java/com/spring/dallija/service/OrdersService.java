@@ -7,9 +7,10 @@ import com.spring.dallija.domain.item.Item;
 import com.spring.dallija.domain.order.Order;
 import com.spring.dallija.domain.order.OrderItem;
 import com.spring.dallija.domain.user.User;
-import com.spring.dallija.repository.ItemRepositoryImpl;
+import com.spring.dallija.exception.item.NotFoundItemException;
+import com.spring.dallija.repository.ItemRepository;
 import com.spring.dallija.repository.OrdersRepositoryImpl;
-import com.spring.dallija.repository.UserRepositoryImpl;
+import com.spring.dallija.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,14 +25,15 @@ import java.util.stream.Collectors;
 public class OrdersService {
 
     private final OrdersRepositoryImpl ordersRepository;
-    private final UserRepositoryImpl userRepository;
-    private final ItemRepositoryImpl itemRepository;
+    private final UserRepository userRepository;
+    private final ItemRepository itemRepository;
 
     @Transactional
     public Long saveOrder(OrderDto.SaveOrderRequest saveOrderRequest) {
 
         User user = userRepository.findById(saveOrderRequest.getUserId()).get();
-        Item item = itemRepository.findOne(saveOrderRequest.getItemId());
+        Item item = itemRepository.findById(saveOrderRequest.getItemId())
+                .orElseThrow(NotFoundItemException::new);
 
         Delivery delivery = new Delivery(new Address(
                 saveOrderRequest.getStreet(),

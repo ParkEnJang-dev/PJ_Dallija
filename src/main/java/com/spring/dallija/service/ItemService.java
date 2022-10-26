@@ -4,7 +4,6 @@ import com.spring.dallija.api.dto.ItemDto;
 import com.spring.dallija.domain.item.Item;
 import com.spring.dallija.exception.item.NotFoundItemException;
 import com.spring.dallija.repository.ItemRepository;
-import com.spring.dallija.repository.ItemRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

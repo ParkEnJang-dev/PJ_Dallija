@@ -60,4 +60,17 @@ public class ItemDto {
             this.stockQuantity = stockQuantity;
         }
     }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor
+    @Builder
+    public static class ItemResponse {
+
+        private Long id;
+        private String name;
+        private Integer price;
+        private Integer stockQuantity;
+        private String originCity;
+    }
 }
