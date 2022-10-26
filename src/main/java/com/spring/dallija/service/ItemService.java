@@ -2,6 +2,8 @@ package com.spring.dallija.service;
 
 import com.spring.dallija.api.dto.ItemDto;
 import com.spring.dallija.domain.item.Item;
+import com.spring.dallija.exception.item.NotFoundItemException;
+import com.spring.dallija.repository.ItemRepository;
 import com.spring.dallija.repository.ItemRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemService {
 
-    private final ItemRepositoryImpl itemRepository;
+    private final ItemRepository itemRepository;
 
     @Transactional
     public Item saveItem(Item item) {
@@ -24,7 +26,7 @@ public class ItemService {
 
     @Transactional
     public Item updateItem(ItemDto.UpdateItemsRequest updateItemsRequest) {
-        Item findItem = findOne(updateItemsRequest.getId());
+        Item findItem = findById(updateItemsRequest.getId());
 
         findItem.changeItem(updateItemsRequest.getName(),
                 updateItemsRequest.getPrice(),
@@ -33,8 +35,8 @@ public class ItemService {
         return findItem;
     }
 
-    public Item findOne(Long itemId) {
-        return itemRepository.findOne(itemId);
+    public Item findById(Long itemId) {
+        return itemRepository.findById(itemId).orElseThrow(NotFoundItemException::new);
     }
 
     public List<Item> findItems() {

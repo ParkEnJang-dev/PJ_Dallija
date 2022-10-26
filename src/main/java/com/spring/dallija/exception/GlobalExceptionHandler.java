@@ -1,5 +1,6 @@
 package com.spring.dallija.exception;
 
+import com.spring.dallija.exception.item.NotFoundItemException;
 import com.spring.dallija.exception.user.DuplicateEmailException;
 import com.spring.dallija.exception.user.UnLoginException;
 import com.spring.dallija.exception.user.UnRoleUserException;
@@ -52,5 +53,11 @@ public class GlobalExceptionHandler {
     public final ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         log.debug(e.getMessage(), e);
         return new ResponseEntity(new ErrorResponse("json 타입을 확인해주세요."), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<ErrorResponse> handleNotFoundItemException(NotFoundItemException e) {
+        log.debug(e.getMessage(), e);
+        return new ResponseEntity(new ErrorResponse("상품을 찾을 수 없습니다."), HttpStatus.BAD_REQUEST);
     }
 }

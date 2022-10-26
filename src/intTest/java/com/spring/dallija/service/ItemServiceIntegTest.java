@@ -31,7 +31,7 @@ public class ItemServiceIntegTest {
         itemService.saveItem(item);
 
         //when
-        Item findItem = itemService.findOne(item.getId());
+        Item findItem = itemService.findById(item.getId());
 
         //then
         assertThat(findItem).isEqualTo(item);
