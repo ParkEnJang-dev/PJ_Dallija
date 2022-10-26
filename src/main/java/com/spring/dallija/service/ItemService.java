@@ -1,6 +1,6 @@
 package com.spring.dallija.service;
 
-import com.spring.dallija.api.dto.ItemsDto;
+import com.spring.dallija.api.dto.ItemDto;
 import com.spring.dallija.domain.item.Item;
 import com.spring.dallija.repository.ItemRepositoryImpl;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class ItemService {
     }
 
     @Transactional
-    public Item updateItem(ItemsDto.UpdateItemsRequest updateItemsRequest) {
+    public Item updateItem(ItemDto.UpdateItemsRequest updateItemsRequest) {
         Item findItem = findOne(updateItemsRequest.getId());
 
         findItem.changeItem(updateItemsRequest.getName(),

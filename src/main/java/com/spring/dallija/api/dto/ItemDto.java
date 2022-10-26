@@ -3,10 +3,12 @@ package com.spring.dallija.api.dto;
 import com.spring.dallija.domain.item.Item;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
-public class ItemsDto {
+public class ItemDto {
 
 
     @Getter
@@ -15,21 +17,17 @@ public class ItemsDto {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class SaveItemsRequest {
 
-        @NotEmpty
+        @NotBlank(message = "제품명을 입력해주세요.")
         private String name;
 
-        @NotNull
+        @Positive(message = "올바른 값을 입력해주세요")
+        @NotNull(message = "제품 가격을 입력해 주세요.")
         private Integer price;
 
-        @NotNull
+        @Positive(message = "올바른 값을 입력해주세요")
+        @NotNull(message = "제품 수량을 입력해 주세요.")
         private Integer stockQuantity;
-
-        @NotEmpty
-        private String dtype;
-
         private String originCity;
-        private String meatType;
-        private String vegetableType;
 
         public Item toEntity() {
             return new Item(name, price, stockQuantity, originCity);

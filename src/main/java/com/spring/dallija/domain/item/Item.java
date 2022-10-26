@@ -9,8 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +22,12 @@ public class Item extends BaseTimeEntity {
     @GeneratedValue
     private Long id;
 
-    @NotEmpty
+    @Column(nullable = false)
     private String name;
 
-    @NotNull
+    @Column(nullable = false)
     private Integer price;
+    @Column(nullable = false)
     private Integer stockQuantity;
     //상품원산지
     private String originCity;

@@ -1,6 +1,8 @@
 package com.spring.dallija.api;
 
-import com.spring.dallija.api.dto.ItemsDto;
+import com.spring.dallija.api.dto.ItemDto;
+import com.spring.dallija.common.anotation.LoginCheck;
+import com.spring.dallija.domain.user.UserRole;
 import com.spring.dallija.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +16,15 @@ public class ItemsApiController {
 
     private final ItemService itemService;
 
-    @PostMapping("/v1/items")
-    public void saveItem(@RequestBody @Valid ItemsDto.SaveItemsRequest saveItemsRequest){
+    @LoginCheck(userRole = UserRole.ADMIN)
+    @PostMapping("/item")
+    public void saveItem(@RequestBody @Valid ItemDto.SaveItemsRequest saveItemsRequest){
         itemService.saveItem(saveItemsRequest.toEntity());
     }
 
-    @PatchMapping("/v1/items/edit")
-    public void updateItem(@RequestBody @Valid ItemsDto.UpdateItemsRequest updateItemsRequest){
+    @LoginCheck(userRole = UserRole.ADMIN)
+    @PatchMapping("/item/edit")
+    public void updateItem(@RequestBody @Valid ItemDto.UpdateItemsRequest updateItemsRequest){
         itemService.updateItem(updateItemsRequest);
     }
 

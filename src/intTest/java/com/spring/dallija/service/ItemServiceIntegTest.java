@@ -1,6 +1,6 @@
 package com.spring.dallija.service;
 
-import com.spring.dallija.api.dto.ItemsDto;
+import com.spring.dallija.api.dto.ItemDto;
 import com.spring.dallija.domain.item.Item;
 import com.spring.dallija.repository.ItemRepositoryImpl;
 import org.junit.jupiter.api.Test;
@@ -46,7 +46,7 @@ public class ItemServiceIntegTest {
         Item item = new Item("소고기 볶음", 10000, 100, "횡성");
         itemService.saveItem(item);
 
-        ItemsDto.UpdateItemsRequest updateItemsRequest = new ItemsDto.UpdateItemsRequest(item.getId(), "소 구이",5000,50);
+        ItemDto.UpdateItemsRequest updateItemsRequest = new ItemDto.UpdateItemsRequest(item.getId(), "소 구이",5000,50);
 
         //when
         Item result = itemService.updateItem(updateItemsRequest);

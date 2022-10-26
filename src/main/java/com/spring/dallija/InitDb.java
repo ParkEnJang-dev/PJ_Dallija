@@ -96,13 +96,13 @@ public class InitDb {
         }
 
         private User createUser(String name, String email) {
-            return new User(name, email, "1111",
+            return new User(name, email, "11111111",
                     new Address("한강로", "11111111"),
                     new Health(GenderStatus.MAN, 180, 49));
         }
 
         private User createAdminUser(String name, String email) {
-            return new User(name, email, "1111", UserRole.ADMIN,
+            return new User(name, email, "11111111", UserRole.ADMIN,
                     new Address("한강로", "11111111"),
                     new Health(GenderStatus.WOMAN, 180, 49));
         }

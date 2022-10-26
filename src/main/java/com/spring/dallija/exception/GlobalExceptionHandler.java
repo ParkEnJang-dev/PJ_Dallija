@@ -7,6 +7,7 @@ import com.spring.dallija.exception.user.UserNotMatchPasswordException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -47,4 +48,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity(new ErrorResponse(e.getMessage()), HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler
+    public final ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+        log.debug(e.getMessage(), e);
+        return new ResponseEntity(new ErrorResponse("json 타입을 확인해주세요."), HttpStatus.BAD_REQUEST);
+    }
 }
