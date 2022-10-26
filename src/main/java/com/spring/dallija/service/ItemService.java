@@ -1,14 +1,15 @@
 package com.spring.dallija.service;
 
 import com.spring.dallija.controller.dto.ItemDto;
+import com.spring.dallija.controller.dto.ItemDto.ItemResponse;
 import com.spring.dallija.domain.item.Item;
 import com.spring.dallija.exception.item.NotFoundItemException;
 import com.spring.dallija.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -38,8 +39,8 @@ public class ItemService {
         return itemRepository.findById(itemId).orElseThrow(NotFoundItemException::new);
     }
 
-    public List<Item> findItems() {
-        return itemRepository.findAll();
+    public Page<ItemResponse> findAll(Pageable pageable) {
+        return itemRepository.findAll(pageable).map(i-> i.buildItemResponse());
     }
 
 }

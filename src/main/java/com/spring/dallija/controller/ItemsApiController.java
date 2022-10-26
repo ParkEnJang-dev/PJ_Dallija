@@ -4,6 +4,8 @@ import com.spring.dallija.common.anotation.LoginCheck;
 import com.spring.dallija.domain.user.UserRole;
 import com.spring.dallija.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,6 +34,11 @@ public class ItemsApiController {
     @GetMapping("/{id}")
     public ItemResponse findItem(@PathVariable Long id){
         return itemService.findById(id).buildItemResponse();
+    }
+
+    @GetMapping
+    public Page<ItemResponse> findAll(Pageable pageable){
+        return itemService.findAll(pageable);
     }
 
 }

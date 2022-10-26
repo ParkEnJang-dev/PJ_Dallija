@@ -89,7 +89,7 @@ public class InitDb {
 
         public void dbInit3() {
             for (int i =1 ; i <= 100 ; i++){
-                Item item1 = createItem("양배추 볶음");
+                Item item1 = createItem("양배추 볶음"+i);
                 em.persist(item1);
             }
 
