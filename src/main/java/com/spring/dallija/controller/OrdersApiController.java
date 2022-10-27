@@ -1,8 +1,10 @@
 package com.spring.dallija.controller;
 
+import com.spring.dallija.common.anotation.LoginCheck;
 import com.spring.dallija.controller.dto.OrderDto;
 import com.spring.dallija.controller.dto.OrdersDto;
 import com.spring.dallija.domain.order.Order;
+import com.spring.dallija.domain.user.UserRole;
 import com.spring.dallija.repository.OrderRepository;
 import com.spring.dallija.repository.OrdersRepositoryImpl;
 import com.spring.dallija.service.OrdersService;
@@ -23,28 +25,30 @@ public class OrdersApiController {
     private final OrderRepository ordersRepository;
     private final OrdersService ordersService;
 
+    @LoginCheck(userRole = UserRole.USER)
     @PostMapping("/order")
-    public void saveOrders(@RequestBody @Valid SaveOrderRequest saveOrderRequest){
+    public void saveOrders(@RequestBody @Valid SaveOrderRequest saveOrderRequest) {
         ordersService.saveOrder(saveOrderRequest);
 
     }
 
     //모든 주문 조회.
     //한방 쿼리
+    @LoginCheck(userRole = UserRole.ADMIN)
     @GetMapping("/orders")
-    public List<FindAllOrdersResponse> allOrders(){
+    public List<FindAllOrdersResponse> allOrders() {
         return ordersService.findAll();
     }
 
     @GetMapping("/v1/simple-orders")
-    public List<Order> ordersV1(){
+    public List<Order> ordersV1() {
         List<Order> all = ordersRepository.findAllByUser(new OrderSearch());
         return all;
     }
 
     //성능 안나옴. N + 1 LAZY 때문.
     @GetMapping("/v2/simple-orders")
-    public List<FindAllOrdersResponse> ordersV2(){
+    public List<FindAllOrdersResponse> ordersV2() {
         List<Order> orders = ordersRepository.findAllByUser(new OrderSearch());
 
         List<FindAllOrdersResponse> result = orders.stream()

@@ -26,8 +26,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     @Inject
     private Environment environment;
 
-    public static final String LOG_ID = "logId";
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
@@ -50,7 +48,8 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
                 return true;
             }
 
-            if (loginService.getLoginUser() == null) {
+            if (request.getSession(false) == null
+                    || loginService.getLoginUser() == null) {
                 throw new UnLoginException("로그인 후 이용해주세요.");
             }
 
@@ -67,7 +66,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    private void checkRoleAdmin(){
+    private void checkRoleAdmin() {
         UserRole loginUserRole = loginService.getLoginUserRole();
         if (loginUserRole != UserRole.ADMIN) {
             throw new UnRoleUserException("해당 권한으로 접근할 수 없습니다.");

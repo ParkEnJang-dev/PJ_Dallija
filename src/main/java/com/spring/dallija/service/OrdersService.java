@@ -62,7 +62,7 @@ public class OrdersService {
         List<Order> orders = ordersRepository.findAll();
 
         List<OrderDto.FindAllOrdersResponse> result = orders.stream()
-                .map(o -> new OrderDto.FindAllOrdersResponse(o))
+                .map(OrderDto.FindAllOrdersResponse::new)
                 .collect(Collectors.toList());
 
         return result;

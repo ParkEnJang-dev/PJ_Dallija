@@ -45,29 +45,28 @@ public class OrderDto {
         private OrderStatus orderStatus;
     }
 
-    @Data
+    @Getter
+    @ToString
+    @EqualsAndHashCode
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class FindAllOrdersResponse {
 
         private Long orderId;
         private String name;
-        private LocalDateTime orderDate; //주문시간
+        private LocalDateTime created; //주문시간
+        private LocalDateTime updated;
         private OrderStatus orderStatus;
         private Address address;
 
         public FindAllOrdersResponse(Order order){
             this.orderId = order.getId();
             this.name = order.getUser().getName();
+            this.created = order.getCreated();
+            this.updated = order.getUpdated();
             this.orderStatus = order.getStatus();
             this.address = order.getDelivery().getAddress();
         }
 
-        public FindAllOrdersResponse(Long orderId, String name, LocalDateTime orderDate, OrderStatus orderStatus, Address address) {
-            this.orderId = orderId;
-            this.name = name;
-            this.orderDate = orderDate;
-            this.orderStatus = orderStatus;
-            this.address = address;
-        }
     }
 
 }

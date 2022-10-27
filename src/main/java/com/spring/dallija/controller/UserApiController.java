@@ -45,7 +45,7 @@ public class UserApiController {
         loginService.login(loginRequest);
     }
 
-    @LoginCheck(userRole = UserRole.ADMIN)
+    @LoginCheck
     @DeleteMapping("/logout")
     public void logout(@LoginUser String email) {
         if (email == null) {
