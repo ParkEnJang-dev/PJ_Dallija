@@ -1,12 +1,13 @@
 package com.spring.dallija.controller.dto;
 
 import com.spring.dallija.domain.Address;
-import com.spring.dallija.domain.order.OrderStatus;
 import com.spring.dallija.domain.order.Order;
+import com.spring.dallija.domain.order.OrderStatus;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 public class OrderDto {
@@ -16,15 +17,16 @@ public class OrderDto {
     @EqualsAndHashCode
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class SaveOrderRequest {
-        @NotNull
+        @NotNull(message = "유저 아이디가 없습니다.")
         private Long userId;
-        @NotNull
+        @NotNull(message = "아이템 아이디가 없습니다.")
         private Long itemId;
-        @NotNull
+        @NotNull(message = "주문수량이 없습니다.")
+        @Positive
         private Integer count;
-        @NotEmpty
+        @NotEmpty(message = "주소지가 없습니다.")
         private String street;
-        @NotEmpty
+        @NotEmpty(message = "우편번호가 없습니다.")
         private String zipcode;
 
         public SaveOrderRequest(Long userId, Long itemId, Integer count, String street, String zipcode) {
@@ -55,7 +57,6 @@ public class OrderDto {
         public FindAllOrdersResponse(Order order){
             this.orderId = order.getId();
             this.name = order.getUser().getName();
-            this.orderDate = order.getOrderTime();
             this.orderStatus = order.getStatus();
             this.address = order.getDelivery().getAddress();
         }

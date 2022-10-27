@@ -43,8 +43,6 @@ public class Order extends BaseTimeEntity {
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
-    private LocalDateTime orderTime;
-
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
@@ -63,9 +61,8 @@ public class Order extends BaseTimeEntity {
         delivery.addOrders(this);
     }
 
-    public Order(User user, LocalDateTime orderTime, OrderStatus status, Delivery delivery) {
+    public Order(User user, OrderStatus status, Delivery delivery) {
         addUser(user);
-        this.orderTime = orderTime;
         this.status = status;
         addDelivery(delivery);
     }
@@ -73,7 +70,6 @@ public class Order extends BaseTimeEntity {
     public static Order createOrder(User user, Delivery delivery, OrderItem... ordersItems) {
         Order order = new Order(
                 user,
-                LocalDateTime.now(),
                 OrderStatus.ORDER,
                 delivery
         );

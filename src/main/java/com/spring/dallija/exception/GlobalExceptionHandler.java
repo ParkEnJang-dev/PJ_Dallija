@@ -1,6 +1,7 @@
 package com.spring.dallija.exception;
 
 import com.spring.dallija.exception.item.ItemNotFoundException;
+import com.spring.dallija.exception.order.OrderNotFoundException;
 import com.spring.dallija.exception.user.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -62,5 +63,11 @@ public class GlobalExceptionHandler {
     public final ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException e) {
         log.debug(e.getMessage(), e);
         return new ResponseEntity(new ErrorResponse("유저를 찾을 수 없습니다."), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<ErrorResponse> handleOrderNotFoundException(OrderNotFoundException e) {
+        log.debug(e.getMessage(), e);
+        return new ResponseEntity(new ErrorResponse("주문을 찾을 수 없습니다."), HttpStatus.NOT_FOUND);
     }
 }

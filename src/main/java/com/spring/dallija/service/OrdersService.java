@@ -8,8 +8,10 @@ import com.spring.dallija.domain.order.Order;
 import com.spring.dallija.domain.order.OrderItem;
 import com.spring.dallija.domain.user.User;
 import com.spring.dallija.exception.item.ItemNotFoundException;
+import com.spring.dallija.exception.order.OrderNotFoundException;
 import com.spring.dallija.exception.user.UserNotFoundException;
 import com.spring.dallija.repository.ItemRepository;
+import com.spring.dallija.repository.OrderRepository;
 import com.spring.dallija.repository.OrdersRepositoryImpl;
 import com.spring.dallija.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +27,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrdersService {
 
-    private final OrdersRepositoryImpl ordersRepository;
+    private final OrderRepository ordersRepository;
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
 
@@ -57,7 +59,7 @@ public class OrdersService {
     }
 
     public List<OrderDto.FindAllOrdersResponse> findAll(){
-        List<Order> orders = ordersRepository.findAllWithUserDeliver();
+        List<Order> orders = ordersRepository.findAll();
 
         List<OrderDto.FindAllOrdersResponse> result = orders.stream()
                 .map(o -> new OrderDto.FindAllOrdersResponse(o))
@@ -67,8 +69,7 @@ public class OrdersService {
     }
 
     public void cancelOrder(Long orderId){
-        Order order = ordersRepository.findOne(orderId);
-
+        Order order = ordersRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
         order.cancel();
     }
 

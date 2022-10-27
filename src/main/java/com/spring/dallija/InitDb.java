@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 
 @Component
 @RequiredArgsConstructor
@@ -79,9 +80,10 @@ public class InitDb {
 
             OrderItem orderItem = OrderItem.createOrderItem(item1, 5000, 2);
             OrderItem orderItem2 = OrderItem.createOrderItem(item2, 5000, 4);
+            ArrayList<OrderItem> orderItems = new ArrayList<>();
 
             Delivery delivery = createDelivery("부산");
-            Order order = Order.createOrder(user, delivery, orderItem, orderItem2);
+            Order order = Order.createOrder(user, delivery);
 
             em.persist(order);
 

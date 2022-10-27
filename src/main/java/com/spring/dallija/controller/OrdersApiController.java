@@ -3,60 +3,61 @@ package com.spring.dallija.controller;
 import com.spring.dallija.controller.dto.OrderDto;
 import com.spring.dallija.controller.dto.OrdersDto;
 import com.spring.dallija.domain.order.Order;
+import com.spring.dallija.repository.OrderRepository;
 import com.spring.dallija.repository.OrdersRepositoryImpl;
 import com.spring.dallija.service.OrdersService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.spring.dallija.controller.dto.OrderDto.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class OrdersApiController {
 
-    private final OrdersRepositoryImpl ordersRepository;
+    private final OrderRepository ordersRepository;
     private final OrdersService ordersService;
 
-    @PostMapping("/orders")
-    public Long saveOrders(){
+    @PostMapping("/order")
+    public void saveOrders(@RequestBody @Valid SaveOrderRequest saveOrderRequest){
+        ordersService.saveOrder(saveOrderRequest);
 
-        return 1L;
     }
 
     //모든 주문 조회.
     //한방 쿼리
     @GetMapping("/orders")
-    public List<OrderDto.FindAllOrdersResponse> allOrders(){
+    public List<FindAllOrdersResponse> allOrders(){
         return ordersService.findAll();
     }
 
     @GetMapping("/v1/simple-orders")
     public List<Order> ordersV1(){
-        List<Order> all = ordersRepository.findAllByString(new OrderDto.OrderSearch());
+        List<Order> all = ordersRepository.findAllByUser(new OrderSearch());
         return all;
     }
 
     //성능 안나옴. N + 1 LAZY 때문.
     @GetMapping("/v2/simple-orders")
-    public List<OrderDto.FindAllOrdersResponse> ordersV2(){
-        List<Order> orders = ordersRepository.findAllByString(new OrderDto.OrderSearch());
+    public List<FindAllOrdersResponse> ordersV2(){
+        List<Order> orders = ordersRepository.findAllByUser(new OrderSearch());
 
-        List<OrderDto.FindAllOrdersResponse> result = orders.stream()
-                .map(o -> new OrderDto.FindAllOrdersResponse(o))
+        List<FindAllOrdersResponse> result = orders.stream()
+                .map(o -> new FindAllOrdersResponse(o))
                 .collect(Collectors.toList());
 
         return result;
     }
 
     //간결하지만 유연하지 못하다.
-    @GetMapping("/v4/simple-orders")
+    /*@GetMapping("/v4/simple-orders")
     public List<OrdersDto> allOrders2(){
-        return ordersRepository.findOrderDtos();
-    }
+        return ordersRepository.findAllByUser();
+    }*/
 
 }
