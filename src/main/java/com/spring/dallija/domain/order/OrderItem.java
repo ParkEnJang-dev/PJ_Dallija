@@ -30,17 +30,17 @@ public class OrderItem {
     private int orderPrice; //주문가격
     private int quantity; //주문 수량
 
-    public void addOrder(Order order){
+    public void addOrder(Order order) {
         this.order = order;
     }
 
     public OrderItem(Item item, int orderPrice, int quantity) {
         this.item = item;
-        this.orderPrice = orderPrice;
+        this.orderPrice = orderPrice * quantity;
         this.quantity = quantity;
     }
 
-    public static OrderItem createOrderItem(Item item, int orderPrice, int count){
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
         OrderItem ordersItem =
                 new OrderItem(
                         item,
@@ -53,7 +53,7 @@ public class OrderItem {
 
 
     //재고 수량 추가
-    public void cancel(){
+    public void cancel() {
         getItem().addStockQuantity(quantity);
     }
 

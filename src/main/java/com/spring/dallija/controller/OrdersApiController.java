@@ -1,12 +1,9 @@
 package com.spring.dallija.controller;
 
 import com.spring.dallija.common.anotation.LoginCheck;
-import com.spring.dallija.controller.dto.OrderDto;
-import com.spring.dallija.controller.dto.OrdersDto;
 import com.spring.dallija.domain.order.Order;
 import com.spring.dallija.domain.user.UserRole;
 import com.spring.dallija.repository.OrderRepository;
-import com.spring.dallija.repository.OrdersRepositoryImpl;
 import com.spring.dallija.service.OrdersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -35,10 +32,12 @@ public class OrdersApiController {
     //모든 주문 조회.
     //한방 쿼리
     @LoginCheck(userRole = UserRole.ADMIN)
-    @GetMapping("/orders")
+    @GetMapping("/order")
     public List<FindAllOrdersResponse> allOrders() {
         return ordersService.findAll();
     }
+
+
 
     @GetMapping("/v1/simple-orders")
     public List<Order> ordersV1() {

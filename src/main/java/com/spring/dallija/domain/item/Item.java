@@ -64,9 +64,13 @@ public class Item extends BaseTimeEntity {
     public void removeStockQuantity(int quantity) {
         int tempStock = this.stockQuantity - quantity;
         if (tempStock < 0) {
-            this.status = ItemStatus.SOLDOUT;
             throw new NotEnoughStockException("재고가 없습니다.");
         }
+
+        if (tempStock == 0) {
+            this.status = ItemStatus.SOLDOUT;
+        }
+
         this.stockQuantity = tempStock;
     }
 

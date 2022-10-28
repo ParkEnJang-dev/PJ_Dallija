@@ -94,8 +94,6 @@ public class InitDb {
                 Item item1 = createItem("양배추 볶음"+i);
                 em.persist(item1);
             }
-
-
         }
 
 
@@ -106,7 +104,7 @@ public class InitDb {
         }
 
         private Item createItem(String name) {
-            return new Item(name,10000, 100, "횡성");
+            return new Item(name,10000, 10, "횡성");
         }
 
         private User createUser(String name, String email) {

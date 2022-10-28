@@ -12,7 +12,6 @@ import com.spring.dallija.exception.order.OrderNotFoundException;
 import com.spring.dallija.exception.user.UserNotFoundException;
 import com.spring.dallija.repository.ItemRepository;
 import com.spring.dallija.repository.OrderRepository;
-import com.spring.dallija.repository.OrdersRepositoryImpl;
 import com.spring.dallija.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,7 @@
 package com.spring.dallija.exception;
 
 import com.spring.dallija.exception.item.ItemNotFoundException;
+import com.spring.dallija.exception.order.NotEnoughStockException;
 import com.spring.dallija.exception.order.OrderNotFoundException;
 import com.spring.dallija.exception.user.*;
 import lombok.extern.slf4j.Slf4j;
@@ -69,5 +70,11 @@ public class GlobalExceptionHandler {
     public final ResponseEntity<ErrorResponse> handleOrderNotFoundException(OrderNotFoundException e) {
         log.debug(e.getMessage(), e);
         return new ResponseEntity(new ErrorResponse("주문을 찾을 수 없습니다."), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<ErrorResponse> handleNotEnoughStockException(NotEnoughStockException e) {
+        log.debug(e.getMessage(), e);
+        return new ResponseEntity(new ErrorResponse("재고가 없습니다."), HttpStatus.BAD_REQUEST);
     }
 }
