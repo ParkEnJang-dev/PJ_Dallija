@@ -1,6 +1,5 @@
 package com.spring.dallija.service;
 
-import com.spring.dallija.controller.dto.OrderDto;
 import com.spring.dallija.domain.Address;
 import com.spring.dallija.domain.delivery.Delivery;
 import com.spring.dallija.domain.item.Item;
@@ -14,6 +13,8 @@ import com.spring.dallija.repository.item.ItemRepository;
 import com.spring.dallija.repository.order.OrderRepository;
 import com.spring.dallija.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,7 +64,7 @@ public class OrdersService {
         return order.getId();
     }
 
-    public List<FindAllOrdersResponse> findAll(){
+    public List<FindAllOrdersResponse> findAll() {
         List<Order> orders = ordersRepository.findAll();
 
         List<FindAllOrdersResponse> result = orders.stream()
@@ -73,13 +74,13 @@ public class OrdersService {
         return result;
     }
 
-    public void cancelOrder(Long orderId){
+    public void cancelOrder(Long orderId) {
         Order order = ordersRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
         order.cancel();
     }
 
-    public List<Order> findOrderUsers(OrderCond orderCond){
-        return ordersRepository.findOrderUsers(orderCond);
+    public Page<OrderUserResponse> findOrderUsers(OrderCond orderCond, Pageable pageable) {
+        return ordersRepository.findOrderUsers(orderCond,pageable);
     }
 
 }

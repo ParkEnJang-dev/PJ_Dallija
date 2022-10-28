@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 
 public class UserDto {
 
-    @Data
+    @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class CreateUserRequest {
         @NotBlank(message = "이름을 입력해주세요")

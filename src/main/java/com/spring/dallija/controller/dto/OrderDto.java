@@ -56,8 +56,18 @@ public class OrderDto {
         }
     }
 
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class OrderUserResponse{
+        private Long id;
+        private String title;
+        private OrderStatus status;
+        private LocalDateTime created;
+        private Long delivery_id;
+    }
+
     @Getter
-    @ToString
     @EqualsAndHashCode
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class FindAllOrdersResponse {

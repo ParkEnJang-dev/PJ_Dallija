@@ -1,14 +1,12 @@
 package com.spring.dallija.repository.order;
 
-import com.spring.dallija.controller.dto.OrderDto;
-import com.spring.dallija.domain.order.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-
-import java.util.List;
-
-import static com.spring.dallija.controller.dto.OrderDto.*;
+import static com.spring.dallija.controller.dto.OrderDto.OrderCond;
+import static com.spring.dallija.controller.dto.OrderDto.OrderUserResponse;
 
 public interface OrderRepositorySearch {
 
-    List<Order> findOrderUsers(OrderCond id);
+    Page<OrderUserResponse> findOrderUsers(OrderCond orderCond, Pageable pageable);
 }

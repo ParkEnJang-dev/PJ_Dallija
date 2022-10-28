@@ -29,7 +29,7 @@ public class InitDb {
         initService.dbInit();
         initService.dbInit1();
         initService.dbInit2();
-        initService.dbInit3();
+        //initService.dbInit3();
     }
 
     @Component
@@ -82,22 +82,9 @@ public class InitDb {
             User user = createUser("B", "B@naver.com");
             em.persist(user);
 
-            Item item1 = createItem("양배추 볶음");
-            em.persist(item1);
-
-            Item item2 = createItem("양배추 튀김");
-            em.persist(item2);
-
-            OrderItem orderItem = OrderItem.createOrderItem(item1, 10000, 2);
-            OrderItem orderItem2 = OrderItem.createOrderItem(item2, 10000, 4);
-            List<OrderItem> orderItems = new ArrayList<>();
-            orderItems.add(orderItem);
-            orderItems.add(orderItem2);
-
-            Delivery delivery = createDelivery("부산");
-            Order order = Order.createOrder(user, delivery, orderItems);
-
-            em.persist(order);
+            for (int i = 0; i < 30; i++) {
+                createOrder(user,i);
+            }
 
         }
 
@@ -116,7 +103,7 @@ public class InitDb {
         }
 
         private Item createItem(String name) {
-            return new Item(name,10000, 50, "횡성");
+            return new Item(name,10000, 100, "횡성");
         }
 
         private User createUser(String name, String email) {
@@ -129,6 +116,25 @@ public class InitDb {
             return new User(name, email, "11111111", UserRole.ADMIN,
                     new Address("한강로", "11111111"),
                     new Health(GenderStatus.WOMAN, 180, 49));
+        }
+
+        private void createOrder(User user, int i){
+
+            Item item1 = createItem("양배추 볶음"+i);
+            em.persist(item1);
+
+            Item item2 = createItem("양배추 튀김"+i);
+            em.persist(item2);
+            OrderItem orderItem = OrderItem.createOrderItem(item1, 10000, 1);
+            OrderItem orderItem2 = OrderItem.createOrderItem(item2, 10000, 2);
+            List<OrderItem> orderItems = new ArrayList<>();
+            orderItems.add(orderItem);
+            orderItems.add(orderItem2);
+
+            Delivery delivery = createDelivery("부산");
+            Order order = Order.createOrder(user, delivery, orderItems);
+
+            em.persist(order);
         }
     }
 }

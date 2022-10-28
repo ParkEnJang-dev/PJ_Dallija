@@ -1,18 +1,20 @@
 package com.spring.dallija.controller;
 
 import com.spring.dallija.common.anotation.LoginCheck;
-import com.spring.dallija.domain.order.Order;
+import com.spring.dallija.controller.dto.OrderDto;
 import com.spring.dallija.domain.user.UserRole;
-import com.spring.dallija.repository.order.OrderRepository;
 import com.spring.dallija.service.OrdersService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.spring.dallija.controller.dto.OrderDto.*;
+import static com.spring.dallija.controller.dto.OrderDto.FindAllOrdersResponse;
+import static com.spring.dallija.controller.dto.OrderDto.SaveOrderRequest;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,33 +38,10 @@ public class OrdersApiController {
         return ordersService.findAll();
     }
 
-    @GetMapping("/order/test")
-    public void finduser(@RequestBody OrderCond orderCond){
-        ordersService.findOrderUsers(orderCond);
+    @LoginCheck
+    @GetMapping("/order/{id}")
+    public Page<OrderUserResponse> finduser(@PathVariable Long id, Pageable pageable) {
+        return ordersService.findOrderUsers(new OrderCond(id), pageable);
     }
-
-    /*@GetMapping("/v1/simple-orders")
-    public List<Order> ordersV1() {
-        List<Order> all = ordersRepository.findAllByUser(new OrderSearch());
-        return all;
-    }
-
-    //성능 안나옴. N + 1 LAZY 때문.
-    @GetMapping("/v2/simple-orders")
-    public List<FindAllOrdersResponse> ordersV2() {
-        List<Order> orders = ordersRepository.findAllByUser(new OrderSearch());
-
-        List<FindAllOrdersResponse> result = orders.stream()
-                .map(o -> new FindAllOrdersResponse(o))
-                .collect(Collectors.toList());
-
-        return result;
-    }*/
-
-    //간결하지만 유연하지 못하다.
-    /*@GetMapping("/v4/simple-orders")
-    public List<OrdersDto> allOrders2(){
-        return ordersRepository.findAllByUser();
-    }*/
 
 }

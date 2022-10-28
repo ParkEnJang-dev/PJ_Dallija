@@ -1,28 +1,18 @@
 package com.spring.dallija.service;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.spring.dallija.controller.dto.OrderDto;
-import com.spring.dallija.domain.order.Order;
-import com.spring.dallija.domain.order.OrderItem;
-import com.spring.dallija.domain.order.QOrder;
 import com.spring.dallija.repository.order.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-
-import java.util.List;
-
-import static com.spring.dallija.controller.dto.OrderDto.*;
-import static com.spring.dallija.domain.order.QOrder.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.spring.dallija.controller.dto.OrderDto.OrderCond;
+import static com.spring.dallija.controller.dto.OrderDto.OrderUserResponse;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -114,17 +104,14 @@ public class OrderServiceIntegTest {
     @Test
     public void 유저_주문_조회() throws Exception {
         //given
-        OrderCond orderCond = new OrderCond(3L);
-        List<Order> orders = ordersService.findOrderUsers(orderCond);
+        OrderCond orderCond = new OrderCond(4L);
+        PageRequest request = PageRequest.of(0, 10);
+        Page<OrderUserResponse> orders = ordersService.findOrderUsers(orderCond, request);
 
         //when
-
-        System.out.println("orders = " + orders.size());
-        //then
-       /* for (Order order : orders) {
-            System.out.println("order = " + order.getorderi);
-        }*/
-
+        for (OrderUserResponse orderUserResponse : orders) {
+            System.out.println(orderUserResponse);
+        }
 
      }
 
