@@ -3,7 +3,7 @@ package com.spring.dallija.controller;
 import com.spring.dallija.common.anotation.LoginCheck;
 import com.spring.dallija.domain.order.Order;
 import com.spring.dallija.domain.user.UserRole;
-import com.spring.dallija.repository.OrderRepository;
+import com.spring.dallija.repository.order.OrderRepository;
 import com.spring.dallija.service.OrdersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,6 @@ import static com.spring.dallija.controller.dto.OrderDto.*;
 @RequestMapping("/api")
 public class OrdersApiController {
 
-    private final OrderRepository ordersRepository;
     private final OrdersService ordersService;
 
     @LoginCheck(userRole = UserRole.USER)
@@ -37,9 +36,12 @@ public class OrdersApiController {
         return ordersService.findAll();
     }
 
+    @GetMapping("/order/test")
+    public void finduser(@RequestBody OrderCond orderCond){
+        ordersService.findOrderUsers(orderCond);
+    }
 
-
-    @GetMapping("/v1/simple-orders")
+    /*@GetMapping("/v1/simple-orders")
     public List<Order> ordersV1() {
         List<Order> all = ordersRepository.findAllByUser(new OrderSearch());
         return all;
@@ -55,7 +57,7 @@ public class OrdersApiController {
                 .collect(Collectors.toList());
 
         return result;
-    }
+    }*/
 
     //간결하지만 유연하지 못하다.
     /*@GetMapping("/v4/simple-orders")

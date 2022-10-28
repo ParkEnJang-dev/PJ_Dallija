@@ -1,4 +1,4 @@
-package com.spring.dallija.repository;
+package com.spring.dallija.repository.user;
 
 
 import com.spring.dallija.domain.user.User;

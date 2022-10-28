@@ -5,12 +5,11 @@ import com.spring.dallija.domain.user.GenderStatus;
 import com.spring.dallija.domain.user.Health;
 import com.spring.dallija.domain.user.User;
 import com.spring.dallija.exception.user.DuplicateEmailException;
-import com.spring.dallija.repository.UserRepository;
+import com.spring.dallija.repository.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 

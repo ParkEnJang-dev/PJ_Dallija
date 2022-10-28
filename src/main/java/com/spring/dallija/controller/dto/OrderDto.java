@@ -46,6 +46,17 @@ public class OrderDto {
     }
 
     @Getter
+    @EqualsAndHashCode
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class OrderCond {
+        private Long id;
+
+        public OrderCond(Long id) {
+            this.id = id;
+        }
+    }
+
+    @Getter
     @ToString
     @EqualsAndHashCode
     @NoArgsConstructor(access = AccessLevel.PROTECTED)

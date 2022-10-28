@@ -1,6 +1,7 @@
 package com.spring.dallija.repository;
 
 import com.spring.dallija.domain.user.User;
+import com.spring.dallija.repository.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;

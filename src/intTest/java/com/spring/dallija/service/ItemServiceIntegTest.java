@@ -2,7 +2,7 @@ package com.spring.dallija.service;
 
 import com.spring.dallija.controller.dto.ItemDto;
 import com.spring.dallija.domain.item.Item;
-import com.spring.dallija.repository.ItemRepository;
+import com.spring.dallija.repository.item.ItemRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

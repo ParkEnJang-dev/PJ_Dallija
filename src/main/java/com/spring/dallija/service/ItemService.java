@@ -3,7 +3,7 @@ package com.spring.dallija.service;
 import com.spring.dallija.controller.dto.ItemDto.ItemResponse;
 import com.spring.dallija.domain.item.Item;
 import com.spring.dallija.exception.item.ItemNotFoundException;
-import com.spring.dallija.repository.ItemRepository;
+import com.spring.dallija.repository.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

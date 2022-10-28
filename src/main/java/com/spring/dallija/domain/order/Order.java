@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +27,13 @@ public class Order extends BaseTimeEntity {
     @GeneratedValue
     private Long id;
 
+    private String title;
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> ordersItems = new ArrayList<>();
+    private List<OrderItem> orderItem = new ArrayList<>();
 
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")
@@ -52,7 +52,7 @@ public class Order extends BaseTimeEntity {
     }
 
     public void addOrderItem(OrderItem ordersItem) {
-        this.ordersItems.add(ordersItem);
+        this.orderItem.add(ordersItem);
         ordersItem.addOrder(this);
     }
 
@@ -61,20 +61,23 @@ public class Order extends BaseTimeEntity {
         delivery.addOrders(this);
     }
 
-    public Order(User user, OrderStatus status, Delivery delivery) {
-        addUser(user);
+    public Order(User user, Delivery delivery, OrderStatus status, String title) {
         this.status = status;
+        this.title = title;
+        addUser(user);
         addDelivery(delivery);
     }
 
-    public static Order createOrder(User user, Delivery delivery, OrderItem... ordersItems) {
+    public static Order createOrder(User user, Delivery delivery, List<OrderItem> orderItems) {
         Order order = new Order(
                 user,
+                delivery,
                 OrderStatus.ORDER,
-                delivery
+                createOrderTitle(orderItems)
         );
 
-        for (OrderItem ordersItem : ordersItems) {
+
+        for (OrderItem ordersItem : orderItems) {
             order.addOrderItem(ordersItem);
         }
 
@@ -90,15 +93,25 @@ public class Order extends BaseTimeEntity {
         }
 
         this.status = OrderStatus.CANCEL;
-        this.ordersItems.forEach(OrderItem::cancel);
+        this.orderItem.forEach(OrderItem::cancel);
     }
 
     /**
      * 전체 주문 가격 조회
      */
     public int getTotalPrice() {
-        return this.ordersItems.stream()
+        return this.orderItem.stream()
                 .mapToInt(OrderItem::getTotalPrice)
                 .sum();
+    }
+
+    /**
+     * 주문 타이이틀 생성
+     */
+    private static String createOrderTitle(List<OrderItem> ordersItems){
+        if (ordersItems.size() > 1) {
+            return ordersItems.get(0).getItem().getName() + " 외 " + ordersItems.size() + "개";
+        }
+        return ordersItems.get(0).getItem().getName();
     }
 }

@@ -36,7 +36,7 @@ public class OrderItem {
 
     public OrderItem(Item item, int orderPrice, int quantity) {
         this.item = item;
-        this.orderPrice = orderPrice * quantity;
+        this.orderPrice = orderPrice;
         this.quantity = quantity;
     }
 

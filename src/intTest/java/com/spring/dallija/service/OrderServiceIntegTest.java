@@ -1,16 +1,13 @@
 package com.spring.dallija.service;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.spring.dallija.controller.dto.OrderDto;
-import com.spring.dallija.domain.Address;
-import com.spring.dallija.domain.item.Item;
 import com.spring.dallija.domain.order.Order;
-import com.spring.dallija.domain.order.OrderStatus;
-import com.spring.dallija.domain.user.GenderStatus;
-import com.spring.dallija.domain.user.Health;
-import com.spring.dallija.domain.user.User;
-import com.spring.dallija.exception.order.NotEnoughStockException;
-import com.spring.dallija.repository.OrderRepository;
-import com.spring.dallija.repository.OrdersRepositoryImpl;
+import com.spring.dallija.domain.order.OrderItem;
+import com.spring.dallija.domain.order.QOrder;
+import com.spring.dallija.repository.order.OrderRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +17,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.util.List;
+
+import static com.spring.dallija.controller.dto.OrderDto.*;
+import static com.spring.dallija.domain.order.QOrder.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@Transactional
+@Transactional(readOnly = true)
+@Slf4j
 public class OrderServiceIntegTest {
 
-    @Autowired
-    EntityManager em;
     @Autowired
     OrdersService ordersService;
     @Autowired
@@ -110,6 +110,25 @@ public class OrderServiceIntegTest {
         em.persist(user);
         return user;
     }*/
+
+    @Test
+    public void 유저_주문_조회() throws Exception {
+        //given
+        OrderCond orderCond = new OrderCond(3L);
+        List<Order> orders = ordersService.findOrderUsers(orderCond);
+
+        //when
+
+        System.out.println("orders = " + orders.size());
+        //then
+       /* for (Order order : orders) {
+            System.out.println("order = " + order.getorderi);
+        }*/
+
+
+     }
+
+
 
 
 }

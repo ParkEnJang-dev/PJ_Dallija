@@ -10,15 +10,18 @@ import com.spring.dallija.domain.user.User;
 import com.spring.dallija.exception.item.ItemNotFoundException;
 import com.spring.dallija.exception.order.OrderNotFoundException;
 import com.spring.dallija.exception.user.UserNotFoundException;
-import com.spring.dallija.repository.ItemRepository;
-import com.spring.dallija.repository.OrderRepository;
-import com.spring.dallija.repository.UserRepository;
+import com.spring.dallija.repository.item.ItemRepository;
+import com.spring.dallija.repository.order.OrderRepository;
+import com.spring.dallija.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.spring.dallija.controller.dto.OrderDto.*;
 
 
 @Service
@@ -31,7 +34,7 @@ public class OrdersService {
     private final ItemRepository itemRepository;
 
     @Transactional
-    public Long saveOrder(OrderDto.SaveOrderRequest saveOrderRequest) {
+    public Long saveOrder(SaveOrderRequest saveOrderRequest) {
 
         User user = userRepository.findById(saveOrderRequest.getUserId())
                 .orElseThrow(UserNotFoundException::new);
@@ -48,8 +51,11 @@ public class OrdersService {
                 saveOrderRequest.getCount()
         );
 
+        List<OrderItem> orderItems = new ArrayList<>();
+        orderItems.add(orderItem);
+
         //주문 생성
-        Order order = Order.createOrder(user, delivery, orderItem);
+        Order order = Order.createOrder(user, delivery, orderItems);
 
         //주문 저장
         ordersRepository.save(order);
@@ -57,11 +63,11 @@ public class OrdersService {
         return order.getId();
     }
 
-    public List<OrderDto.FindAllOrdersResponse> findAll(){
+    public List<FindAllOrdersResponse> findAll(){
         List<Order> orders = ordersRepository.findAll();
 
-        List<OrderDto.FindAllOrdersResponse> result = orders.stream()
-                .map(OrderDto.FindAllOrdersResponse::new)
+        List<FindAllOrdersResponse> result = orders.stream()
+                .map(FindAllOrdersResponse::new)
                 .collect(Collectors.toList());
 
         return result;
@@ -70,6 +76,10 @@ public class OrdersService {
     public void cancelOrder(Long orderId){
         Order order = ordersRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
         order.cancel();
+    }
+
+    public List<Order> findOrderUsers(OrderCond orderCond){
+        return ordersRepository.findOrderUsers(orderCond);
     }
 
 }
