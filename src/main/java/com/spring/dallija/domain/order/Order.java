@@ -28,6 +28,8 @@ public class Order extends BaseTimeEntity {
     private Long id;
 
     private String title;
+    private Integer price;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -61,9 +63,8 @@ public class Order extends BaseTimeEntity {
         delivery.addOrders(this);
     }
 
-    public Order(User user, Delivery delivery, OrderStatus status, String title) {
+    public Order(User user, Delivery delivery, OrderStatus status ) {
         this.status = status;
-        this.title = title;
         addUser(user);
         addDelivery(delivery);
     }
@@ -72,14 +73,15 @@ public class Order extends BaseTimeEntity {
         Order order = new Order(
                 user,
                 delivery,
-                OrderStatus.ORDER,
-                createOrderTitle(orderItems)
+                OrderStatus.ORDER
         );
-
 
         for (OrderItem ordersItem : orderItems) {
             order.addOrderItem(ordersItem);
         }
+
+        order.title = order.createOrderTitle();
+        order.price = order.getTotalPrice();
 
         return order;
     }
@@ -108,10 +110,10 @@ public class Order extends BaseTimeEntity {
     /**
      * 주문 타이이틀 생성
      */
-    private static String createOrderTitle(List<OrderItem> ordersItems){
-        if (ordersItems.size() > 1) {
-            return ordersItems.get(0).getItem().getName() + " 외 " + ordersItems.size() + "개";
+    private String createOrderTitle(){
+        if (this.orderItem.size() > 1) {
+            return this.orderItem.get(0).getItem().getName() + " 외 " + this.orderItem.size() + "개";
         }
-        return ordersItems.get(0).getItem().getName();
+        return this.orderItem.get(0).getItem().getName();
     }
 }

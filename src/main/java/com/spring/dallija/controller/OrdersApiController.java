@@ -43,7 +43,7 @@ public class OrdersApiController {
     //주문 상세보기
     @LoginCheck
     @GetMapping("/detail/{id}")
-    public Page<OrderUserResponse> findOrderDetail(@PathVariable Long id, Pageable pageable) {
+    public Page<OrderUserResponse> findOrderDetails(@PathVariable Long id, Pageable pageable) {
         return ordersService.findOrderUser(new OrderCond(id), pageable);
     }
 
