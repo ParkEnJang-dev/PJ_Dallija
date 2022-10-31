@@ -1,5 +1,6 @@
 package com.spring.dallija.validation.validator;
 
+import com.spring.dallija.domain.category.CategoryType;
 import com.spring.dallija.domain.user.GenderStatus;
 import com.spring.dallija.validation.annotation.OnlyGender;
 
@@ -21,12 +22,13 @@ public class GenderValidator implements ConstraintValidator<OnlyGender, String> 
     }
 
     private boolean checkGender(String s) {
-        switch (s) {
-            case "MAN":
-            case "WOMAN":
-                return true;
-            default:
-                return false;
+        GenderStatus[] types = GenderStatus.class.getEnumConstants();
+        if (types != null){
+            for (GenderStatus type : types) {
+                if (s.equals(type.toString()))
+                    return true;
+            }
         }
+        return false;
     }
 }
