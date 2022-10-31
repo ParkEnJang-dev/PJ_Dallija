@@ -40,7 +40,7 @@ public class OrdersApiController {
         return ordersService.findOrderUser(new OrderCond(id), pageable);
     }
 
-
+    @LoginCheck
     @DeleteMapping("/{id}")
     public void cancelOrder(@PathVariable Long id) {
         ordersService.cancelOrder(id);
@@ -49,8 +49,8 @@ public class OrdersApiController {
     //주문 상세보기
     @LoginCheck
     @GetMapping("/detail/{id}")
-    public Page<OrderUserResponse> findOrderDetails(@PathVariable Long id, Pageable pageable) {
-        return ordersService.findOrderUser(new OrderCond(id), pageable);
+    public Page<OrderItemResponse> findOrderDetails(@PathVariable Long id, Pageable pageable) {
+        return ordersService.findOrderDetail(new OrderCond(id), pageable);
     }
 
 

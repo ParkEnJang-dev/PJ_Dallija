@@ -63,7 +63,7 @@ public class Order extends BaseTimeEntity {
         delivery.addOrders(this);
     }
 
-    public Order(User user, Delivery delivery, OrderStatus status ) {
+    public Order(User user, Delivery delivery, OrderStatus status) {
         this.status = status;
         addUser(user);
         addDelivery(delivery);
@@ -110,9 +110,9 @@ public class Order extends BaseTimeEntity {
     /**
      * 주문 타이이틀 생성
      */
-    private String createOrderTitle(){
+    private String createOrderTitle() {
         if (this.orderItem.size() > 1) {
-            return this.orderItem.get(0).getItem().getName() + " 외 " + this.orderItem.size() + "개";
+            return this.orderItem.get(0).getItem().getName() + " 외 " + (this.orderItem.size() - 1) + "개";
         }
         return this.orderItem.get(0).getItem().getName();
     }

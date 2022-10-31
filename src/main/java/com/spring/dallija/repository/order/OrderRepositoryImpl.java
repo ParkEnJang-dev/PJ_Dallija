@@ -11,8 +11,7 @@ import org.springframework.data.support.PageableExecutionUtils;
 
 import java.util.List;
 
-import static com.spring.dallija.controller.dto.OrderDto.OrderCond;
-import static com.spring.dallija.controller.dto.OrderDto.OrderUserResponse;
+import static com.spring.dallija.controller.dto.OrderDto.*;
 import static com.spring.dallija.domain.order.QOrder.order;
 
 

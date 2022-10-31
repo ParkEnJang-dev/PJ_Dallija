@@ -10,6 +10,7 @@ import com.spring.dallija.exception.item.ItemNotFoundException;
 import com.spring.dallija.exception.order.OrderNotFoundException;
 import com.spring.dallija.exception.user.UserNotFoundException;
 import com.spring.dallija.repository.item.ItemRepository;
+import com.spring.dallija.repository.order.OrderItemRepository;
 import com.spring.dallija.repository.order.OrderRepository;
 import com.spring.dallija.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,7 @@ public class OrdersService {
     private final OrderRepository ordersRepository;
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
+    private final OrderItemRepository orderItemRepository;
 
     @Transactional
     public Long saveOrder(SaveOrderRequest saveOrderRequest) {
@@ -82,6 +84,11 @@ public class OrdersService {
 
     public Page<OrderUserResponse> findOrderUser(OrderCond orderCond, Pageable pageable) {
         return ordersRepository.findOrderUser(orderCond,pageable);
+    }
+
+    //주문 상세 조회
+    public Page<OrderItemResponse> findOrderDetail(OrderCond orderCond, Pageable pageable){
+        return orderItemRepository.findByOrderItems(orderCond,pageable);
     }
 
 }

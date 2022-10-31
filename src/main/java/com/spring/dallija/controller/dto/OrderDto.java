@@ -56,7 +56,7 @@ public class OrderDto {
         }
     }
 
-    @Data
+    @Getter
     @AllArgsConstructor
     @NoArgsConstructor
     public static class OrderUserResponse{
@@ -65,6 +65,15 @@ public class OrderDto {
         private OrderStatus status;
         private LocalDateTime created;
         private Long delivery_id;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class OrderItemResponse{
+        private Long itemId;
+        private String itemTitle;
+        private Integer itemQuantity;
     }
 
     @Getter
