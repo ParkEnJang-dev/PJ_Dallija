@@ -79,8 +79,8 @@ public class OrdersService {
         order.cancel();
     }
 
-    public Page<OrderUserResponse> findOrderUsers(OrderCond orderCond, Pageable pageable) {
-        return ordersRepository.findOrderUsers(orderCond,pageable);
+    public Page<OrderUserResponse> findOrderUser(OrderCond orderCond, Pageable pageable) {
+        return ordersRepository.findOrderUser(orderCond,pageable);
     }
 
 }

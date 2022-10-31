@@ -106,7 +106,7 @@ public class OrderServiceIntegTest {
         //given
         OrderCond orderCond = new OrderCond(4L);
         PageRequest request = PageRequest.of(0, 10);
-        Page<OrderUserResponse> orders = ordersService.findOrderUsers(orderCond, request);
+        Page<OrderUserResponse> orders = ordersService.findOrderUser(orderCond, request);
 
         //when
         for (OrderUserResponse orderUserResponse : orders) {

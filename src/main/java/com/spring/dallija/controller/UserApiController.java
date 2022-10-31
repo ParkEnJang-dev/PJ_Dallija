@@ -48,9 +48,6 @@ public class UserApiController {
     @LoginCheck
     @DeleteMapping("/logout")
     public void logout(@LoginUser String email) {
-        if (email == null) {
-            return;
-        }
         log.info("email info:: {}",email);
         loginService.logout();
     }

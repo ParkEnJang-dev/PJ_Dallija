@@ -8,5 +8,5 @@ import static com.spring.dallija.controller.dto.OrderDto.OrderUserResponse;
 
 public interface OrderRepositorySearch {
 
-    Page<OrderUserResponse> findOrderUsers(OrderCond orderCond, Pageable pageable);
+    Page<OrderUserResponse> findOrderUser(OrderCond orderCond, Pageable pageable);
 }

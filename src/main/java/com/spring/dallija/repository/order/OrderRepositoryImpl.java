@@ -22,7 +22,7 @@ public class OrderRepositoryImpl implements OrderRepositorySearch {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<OrderUserResponse> findOrderUsers(OrderCond orderCond, Pageable pageable) {
+    public Page<OrderUserResponse> findOrderUser(OrderCond orderCond, Pageable pageable) {
         List<OrderUserResponse> contents = queryFactory.select(Projections.fields(OrderUserResponse.class,
                         order.id,
                         order.title,

@@ -35,13 +35,6 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
 
         log.info("resolveArgument 실행");
 
-        /*HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
-        //세션 만들지 않는다.
-        HttpSession session = request.getSession(false);
-        if (session == null){
-            return null;
-        }*/
-
         //없으면 null
         return loginService.getLoginUser();
     }
