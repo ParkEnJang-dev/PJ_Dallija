@@ -74,6 +74,7 @@ public class OrdersService {
         return result;
     }
 
+    @Transactional
     public void cancelOrder(Long orderId) {
         Order order = ordersRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
         order.cancel();

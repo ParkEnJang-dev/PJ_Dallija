@@ -58,6 +58,9 @@ public class Item extends BaseTimeEntity {
     }
 
     public void addStockQuantity(int quantity) {
+        if (this.status == ItemStatus.SOLDOUT){
+            this.status = ItemStatus.ACTIVED;
+        }
         this.stockQuantity += quantity;
     }
 

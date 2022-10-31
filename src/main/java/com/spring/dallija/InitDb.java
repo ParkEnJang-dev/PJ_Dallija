@@ -60,7 +60,7 @@ public class InitDb {
 
             List<OrderItem> orderItems1 = new ArrayList<>();
             OrderItem orderItem = OrderItem.createOrderItem(item1, 10000, 2);
-            OrderItem orderItem2 = OrderItem.createOrderItem(item2, 10000, 4);
+            OrderItem orderItem2 = OrderItem.createOrderItem(item2, 10000, 6);
             orderItems1.add(orderItem);
             orderItems1.add(orderItem2);
             Order order = Order.createOrder(user, delivery, orderItems1);
@@ -103,7 +103,7 @@ public class InitDb {
         }
 
         private Item createItem(String name) {
-            return new Item(name,10000, 100, "횡성");
+            return new Item(name,10000, 10, "횡성");
         }
 
         private User createUser(String name, String email) {
