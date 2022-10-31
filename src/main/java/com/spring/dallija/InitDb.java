@@ -1,6 +1,8 @@
 package com.spring.dallija;
 
 import com.spring.dallija.domain.Address;
+import com.spring.dallija.domain.category.Category;
+import com.spring.dallija.domain.category.CategoryType;
 import com.spring.dallija.domain.delivery.Delivery;
 import com.spring.dallija.domain.item.Item;
 import com.spring.dallija.domain.order.Order;
@@ -44,6 +46,8 @@ public class InitDb {
             User adminUser = createAdminUser("admin","admin@gmail.com");
             em.persist(adminUser);
 
+            Category category = new Category(CategoryType.MACHINE);
+            em.persist(category);
         }
 
         public void dbInit1() {

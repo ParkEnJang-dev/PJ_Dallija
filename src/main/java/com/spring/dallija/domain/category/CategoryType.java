@@ -1,6 +1,6 @@
 package com.spring.dallija.domain.category;
 
-enum CategoryType {
+public enum CategoryType {
     FOOD,
     MACHINE
 }

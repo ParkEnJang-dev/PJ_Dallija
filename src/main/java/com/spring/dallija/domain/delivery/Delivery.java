@@ -15,7 +15,6 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class Delivery extends BaseTimeEntity {
 
     @Id
@@ -33,6 +32,7 @@ public class Delivery extends BaseTimeEntity {
 
     public Delivery(Address address) {
         this.address = address;
+        this.status = DeliveryStatus.READY;
     }
 
     public void addOrders(Order order) {

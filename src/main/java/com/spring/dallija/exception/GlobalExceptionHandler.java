@@ -1,5 +1,6 @@
 package com.spring.dallija.exception;
 
+import com.spring.dallija.exception.category.DuplicateCategoryException;
 import com.spring.dallija.exception.item.ItemNotFoundException;
 import com.spring.dallija.exception.order.NotEnoughStockException;
 import com.spring.dallija.exception.order.OrderNotFoundException;
@@ -76,5 +77,11 @@ public class GlobalExceptionHandler {
     public final ResponseEntity<ErrorResponse> handleNotEnoughStockException(NotEnoughStockException e) {
         log.debug(e.getMessage(), e);
         return new ResponseEntity(new ErrorResponse("재고가 없습니다."), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<ErrorResponse> handleDuplicateCategoryException(DuplicateCategoryException e) {
+        log.debug(e.getMessage(), e);
+        return new ResponseEntity(new ErrorResponse("카테고리가 중복 됩니다."), HttpStatus.CONFLICT);
     }
 }

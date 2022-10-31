@@ -12,7 +12,6 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class Category {
 
     @Id
@@ -25,7 +24,7 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<CategoryItem> categoryItems = new ArrayList<>();
 
-    private String title;
-
-
+    public Category(CategoryType categoryType) {
+        this.categoryType = categoryType;
+    }
 }
