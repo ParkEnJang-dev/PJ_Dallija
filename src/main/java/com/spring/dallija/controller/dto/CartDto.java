@@ -17,4 +17,12 @@ public class CartDto {
         private Integer itemQuantity;
         private Integer itemPrice;
     }
+
+    @Getter
+    @ToString
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class SaveCartRequest{
+        private Long itemId;
+        private Integer quantity;
+    }
 }

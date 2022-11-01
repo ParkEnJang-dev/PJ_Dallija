@@ -44,7 +44,7 @@ public class OrdersService {
         Item item = itemRepository.findById(saveOrderRequest.getItemId())
                 .orElseThrow(ItemNotFoundException::new);
 
-        Delivery delivery = new Delivery(new Address(
+        Delivery delivery = Delivery.createDelivery(Address.createAddress(
                 saveOrderRequest.getStreet(),
                 saveOrderRequest.getZipcode()));
 
