@@ -38,4 +38,22 @@ public class CartDto {
             this.quantity = quantity;
         }
     }
+
+    @Getter
+    @ToString
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class UpdateCartRequest{
+
+        @NotNull(message = "장바구니 아이템 아이디 입력해주세요")
+        private Long id;
+
+        @NotNull(message = "수량을 입력해 주세요")
+        @Positive
+        private Integer quantity;
+
+        public UpdateCartRequest(Long id, Integer quantity) {
+            this.id = id;
+            this.quantity = quantity;
+        }
+    }
 }

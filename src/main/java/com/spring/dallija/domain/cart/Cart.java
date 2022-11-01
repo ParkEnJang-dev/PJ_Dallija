@@ -40,4 +40,8 @@ public class Cart {
     public static Cart createCart(User user, Item item, Integer quantity) {
         return new Cart(user, item, quantity);
     }
+
+    public void changeQuantity(Integer quantity){
+        this.quantity = quantity;
+    }
 }

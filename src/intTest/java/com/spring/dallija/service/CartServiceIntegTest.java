@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.persistence.EntityManager;
+
 import static com.spring.dallija.controller.dto.CartDto.SaveCartRequest;
+import static com.spring.dallija.controller.dto.CartDto.UpdateCartRequest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
@@ -22,6 +25,10 @@ public class CartServiceIntegTest {
 
     @Autowired
     CartRepository cartRepository;
+
+    @Autowired
+    EntityManager em;
+
 
     @Test
     public void 장바구니_저장() throws Exception {
@@ -46,5 +53,20 @@ public class CartServiceIntegTest {
 
         //then
         assertThat(cartRepository.findById(result.getId())).isEmpty();
+    }
+
+    @Test
+    public void 장바구니_아이템_수량변경() throws Exception {
+        //given
+        SaveCartRequest saveCartRequest = new SaveCartRequest(2L, 2);
+        Cart saveCart = cartService.addCart("ABC@naver.com", saveCartRequest);
+        UpdateCartRequest updateCartRequest = new UpdateCartRequest(saveCart.getId(), 1);
+
+        //when
+        cartService.updateCart(updateCartRequest);
+
+        //then
+        Cart result = cartRepository.findById(saveCart.getId()).get();
+        assertThat(result.getQuantity()).isEqualTo(1);
     }
 }
