@@ -24,7 +24,7 @@ public class CartService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Cart addCard(String email, SaveCartRequest saveCartRequest){
+    public Cart addCart(String email, SaveCartRequest saveCartRequest){
         User user = userRepository.findByEmail(email)
                 .orElseThrow(UserNotFoundException::new);
         Item item = itemRepository.findById(saveCartRequest.getItemId())
@@ -33,5 +33,10 @@ public class CartService {
         Cart cart = Cart.createCart(user, item, saveCartRequest.getQuantity());
 
         return cartRepository.save(cart);
+    }
+
+    @Transactional
+    public void deleteCart(Long id){
+        cartRepository.deleteById(id);
     }
 }
