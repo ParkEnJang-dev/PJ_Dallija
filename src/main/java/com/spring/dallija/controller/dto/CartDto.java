@@ -12,7 +12,7 @@ public class CartDto {
 
     @Getter
     @ToString
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @NoArgsConstructor
     public static class CartResponse{
         private Long id;
         private Long itemId;

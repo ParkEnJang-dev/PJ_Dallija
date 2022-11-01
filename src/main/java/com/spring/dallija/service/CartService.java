@@ -10,11 +10,12 @@ import com.spring.dallija.repository.cart.CartRepository;
 import com.spring.dallija.repository.item.ItemRepository;
 import com.spring.dallija.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.spring.dallija.controller.dto.CartDto.SaveCartRequest;
-import static com.spring.dallija.controller.dto.CartDto.UpdateCartRequest;
+import static com.spring.dallija.controller.dto.CartDto.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -47,5 +48,9 @@ public class CartService {
     @Transactional
     public void deleteCart(Long id){
         cartRepository.deleteById(id);
+    }
+
+    public Page<CartResponse> findUserCarts(Long id, Pageable pageable){
+        return cartRepository.findUserCarts(id,pageable);
     }
 }
