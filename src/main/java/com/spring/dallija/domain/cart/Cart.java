@@ -21,6 +21,8 @@ public class Cart {
     @GeneratedValue
     private long id;
 
+    private Integer quantity;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
