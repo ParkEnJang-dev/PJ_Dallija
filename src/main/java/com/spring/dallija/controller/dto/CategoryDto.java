@@ -1,6 +1,5 @@
 package com.spring.dallija.controller.dto;
 
-import com.spring.dallija.validation.annotation.OnlyCategoryType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +14,7 @@ public class CategoryDto {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class SaveCategoryRequest{
 
-        @NotEmpty(message = "카테고리 타입이 없습니다.")
-        @OnlyCategoryType
-        private String categoryType;
+        @NotEmpty(message = "카테고리 이름이 없습니다.")
+        private String name;
     }
 }

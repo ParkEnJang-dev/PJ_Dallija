@@ -18,13 +18,13 @@ public class Category {
     @GeneratedValue
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private CategoryType categoryType;
+    @Column(unique = true)
+    private String name;
 
     @OneToMany(mappedBy = "category")
     private List<CategoryItem> categoryItems = new ArrayList<>();
 
-    public Category(CategoryType categoryType) {
-        this.categoryType = categoryType;
+    public Category(String name) {
+        this.name = name;
     }
 }

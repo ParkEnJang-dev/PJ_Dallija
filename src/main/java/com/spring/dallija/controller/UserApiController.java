@@ -1,12 +1,11 @@
 package com.spring.dallija.controller;
 
 
+import com.spring.dallija.common.anotation.LoginCheck;
+import com.spring.dallija.common.anotation.LoginUser;
 import com.spring.dallija.controller.dto.UserDto;
 import com.spring.dallija.controller.dto.UserDto.CreateUserRequest;
 import com.spring.dallija.controller.dto.UserDto.CreateUserResponse;
-import com.spring.dallija.common.anotation.LoginCheck;
-import com.spring.dallija.common.anotation.LoginUser;
-import com.spring.dallija.domain.user.UserRole;
 import com.spring.dallija.service.LoginService;
 import com.spring.dallija.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;

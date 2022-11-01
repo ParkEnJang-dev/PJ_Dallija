@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @ExtendWith(SpringExtension.class)
@@ -25,14 +25,14 @@ public class CategoryServiceIntegTest {
     public void 카테고리_타입_중복() throws Exception {
         Assertions.assertThrows(DuplicateCategoryException.class,
                 () -> categoryService
-                        .validateDuplicateCategory(CategoryType.MACHINE)
+                        .validateDuplicateCategory("MACHINE")
         );
     }
 
     @Test
     public void 카테고리_저장() throws Exception {
         //given
-        Category category = new Category(CategoryType.FOOD);
+        Category category = new Category("FOOD");
 
         //when
         Category result = categoryService.saveCategory(category);

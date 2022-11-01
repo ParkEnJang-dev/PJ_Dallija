@@ -2,7 +2,6 @@ package com.spring.dallija.service;
 
 
 import com.spring.dallija.domain.category.Category;
-import com.spring.dallija.domain.category.CategoryType;
 import com.spring.dallija.exception.category.DuplicateCategoryException;
 import com.spring.dallija.repository.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +17,12 @@ public class CategoryService {
 
     @Transactional
     public Category saveCategory(Category category) {
-        validateDuplicateCategory(category.getCategoryType());
+        validateDuplicateCategory(category.getName());
         return categoryRepository.save(category);
     }
 
-    public void validateDuplicateCategory(CategoryType ct) {
-        categoryRepository.findByCategoryType(ct)
+    public void validateDuplicateCategory(String name) {
+        categoryRepository.findByName(name)
                 .ifPresent(c -> {
                     throw new DuplicateCategoryException();
                 });

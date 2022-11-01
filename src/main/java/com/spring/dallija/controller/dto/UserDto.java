@@ -1,6 +1,7 @@
 package com.spring.dallija.controller.dto;
 
 import com.spring.dallija.domain.Address;
+import com.spring.dallija.domain.category.CategoryType;
 import com.spring.dallija.domain.user.GenderStatus;
 import com.spring.dallija.domain.user.Health;
 import com.spring.dallija.domain.user.User;
@@ -28,11 +29,11 @@ public class UserDto {
         @NotBlank(message = "우편 번호를 입력해주세요")
         private String zipcode;
         @NotNull(message = "키를 입력해주세요")
-        @Max(value = 300,message = "1 이상 300이하" )
+        @Max(value = 300, message = "1 이상 300이하")
         @PositiveOrZero(message = "1 이상 300이하")
         private Integer height;
         @NotNull(message = "몸무게를 입력해주세요")
-        @Max(value = 300,message = "1 이상 300이하" )
+        @Max(value = 300, message = "1 이상 300이하")
         @PositiveOrZero(message = "1 이상 300이하")
         private Integer weight;
         @NotBlank(message = "성별을 입력해 주세요")
@@ -41,19 +42,19 @@ public class UserDto {
 
         public User toEntity() {
             Address address = new Address(street, zipcode);
-            Health health = new Health( genderStatus(gender),height, weight);
+            Health health = new Health(createGenderStatus(gender), height, weight);
             return new User(name, email, password, address, health);
         }
 
-        private GenderStatus genderStatus(String gender) {
-            switch (gender) {
-                case "MAN":
-                    return GenderStatus.MAN;
-                case "WOMAN":
-                    return GenderStatus.WOMAN;
-                default:
-                    return null;
+        private GenderStatus createGenderStatus(String gender) {
+            GenderStatus[] types = GenderStatus.class.getEnumConstants();
+            if (types != null) {
+                for (GenderStatus type : types) {
+                    if (gender.equals(type.toString()))
+                        return type;
+                }
             }
+            return null;
         }
 
     }
@@ -72,7 +73,7 @@ public class UserDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class LoginRequest{
+    public static class LoginRequest {
         private String email;
         private String password;
 
