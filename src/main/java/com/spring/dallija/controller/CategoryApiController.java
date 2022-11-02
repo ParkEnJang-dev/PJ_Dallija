@@ -24,7 +24,6 @@ public class CategoryApiController {
     @LoginCheck(userRole = UserRole.ADMIN)
     @PostMapping
     public void saveCategory(@RequestBody @Valid SaveCategoryRequest request) {
-        Category category = new Category(request.getName());
-        categoryService.saveCategory(category);
+        categoryService.saveCategory(new Category(request.getName()));
     }
 }

@@ -34,7 +34,7 @@ public class OrdersApiController {
     }
 
     //회원 주문내역 조회
-    //@LoginCheck
+    @LoginCheck
     @GetMapping("/{id}")
     public Page<OrderUserResponse> findOrderUser(@PathVariable Long id, Pageable pageable) {
         return ordersService.findOrderUser(new OrderCond(id), pageable);
@@ -53,6 +53,7 @@ public class OrdersApiController {
         return ordersService.findOrderDetail(new OrderCond(id), pageable);
     }
 
+    @LoginCheck
     @PostMapping("/multi")
     public void saveMultiOrder(@RequestBody @Valid SaveOrderMultiRequest saveOrderMultiRequest) {
         ordersService.saveCartOrder(saveOrderMultiRequest);
