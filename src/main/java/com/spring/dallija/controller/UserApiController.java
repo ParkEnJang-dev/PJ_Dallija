@@ -51,7 +51,7 @@ public class UserApiController {
         loginService.logout();
     }
 
-    @GetMapping("/session-info")
+    /*@GetMapping("/session-info")
     public String sessionInfo(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
@@ -67,7 +67,6 @@ public class UserApiController {
                 Date(session.getLastAccessedTime()));
         log.debug("isNew={}", session.isNew());
         return "세션 출력";
-    }
-
+    }*/
 
 }
