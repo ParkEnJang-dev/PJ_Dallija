@@ -33,4 +33,11 @@ public class CategoryService {
         return categoryRepository.findByName(name)
                 .orElseThrow(NotFoundCategoryException::new);
     }
+
+    @Transactional
+    public void inActiveCategory(Long id){
+        Category findCategory = categoryRepository.findById(id)
+                .orElseThrow(NotFoundCategoryException::new);
+        findCategory.inActive();
+    }
 }

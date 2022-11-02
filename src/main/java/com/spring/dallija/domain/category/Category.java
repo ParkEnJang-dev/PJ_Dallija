@@ -21,10 +21,18 @@ public class Category {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category")
     private List<CategoryItem> categoryItems = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    private CategoryStatus status;
 
     public Category(String name) {
         this.name = name;
+        this.status = CategoryStatus.ACTIVE;
+    }
+
+    public void inActive(){
+        this.status = CategoryStatus.INACTIVE;
     }
 }

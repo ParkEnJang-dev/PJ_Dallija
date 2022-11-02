@@ -34,7 +34,6 @@ public class CategoryItem {
     }
 
     public static CategoryItem createCategoryItem(Category category){
-        CategoryItem categoryItem = new CategoryItem(category);
-        return categoryItem;
+        return new CategoryItem(category);
     }
 }
