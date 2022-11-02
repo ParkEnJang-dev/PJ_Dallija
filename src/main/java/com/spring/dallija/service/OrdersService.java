@@ -37,7 +37,7 @@ public class OrdersService {
     private final OrderItemRepository orderItemRepository;
 
     @Transactional
-    public Long saveOrder(SaveOrderRequest saveOrderRequest) {
+    public void saveOrder(SaveOrderRequest saveOrderRequest) {
 
         User user = userRepository.findById(saveOrderRequest.getUserId())
                 .orElseThrow(UserNotFoundException::new);
@@ -62,8 +62,25 @@ public class OrdersService {
 
         //주문 저장
         ordersRepository.save(order);
+    }
 
-        return order.getId();
+    @Transactional
+    public void saveCartOrder(SaveOrderMultiRequest saveOrderMultiRequest) {
+        User user = userRepository.findById(saveOrderMultiRequest.getUserId())
+                .orElseThrow(UserNotFoundException::new);
+
+        Delivery delivery = Delivery.createDelivery(Address.createAddress(
+                saveOrderMultiRequest.getStreet(),
+                saveOrderMultiRequest.getZipcode()));
+
+        //아이템 가져오기
+        List<OrderItem> orderItems = createOrderItems(saveOrderMultiRequest.getSaveOrderItems());
+
+        //주문 생성
+        Order order = Order.createOrder(user, delivery, orderItems);
+
+        //주문 저장
+        ordersRepository.save(order);
     }
 
     public List<FindAllOrdersResponse> findAll() {
@@ -91,4 +108,22 @@ public class OrdersService {
         return orderItemRepository.findByOrderItems(orderCond,pageable);
     }
 
+    private List<OrderItem> createOrderItems (List<SaveOrderItem> saveOrderItems){
+        List<OrderItem> orderItems = new ArrayList<>();
+        for (SaveOrderItem saveOrderItem : saveOrderItems) {
+
+            Item item = itemRepository.findById(saveOrderItem.getId())
+                    .orElseThrow(ItemNotFoundException::new);
+
+            OrderItem orderItem = OrderItem.createOrderItem(
+                    item,
+                    item.getPrice(),
+                    saveOrderItem.getQuantity()
+            );
+
+            orderItems.add(orderItem);
+        }
+
+        return orderItems;
+    }
 }
