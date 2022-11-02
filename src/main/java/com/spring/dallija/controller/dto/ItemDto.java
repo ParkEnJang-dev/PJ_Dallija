@@ -31,6 +31,8 @@ public class ItemDto {
         private Integer stockQuantity;
         private String originCity;
 
+        private String categoryName;
+
         public Item toEntity() {
             return new Item(name, price, stockQuantity, originCity);
         }

@@ -3,6 +3,7 @@ package com.spring.dallija.service;
 
 import com.spring.dallija.domain.category.Category;
 import com.spring.dallija.exception.category.DuplicateCategoryException;
+import com.spring.dallija.exception.category.NotFoundCategoryException;
 import com.spring.dallija.repository.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,10 @@ public class CategoryService {
                 .ifPresent(c -> {
                     throw new DuplicateCategoryException();
                 });
+    }
+
+    public void checkCategoryExist(String name) {
+        categoryRepository.findByName(name)
+                .orElseThrow(NotFoundCategoryException::new);
     }
 }

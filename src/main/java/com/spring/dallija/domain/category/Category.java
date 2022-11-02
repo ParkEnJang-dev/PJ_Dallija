@@ -18,10 +18,10 @@ public class Category {
     @GeneratedValue
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<CategoryItem> categoryItems = new ArrayList<>();
 
     public Category(String name) {
