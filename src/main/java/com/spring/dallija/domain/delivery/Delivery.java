@@ -35,6 +35,11 @@ public class Delivery extends BaseTimeEntity {
         this.status = DeliveryStatus.READY;
     }
 
+    public static Delivery createDelivery(Address address){
+        Delivery delivery = new Delivery(address);
+        return delivery;
+    }
+
     public void addOrders(Order order) {
         this.order = order;
     }

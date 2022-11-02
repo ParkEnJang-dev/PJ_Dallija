@@ -21,6 +21,8 @@ public class Cart {
     @GeneratedValue
     private long id;
 
+    private Integer quantity;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -28,4 +30,18 @@ public class Cart {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
+
+    public Cart(User user, Item item, Integer quantity) {
+        this.user = user;
+        this.item = item;
+        this.quantity = quantity;
+    }
+
+    public static Cart createCart(User user, Item item, Integer quantity) {
+        return new Cart(user, item, quantity);
+    }
+
+    public void changeQuantity(Integer quantity){
+        this.quantity = quantity;
+    }
 }

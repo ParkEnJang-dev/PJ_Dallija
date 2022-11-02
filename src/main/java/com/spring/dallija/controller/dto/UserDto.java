@@ -1,7 +1,6 @@
 package com.spring.dallija.controller.dto;
 
 import com.spring.dallija.domain.Address;
-import com.spring.dallija.domain.category.CategoryType;
 import com.spring.dallija.domain.user.GenderStatus;
 import com.spring.dallija.domain.user.Health;
 import com.spring.dallija.domain.user.User;
@@ -30,11 +29,11 @@ public class UserDto {
         private String zipcode;
         @NotNull(message = "키를 입력해주세요")
         @Max(value = 300, message = "1 이상 300이하")
-        @PositiveOrZero(message = "1 이상 300이하")
+        @Positive(message = "1 이상 300이하")
         private Integer height;
         @NotNull(message = "몸무게를 입력해주세요")
         @Max(value = 300, message = "1 이상 300이하")
-        @PositiveOrZero(message = "1 이상 300이하")
+        @Positive(message = "1 이상 300이하")
         private Integer weight;
         @NotBlank(message = "성별을 입력해 주세요")
         @OnlyGender

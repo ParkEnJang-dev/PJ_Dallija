@@ -15,4 +15,8 @@ import javax.persistence.Embeddable;
 public class Address {
     private String street;
     private String zipcode;
+
+    public static Address createAddress(String street, String zipcode) {
+        return new Address(street, zipcode);
+    }
 }

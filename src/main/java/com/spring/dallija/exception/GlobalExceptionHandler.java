@@ -1,5 +1,6 @@
 package com.spring.dallija.exception;
 
+import com.spring.dallija.exception.cart.CartNotFoundException;
 import com.spring.dallija.exception.category.DuplicateCategoryException;
 import com.spring.dallija.exception.item.ItemNotFoundException;
 import com.spring.dallija.exception.order.NotEnoughStockException;
@@ -83,5 +84,11 @@ public class GlobalExceptionHandler {
     public final ResponseEntity<ErrorResponse> handleDuplicateCategoryException(DuplicateCategoryException e) {
         log.debug(e.getMessage(), e);
         return new ResponseEntity(new ErrorResponse("카테고리가 중복 됩니다."), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<ErrorResponse> handleCartNotFoundException(CartNotFoundException e) {
+        log.debug(e.getMessage(), e);
+        return new ResponseEntity(new ErrorResponse("카트를 찾을 수 없습니다."), HttpStatus.NOT_FOUND);
     }
 }
