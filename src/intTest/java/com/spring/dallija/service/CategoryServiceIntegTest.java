@@ -1,7 +1,6 @@
 package com.spring.dallija.service;
 
 import com.spring.dallija.domain.category.Category;
-import com.spring.dallija.domain.category.CategoryType;
 import com.spring.dallija.exception.category.DuplicateCategoryException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;

@@ -29,8 +29,8 @@ public class CategoryService {
                 });
     }
 
-    public void checkCategoryExist(String name) {
-        categoryRepository.findByName(name)
+    public Category findCategory(String name) {
+        return categoryRepository.findByName(name)
                 .orElseThrow(NotFoundCategoryException::new);
     }
 }

@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.spring.dallija.controller.dto.ItemDto.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
@@ -34,26 +35,28 @@ public class ItemServiceIntegTest {
     @Transactional
     public void 상품_저장() throws Exception {
         //given
-        Item item = new Item("소고기 볶음", 10000, 100, "횡성");
-        itemService.saveItem(item);
+        Item item = new Item("마라 볶음", 10000, 100, "횡성");
+        SaveItemsRequest saveItemsRequest = new SaveItemsRequest(item);
+        saveItemsRequest.addCategoryName("MACHINE");
+        Item item1 = itemService.saveItem(saveItemsRequest);
 
         //when
-        Item findItem = itemService.findById(item.getId());
+        Item findItem = itemService.findById(item1.getId());
 
         //then
-        assertThat(findItem).isEqualTo(item);
+        assertThat(findItem.getId()).isEqualTo(item1.getId());
 
     }
 
     @Test
     @Transactional
-    @Rollback(value = false)
     public void 상품_수정() throws Exception {
         //given
         Item item = new Item("소고기 볶음", 10000, 100, "횡성");
-        itemService.saveItem(item);
+        SaveItemsRequest saveItemsRequest = new SaveItemsRequest(item);
 
-        ItemDto.UpdateItemsRequest updateItemsRequest = new ItemDto.UpdateItemsRequest(item.getId(), "소 구이", 5000, 50);
+        Item saveItem = itemService.saveItem(saveItemsRequest);
+        UpdateItemsRequest updateItemsRequest = new UpdateItemsRequest(saveItem.getId(), "소 구이", 5000, 50);
 
         //when
         Item result = itemService.updateItem(updateItemsRequest);

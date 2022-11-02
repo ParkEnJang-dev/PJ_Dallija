@@ -37,6 +37,16 @@ public class ItemDto {
             return new Item(name, price, stockQuantity, originCity);
         }
 
+        public SaveItemsRequest(Item item) {
+            this.name = item.getName();
+            this.price = item.getPrice();
+            this.stockQuantity = item.getStockQuantity();
+            this.originCity = item.getOriginCity();
+        }
+
+        public void addCategoryName(String name){
+            this.categoryName = name;
+        }
     }
 
     @Getter

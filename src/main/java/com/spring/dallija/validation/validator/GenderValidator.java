@@ -1,6 +1,5 @@
 package com.spring.dallija.validation.validator;
 
-import com.spring.dallija.domain.category.CategoryType;
 import com.spring.dallija.domain.user.GenderStatus;
 import com.spring.dallija.validation.annotation.OnlyGender;
 

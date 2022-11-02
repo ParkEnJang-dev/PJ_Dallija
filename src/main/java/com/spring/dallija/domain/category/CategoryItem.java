@@ -24,4 +24,17 @@ public class CategoryItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
+
+    public CategoryItem(Category category) {
+        this.category = category;
+    }
+
+    public void addItem(Item item){
+        this.item = item;
+    }
+
+    public static CategoryItem createCategoryItem(Category category){
+        CategoryItem categoryItem = new CategoryItem(category);
+        return categoryItem;
+    }
 }

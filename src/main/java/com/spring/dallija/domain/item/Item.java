@@ -57,6 +57,11 @@ public class Item extends BaseTimeEntity {
         this.stockQuantity = stockQuantity;
     }
 
+    public void addCategoryItem(CategoryItem categoryItem){
+        this.categoryItem.add(categoryItem);
+        categoryItem.addItem(this);
+    }
+
     public void addStockQuantity(int quantity) {
         if (this.status == ItemStatus.SOLDOUT){
             this.status = ItemStatus.ACTIVED;

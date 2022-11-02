@@ -47,6 +47,8 @@ public class InitDb {
 
             Category category = new Category("MACHINE");
             em.persist(category);
+            Category category1 = new Category("FOOD");
+            em.persist(category1);
         }
 
         public void dbInit1() {

@@ -22,7 +22,7 @@ public class ItemsApiController {
     @LoginCheck(userRole = UserRole.ADMIN)
     @PostMapping
     public void saveItem(@RequestBody @Valid SaveItemsRequest saveItemsRequest){
-        itemService.saveItem(saveItemsRequest.toEntity());
+        itemService.saveItem(saveItemsRequest);
     }
 
     @LoginCheck(userRole = UserRole.ADMIN)

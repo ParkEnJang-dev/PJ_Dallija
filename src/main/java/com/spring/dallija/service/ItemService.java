@@ -1,6 +1,9 @@
 package com.spring.dallija.service;
 
+import com.spring.dallija.controller.dto.ItemDto;
 import com.spring.dallija.controller.dto.ItemDto.ItemResponse;
+import com.spring.dallija.domain.category.Category;
+import com.spring.dallija.domain.category.CategoryItem;
 import com.spring.dallija.domain.item.Item;
 import com.spring.dallija.exception.item.ItemNotFoundException;
 import com.spring.dallija.repository.item.ItemRepository;
@@ -10,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.spring.dallija.controller.dto.ItemDto.*;
 import static com.spring.dallija.controller.dto.ItemDto.UpdateItemsRequest;
 
 @Service
@@ -18,11 +22,16 @@ import static com.spring.dallija.controller.dto.ItemDto.UpdateItemsRequest;
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private final CategoryService categoryService;
 
     @Transactional
-    public Item saveItem(Item item) {
-        itemRepository.save(item);
-        return item;
+    public Item saveItem(SaveItemsRequest saveItemsRequest) {
+        Item item = saveItemsRequest.toEntity();
+        if (saveItemsRequest.getCategoryName() != null) {
+            Category category = categoryService.findCategory(saveItemsRequest.getCategoryName());
+            item.addCategoryItem(CategoryItem.createCategoryItem(category));
+        }
+        return itemRepository.save(item);
     }
 
     @Transactional
