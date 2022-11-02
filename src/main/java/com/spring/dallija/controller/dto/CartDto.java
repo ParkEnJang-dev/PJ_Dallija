@@ -44,7 +44,7 @@ public class CartDto {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class UpdateCartRequest{
 
-        @NotNull(message = "장바구니 아이템 아이디 입력해주세요")
+        @NotNull(message = "장바구니 아이디 입력해주세요")
         private Long id;
 
         @NotNull(message = "수량을 입력해 주세요")

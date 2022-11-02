@@ -20,7 +20,7 @@ public class OrdersApiController {
 
     private final OrdersService ordersService;
 
-    @LoginCheck(userRole = UserRole.USER)
+    @LoginCheck
     @PostMapping
     public void saveOrder(@RequestBody @Valid SaveOrderRequest saveOrderRequest) {
         ordersService.saveOrder(saveOrderRequest);
