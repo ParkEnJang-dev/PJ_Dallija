@@ -37,7 +37,7 @@ public class OrdersService {
     private final OrderItemRepository orderItemRepository;
 
     @Transactional
-    public void saveOrder(SaveOrderRequest saveOrderRequest) {
+    public Order saveOrder(SaveOrderRequest saveOrderRequest) {
 
         User user = userRepository.findById(saveOrderRequest.getUserId())
                 .orElseThrow(UserNotFoundException::new);
@@ -61,7 +61,7 @@ public class OrdersService {
         Order order = Order.createOrder(user, delivery, orderItems);
 
         //주문 저장
-        ordersRepository.save(order);
+        return ordersRepository.save(order);
     }
 
     @Transactional
@@ -106,6 +106,11 @@ public class OrdersService {
     //주문 상세 조회
     public Page<OrderItemResponse> findOrderDetail(OrderCond orderCond, Pageable pageable){
         return orderItemRepository.findByOrderItems(orderCond,pageable);
+    }
+
+    //단건 주문 조회
+    public Order findById(Long id){
+        return ordersRepository.findById(id).orElseThrow(OrderNotFoundException::new);
     }
 
     private List<OrderItem> createOrderItems (List<SaveOrderItem> saveOrderItems){
