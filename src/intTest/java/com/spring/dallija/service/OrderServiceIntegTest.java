@@ -10,6 +10,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static com.spring.dallija.controller.dto.OrderDto.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,6 +30,7 @@ public class OrderServiceIntegTest {
     OrderRepository ordersRepository;
 
     @Test
+    @Transactional
     public void 유저_주문_조회() throws Exception {
         //given
         OrderCond orderCond = new OrderCond(4L);
@@ -39,6 +45,7 @@ public class OrderServiceIntegTest {
      }
 
      @Test
+     @Transactional
      public void 유저_상품_주문() throws Exception {
          //given
          SaveOrderRequest saveOrderRequest
@@ -51,4 +58,27 @@ public class OrderServiceIntegTest {
          //then
          assertThat(order.getId()).isEqualTo(findOrder.getId());
       }
+      
+      @Test
+      public void 유저_상품_동시_주문() throws Exception {
+          //given
+//          SaveOrderRequest saveOrderRequest
+//                  = new SaveOrderRequest(3L,12L,1,"한강로","2222");
+
+          int numberOfThreads = 5;
+          ExecutorService service = Executors.newFixedThreadPool(100);
+          CountDownLatch latch = new CountDownLatch(numberOfThreads);
+          //when
+          for (int i = 0; i < numberOfThreads; i++) {
+              service.execute(() ->{
+                  SaveOrderRequest saveOrderRequest
+                          = new SaveOrderRequest(3L,12L,1,"한강로","2222");
+                  ordersService.saveOrder(saveOrderRequest);
+                  latch.countDown();
+              });
+          }
+          latch.await();
+          //then
+       }
+
 }
