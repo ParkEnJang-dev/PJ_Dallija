@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,6 +47,7 @@ public class OrderServiceIntegTest {
 
      @Test
      @Transactional
+     @Rollback(value = false)
      public void 유저_상품_주문() throws Exception {
          //given
          SaveOrderRequest saveOrderRequest
@@ -58,14 +60,11 @@ public class OrderServiceIntegTest {
          //then
          assertThat(order.getId()).isEqualTo(findOrder.getId());
       }
-      
+
       @Test
       public void 유저_상품_동시_주문() throws Exception {
           //given
-//          SaveOrderRequest saveOrderRequest
-//                  = new SaveOrderRequest(3L,12L,1,"한강로","2222");
-
-          int numberOfThreads = 5;
+          int numberOfThreads = 9;
           ExecutorService service = Executors.newFixedThreadPool(100);
           CountDownLatch latch = new CountDownLatch(numberOfThreads);
           //when
