@@ -19,7 +19,7 @@ bin/
 
 ### IntelliJ IDEA ###
 application-mysql.properties
-application-mysql.yml
+application-*.yml
 .idea
 *.iws
 *.iml
