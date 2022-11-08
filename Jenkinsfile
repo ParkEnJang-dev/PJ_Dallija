@@ -19,7 +19,37 @@ pipeline {
         stage('Gradle Build') {
             steps {
                sh './gradlew clean bootJar'
-               echo 'move properties complete'
+               echo 'build complete'
+            }
+        }
+// dallija_spring
+//         stage('Deploy') {
+//             steps([$class: 'BapSshPromotionPublisherPlugin']){
+//                 ssh
+//
+//                 echo "deploy..."
+//             }
+//         }
+
+        stage('Deploy') {
+            steps([$class: 'BapSshPromotionPublisherPlugin']) {
+                sshPublisher(
+                    continueOnError: false, failOnError: true,
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: "dallija_spring",
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(
+                                    sourceFiles: "build/libs/*.jar",
+                                    //removePrefix: "build/libs",
+                                    remoteDirectory: "/home/spring"
+                                    //execCommand: "sh /usr/local/script/deploy.sh"
+                                )
+                            ]
+                        )
+                    ]
+                )
             }
         }
     }
