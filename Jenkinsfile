@@ -22,14 +22,6 @@ pipeline {
                echo 'build complete'
             }
         }
-// dallija_spring
-//         stage('Deploy') {
-//             steps([$class: 'BapSshPromotionPublisherPlugin']){
-//                 ssh
-//
-//                 echo "deploy..."
-//             }
-//         }
 
         stage('Deploy') {
             steps([$class: 'BapSshPromotionPublisherPlugin']) {
@@ -42,7 +34,7 @@ pipeline {
                             transfers: [
                                 sshTransfer(
                                     sourceFiles: "build/libs/*.jar",
-                                    //removePrefix: "build/libs",
+                                    removePrefix: "build/libs",
                                     remoteDirectory: "/home/spring"
                                     //execCommand: "sh /usr/local/script/deploy.sh"
                                 )
