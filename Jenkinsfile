@@ -35,7 +35,7 @@ pipeline {
                                 sshTransfer(
                                     sourceFiles: "build/libs/*.jar",
                                     removePrefix: "build/libs",
-                                    remoteDirectory: "/home/spring"
+                                    remoteDirectory: "/home/spring",
                                     execCommand: "sh /root/home/deploy.sh"
                                 )
                             ]
