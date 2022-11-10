@@ -11,7 +11,7 @@ pipeline {
         stage('Change application.yml') {
             steps {
                 sh '''
-                    cp /home/application-dev.yml /var/jenkins_home/workspace/dallija/src/main/resources
+                    cp /home/application.yml /var/jenkins_home/workspace/dallija/src/main/resources
                 '''
                 echo 'move properties complete'
             }
