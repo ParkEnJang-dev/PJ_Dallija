@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
-            steps {
-                sh 'java -version'
-                echo 'Hello World'
-            }
-        }
         stage('Change application.yml') {
             steps {
                 sh '''
