@@ -36,7 +36,7 @@ pipeline {
                                     sourceFiles: "build/libs/*.jar",
                                     removePrefix: "build/libs",
                                     remoteDirectory: "/home/spring"
-                                    //execCommand: "sh /usr/local/script/deploy.sh"
+                                    execCommand: "sh /root/home/deploy.sh"
                                 )
                             ]
                         )
