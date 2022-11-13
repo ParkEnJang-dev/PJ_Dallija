@@ -1,6 +1,7 @@
 package com.spring.dallija.service;
 
 import com.spring.dallija.domain.user.User;
+import com.spring.dallija.exception.user.DuplicateEmailException;
 import com.spring.dallija.repository.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -87,7 +88,7 @@ class UserServiceTest {
 
          //when
          //then
-         assertThrows(IllegalStateException.class,
+         assertThrows(DuplicateEmailException.class,
                  ()->userService.updateName("min1@naver.com","min2")
          );
 
