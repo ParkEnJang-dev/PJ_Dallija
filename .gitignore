@@ -21,6 +21,7 @@ bin/
 application-mysql.properties
 application-*.yml
 application.yml
+*.sql
 .idea
 *.iws
 *.iml

@@ -1,7 +1,9 @@
 package com.spring.dallija;
 
 import com.spring.dallija.domain.Address;
+import com.spring.dallija.domain.cart.Cart;
 import com.spring.dallija.domain.category.Category;
+import com.spring.dallija.domain.category.CategoryItem;
 import com.spring.dallija.domain.delivery.Delivery;
 import com.spring.dallija.domain.item.Item;
 import com.spring.dallija.domain.order.Order;
@@ -26,7 +28,7 @@ public class InitDb {
     private final InitService initService;
 
     @PostConstruct
-    public void init() {
+    public void init() throws Exception{
         initService.dbInit();
         initService.dbInit1();
         initService.dbInit2();
@@ -39,6 +41,7 @@ public class InitDb {
     static class InitService {
         private final EntityManager em;
 
+
         public void dbInit() {
             User user = createUser("Ab", "ABC@naver.com");
             em.persist(user);
@@ -48,15 +51,20 @@ public class InitDb {
             Category category = new Category("MACHINE");
             em.persist(category);
             Category category1 = new Category("FOOD");
+            Category category2 = new Category("FOOD2");
             em.persist(category1);
+            em.persist(category2);
         }
 
+
         public void dbInit1() {
+            Category category = em.find(Category.class,2L);
 
             User user = createUser("A", "A@naver.com");
             em.persist(user);
 
             Item item1 = createItem("소고기 볶음");
+            item1.addCategoryItem(CategoryItem.createCategoryItem(category));
             em.persist(item1);
 
             Item item2 = createItem("소고기 구이");
@@ -83,11 +91,9 @@ public class InitDb {
         }
 
         public void dbInit2() {
-
-            User user = createUser("B", "B@naver.com");
-            em.persist(user);
-
-            for (int i = 0; i < 30; i++) {
+            for (int i = 1; i <= 10000; i++) {
+                User user = createUser("user"+i, "user"+i+"B@naver.com");
+                em.persist(user);
                 createOrder(user,i);
             }
 
@@ -124,11 +130,13 @@ public class InitDb {
         }
 
         private void createOrder(User user, int i){
-
+            Category category = em.find(Category.class,3L);
             Item item1 = createItem("양배추 볶음"+i);
+            item1.addCategoryItem(CategoryItem.createCategoryItem(category));
             em.persist(item1);
 
             Item item2 = createItem("양배추 튀김"+i);
+            item2.addCategoryItem(CategoryItem.createCategoryItem(category));
             em.persist(item2);
             OrderItem orderItem = OrderItem.createOrderItem(item1, 10000, 1);
             OrderItem orderItem2 = OrderItem.createOrderItem(item2, 10000, 2);
@@ -138,8 +146,10 @@ public class InitDb {
 
             Delivery delivery = createDelivery("부산");
             Order order = Order.createOrder(user, delivery, orderItems);
-
             em.persist(order);
+
+            Cart cart = Cart.createCart(user, item1, 2);
+            em.persist(cart);
         }
     }
 }
