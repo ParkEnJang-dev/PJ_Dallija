@@ -45,6 +45,7 @@ public class ItemService {
         return findItem;
     }
 
+    @Transactional
     public Item findById(Long itemId) {
         return itemRepository.findById(itemId).orElseThrow(ItemNotFoundException::new);
     }
