@@ -58,6 +58,10 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
+    //세션 관련
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.session:spring-session-data-redis'
+
     //운영 디비나 replication 테스트시 사용하면 오작동.
     //implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6'
 }
