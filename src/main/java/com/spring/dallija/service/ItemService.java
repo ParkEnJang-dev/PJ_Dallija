@@ -5,7 +5,9 @@ import com.spring.dallija.controller.dto.ItemDto.ItemResponse;
 import com.spring.dallija.domain.category.Category;
 import com.spring.dallija.domain.category.CategoryItem;
 import com.spring.dallija.domain.item.Item;
+import com.spring.dallija.exception.category.NotFoundCategoryException;
 import com.spring.dallija.exception.item.ItemNotFoundException;
+import com.spring.dallija.repository.category.CategoryRepository;
 import com.spring.dallija.repository.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,13 +24,14 @@ import static com.spring.dallija.controller.dto.ItemDto.UpdateItemsRequest;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    private final CategoryService categoryService;
+    private final CategoryRepository categoryRepository;
 
     @Transactional
     public Item saveItem(SaveItemsRequest saveItemsRequest) {
         Item item = saveItemsRequest.toEntity();
         if (saveItemsRequest.getCategoryName() != null) {
-            Category category = categoryService.findCategory(saveItemsRequest.getCategoryName());
+            Category category = categoryRepository.findByName(saveItemsRequest.getCategoryName())
+                    .orElseThrow(NotFoundCategoryException::new);
             item.addCategoryItem(CategoryItem.createCategoryItem(category));
         }
         return itemRepository.save(item);

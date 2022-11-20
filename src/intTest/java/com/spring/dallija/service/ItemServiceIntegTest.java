@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@ActiveProfiles("dev1")
 public class ItemServiceIntegTest {
 
     @Autowired
@@ -38,14 +40,12 @@ public class ItemServiceIntegTest {
         Item item = new Item("마라 볶음", 10000, 100, "횡성");
         SaveItemsRequest saveItemsRequest = new SaveItemsRequest(item);
         saveItemsRequest.addCategoryName("MACHINE");
-        Item item1 = itemService.saveItem(saveItemsRequest);
 
         //when
-        Item findItem = itemService.findById(item1.getId());
+        Item result = itemService.saveItem(saveItemsRequest);
 
         //then
-        assertThat(findItem.getId()).isEqualTo(item1.getId());
-
+        assertThat(result.getName()).isEqualTo("마라 볶음");
     }
 
     @Test
