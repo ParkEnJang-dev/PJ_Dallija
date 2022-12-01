@@ -38,11 +38,6 @@ public class OrderServiceIntegTest {
         PageRequest request = PageRequest.of(0, 10);
         Page<OrderUserResponse> orders = ordersService.findOrderUser(orderCond, request);
 
-        //when
-        for (OrderUserResponse orderUserResponse : orders) {
-            System.out.println(orderUserResponse);
-        }
-
      }
 
      @Test

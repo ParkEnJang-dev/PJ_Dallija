@@ -77,7 +77,7 @@ public class ItemServiceIntegTest {
         List<Item> content = page.getContent();
         long totalElements = page.getTotalElements();
         for (Item item : content) {
-            System.out.println("item = " + item.getId());
+            log.debug("item = {}" , item.getId());
         }
 
         //then
