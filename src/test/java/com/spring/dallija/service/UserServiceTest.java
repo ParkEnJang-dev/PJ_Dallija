@@ -55,7 +55,7 @@ class UserServiceTest {
         //when
 
         //then
-        assertThrows(IllegalStateException.class,
+        assertThrows(DuplicateEmailException.class,
                 ()-> userService.join(user1));
 
     }
