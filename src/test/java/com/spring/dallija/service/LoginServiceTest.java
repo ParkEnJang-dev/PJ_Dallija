@@ -1,7 +1,9 @@
 package com.spring.dallija.service;
 
 import com.spring.dallija.domain.user.User;
+import com.spring.dallija.exception.user.UserNotMatchPasswordException;
 import com.spring.dallija.repository.user.UserRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +16,7 @@ import org.mockito.quality.Strictness;
 import java.util.Optional;
 
 import static com.spring.dallija.controller.dto.UserDto.LoginRequest;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,7 +32,7 @@ class LoginServiceTest {
     private User user;
 
     @BeforeEach
-    void beforeEach(){
+    void beforeEach() {
         user = new User("min", "min@naver.com", "11111111");
     }
 
@@ -43,13 +46,31 @@ class LoginServiceTest {
                 .build();
 
         given(userRepository.findByEmail(loginRequest.getEmail())).willReturn(Optional.of(user));
+
         //when
         loginService.existEmailAndPassword(loginRequest);
 
         //then
         then(userRepository).should(atLeastOnce()).findByEmail(loginRequest.getEmail());
 
-     }
+    }
+
+    @Test
+    public void 로그인_실패_비밀번호_불일치() throws Exception {
+        //given
+        LoginRequest loginRequest = LoginRequest
+                .builder()
+                .email("min@naver.com")
+                .password("22222222")
+                .build();
+
+        given(userRepository.findByEmail(loginRequest.getEmail())).willReturn(Optional.of(user));
+
+        //when
+        //then
+        assertThrows(UserNotMatchPasswordException.class,
+                () -> loginService.login(loginRequest));
+    }
 
 
 }
