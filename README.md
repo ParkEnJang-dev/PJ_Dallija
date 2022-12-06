@@ -13,8 +13,8 @@
 
 ## 🔪 사용기술
 
-- JAVA/ Spring/ Spring Boot/ Gradle
-- JPA
+- JAVA/ Spring/ Spring Boot/ QueryDsl/ Gradle
+- JPA/Spring Data JPA
 - MySQL
 
 ## 🗺️개념도
